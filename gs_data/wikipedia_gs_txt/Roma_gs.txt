@@ -12,7 +12,7 @@ Geografia fisica
 Geograficamente nella valle del Tevere, Roma sorge sulle rive dell'omonimo fiume: l'abitato originario si sviluppò sulle colline che fronteggiano l'ansa nella quale sorge l'isola Tiberina, il solo guado naturale del fiume.
 Territorio
 
-Lo stesso argomento in dettaglio: Agro romano e Campagna romana.
+
 
 
 Il territorio comunale è ampio, avendo inglobato aree abbandonate da secoli, per la maggior parte paludose e inadatte all'agricoltura e non appartenenti ad alcun municipio: con una superficie di 1287,36 km², Roma è il comune più vasto d'Italia ed era il più esteso d'Europa fino alla formazione del comune di Fiumicino, rimanendo anche dopo uno dei più estesi tra le capitali europee.     La densità abitativa non è elevatissima, per la presenza di aree verdi sparse nel territorio comunale: Roma rappresenta un unicum nel mondo occidentale per la vastità della campagna che fa da corona alla città e la compenetrazione fra città e campagna. Roma, inoltre, è il comune italiano con il più alto numero di territori comunali confinanti, 29 (escludendo l'enclave della Città del Vaticano). Il territorio su cui la città è sorta e si è sviluppata ha una storia geologicamente complessa: il substrato recente è costituito dal materiale piroclastico prodotto dai vulcani, ormai spenti, che cingono l'area della città a sudest, il Vulcano Laziale negli attuali Colli Albani, e a nord-ovest, i Monti Sabatini, tra 600000 e 300000 anni fa. Da questi depositi si formano gran parte dei rilievi collinari dell'area. Successivamente, l'attività fluviale del Tevere e dell'Aniene contribuì all'erosione dei rilievi e alla sedimentazione, caratterizzando il territorio.
@@ -40,6 +40,46 @@ Con una temperatura media massima superiore ai 30 °C, l'estate romana è per na
 D'estate il connubio tra tasso di umidità e temperature elevate, unito a infiltrazioni di aria fresca da nord-ovest può dare vita a rari ma intensi fenomeni temporaleschi; questa situazione si protrae fino al mese di ottobre, le cui infiltrazioni di aria via via più fresca incontrano un mare ancora molto caldo. Durante il resto dell'anno si alternano periodi più asciutti a periodi moderatamente piovosi, con picchi massimi nei mesi di novembre, dicembre e aprile. La media annua delle precipitazioni si aggira intorno agli 800 mm nel trentennio 1971-2000.
 
 Le precipitazioni nevose sono un fenomeno poco frequente in città. Negli anni 2010, le nevicate con accumuli si sono verificate nel 2018, 2012 e nel 2010; in passato altri episodi importanti furono quelli del 1986, 1985 e 1956. Generalmente le nevicate si verificano in caso di irruzione di aria fredda dalla Valle del Rodano o dalla Russia. Più frequentemente però si verificano nevischi di bassa rilevanza senza accumuli, dovuti alle basse temperature che in città si possono raggiungere soprattutto nelle ore notturne.
+
+A titolo di esempio vengono riportati i dati relativi alla stazione meteorologica di Roma Urbe (periodo 1971-2000).
+
+Roma Urbe
+(1971-2000)	Mesi	Stagioni	Anno
+Gen	Feb	Mar	Apr	Mag	Giu	Lug	Ago	Set	Ott	Nov	Dic	Inv	Pri	Est	Aut
+T. max. media (°C)	12,6	14,0	16,5	18,9	23,9	28,1	31,5	31,7	27,5	22,4	16,5	13,2	13,3	19,8	30,4	22,1	21,4
+T. min. media (°C)	2,1	2,7	4,3	6,8	10,8	14,3	16,9	17,3	14,3	10,5	5,8	3,1	2,6	7,3	16,2	10,2	9,1
+T. max. assoluta (°C)	20,2
+(1994)	23,6
+(1990)	27,0
+(1981)	28,3
+(1977)	33,1
+(1977)	36,8
+(1982)	40,0
+(1983)	39,6
+(2000)	37,6
+(1982)	31,4
+(1995)	26,0
+(1992)	22,8
+(1989)	23,6	33,1	40,0	37,6	40,0
+T. min. assoluta (°C)	−9,8
+(1985)	−6,0
+(1975)	−6,0
+(1987)	−2,5
+(1995)	3,7
+(1995)	6,2
+(1975)	9,8
+(1991)	8,6
+(1978)	5,4
+(1971)	−2,7
+(1971)	−7,2
+(1973)	−5,4
+(1980)	−9,8	−6,0	6,2	−7,2	−9,8
+Giorni di calura (Tmax ≥ 30 °C)	0	0	0	0	1	9	23	23	7	0	0	0	0	1	55	7	63
+Giorni di gelo (Tmin ≤ 0 °C)	9	7	3	0	0	0	0	0	0	0	2	7	23	3	0	2	28
+Precipitazioni (mm)	69,5	75,8	59,0	76,2	49,1	40,7	21,0	34,1	71,8	107,0	109,9	84,4	229,7	184,3	95,8	288,7	798,5
+Giorni di pioggia	8	7	8	9	6	4	2	3	6	8	9	9	24	23	9	23	79
+Giorni di nebbia	5	4	3	3	2	1	0	0	1	4	5	5	14	8	1	10	33
+Umidità relativa media (%)	77	72	72	72	72	69	67	69	71	76	79	79	76	72	68,3	75,3	72,9
 
 Oltre a Urbe, le più importanti stazioni meteorologiche ufficiali di Roma sono:
 
@@ -206,6 +246,33 @@ Altri simboli di Roma, oltre allo stemma comunale, sono la lupa capitolina, stat
 
 Il motto della città è SPQR, in latino Senatus PopulusQue Romanus (il Senato e il Popolo romano), che nell'antichità indicava le due classi che erano a fondamento della società romana, quelle dei patrizi e dei plebei.    
 
+Onorificenze
+Titolo di Città
+«Antico diritto»
+La città di Roma è:
+
+la quarta tra le 27 città decorate con medaglia d'oro come "benemerite del Risorgimento nazionale", per azioni altamente patriottiche compiute dalla città nel periodo risorgimentale.
+Medaglia alle Città Benemerite del Risorgimento Nazionale
+«A ricordare le azioni eroiche compiute dalla cittadinanza romana e dalle truppe romane nella campagna del 1848 e nella difesa di Roma del 1849. Preparata alla vigilia della ripresa della guerra contro l'Austria, la rivolta scoppiò il giorno della battaglia di Novara (23 marzo 1849). Guidati da Tito Speri - che sarebbe stato impiccato a Belfiore nel 1853 - gli insorti si impadronirono della città, ma, al termine di un'accanita resistenza che valse a Brescia l'appellativo di "Leonessa d'Italia", dovettero cedere alle truppe austriache il 2 aprile.»
+— 21 aprile 1898
+Grande medaglia d'oro di benemerenza per il terremoto calabro-siculo (1908)
+«Alla Città di Roma»
+— Regio Decreto 5 giugno 1910 
+
+Medaglia d'oro al valor militare
+«Nel glorioso meriggio del Risorgimento nazionale 9 febbraio 1849 la migliore gioventù italiana correva a morire sugli spalti di Roma repubblicana, ispirata dall'infaticabile apostolo dell'Unità Giuseppe Mazzini e guidata dall'eroe nazionale Giuseppe Garibaldi. Roma combatté romanamente contro truppe agguerrite di quattro eserciti, mentre un'Assemblea Costituente legiferava sotto il tiro dei fucili rinnovando in un breve ma fulgido periodo le glorie militari e le virtù civili di cui è costellata la storia millenaria della Città Eterna. Per la meravigliosa epopea del 1849 Roma ridivenne il centro e la fiamma delle italiane speranze indicando la via del nazionale riscatto. Nel centenario degli eroici avvenimenti, sul colle capitolino ove sventola il gonfalone della Repubblica, il popolo di Roma, che nella recente tragedia della Patria, ha vissuto le memorabili ore del martirio e della riscossa, riassume i voti, gli eroismi, i sacrifici di tutte le Città che provate ma non scosse dalla sventura, cooperarono alla redenzione d'Italia. 1849 - 1949.»
+— 7 febbraio 1949
+tra le città decorate al valor militare per la guerra di liberazione; insignita della medaglia d'oro al valor militare e di due medaglie d'oro al merito civile per i sacrifici subiti della sua popolazione, tra cui i bombardamenti e l'eccidio delle fosse Ardeatine e per la sua attività nella Resistenza partigiana durante la seconda guerra mondiale.
+Medaglia d'oro al valor militare
+«La Città eterna, già centro e anima delle speranze italiane nel breve e straordinario tempo della Seconda repubblica romana, per 271 giorni contrastò l'occupazione di un nemico sanguinario e oppressore con sofferenze durissime. Più volte Roma nella sua millenaria esistenza aveva subito l'oltraggio dell'invasore, ma mai come in quei giorni il suo popolo diede prova di unità, coraggio, determinazione. Nella strenua resistenza di civili e militari a Porta San Paolo, nei tragici rastrellamenti degli ebrei e del Quadraro, nel martirio delle Fosse Ardeatine e di Forte Bravetta, nelle temerarie azioni di guerriglia partigiana, nella stoica sopportazione delle più atroci torture nelle carceri di via Tasso e delle più indiscriminate esecuzioni, nelle gravissime distruzioni subite, i partigiani, i patrioti e la popolazione tutta riscattarono l'Italia dalla dittatura fascista e dalla occupazione nazista. Fiero esempio di eroismo per tutte le città e i borghi occupati, Roma diede inizio alla Resistenza e alla guerra di Liberazione nazionale nella sua missione storica e politica di Capitale d'Italia. 9 settembre 1943 - 4 giugno 1944.»
+— 16 luglio 2018
+Medaglia d'oro al merito civile
+«Centro dei più attivi e organizzati dell'antifascismo, il quartiere Quadraro fu teatro del più feroce rastrellamento da parte delle truppe naziste. L'operazione, scattata all'alba del 17 aprile 1944 e diretta personalmente dal maggiore Kappler, si concluse con la deportazione in Germania di circa un migliaio di uomini, tra i 18 e i 60 anni, costretti a lavorare nelle fabbriche in condizioni disumane. Molti di essi vennero uccisi nei campi di sterminio, altri, fuggiti per unirsi alle formazioni partigiane, caddero in combattimento. Fulgida testimonianza di resistenza all'oppressore ed ammirevole esempio di coraggio, di solidarietà e di amor patrio. 17 aprile 1944/Quartiere Quadraro - Roma»
+— 17 aprile 2004
+Medaglia d'oro al merito civile
+«Dopo l'armistizio la Comunità locale si distinse per lo straordinario impegno profuso, al fianco dei militari italiani, nella strenua difesa del locale aeroporto militare, poi occupato dai paracadutisti tedeschi, e, quindi, divenendo obiettivo di numerosi e violenti bombardamenti da parte delle truppe alleate, che provocarono molte vittime civili e ingenti danni all'abitato. Durante i nove mesi dell'occupazione nazifascista, nonostante i patimenti, la popolazione seppe reagire con indomito coraggio, partecipando attivamente alla lotta partigiana, ponendo in essere varie azioni di sabotaggio a danno delle truppe tedesche e subendo le relative rappresaglie, durante le quali numerose persone furono arrestate, torturate e fucilate, e molti giovani inviati ai campi di lavoro. Fulgido esempio di lotta comune, orientata alla conquista della libertà e della democrazia. Settembre 1943/giugno1944 - Quartiere "Centocelle" - Roma»
+— 22 novembre 2017
+
 Monumenti e luoghi di interesse
 
 Roma si presenta come il risultato del continuo sovrapporsi di testimonianze architettoniche ed urbanistiche di secoli diversi, in una compenetrazione unica e suggestiva che mostra il complesso rapporto che la città ha sempre instaurato con il proprio passato, in un alternarsi di sviluppi caotici, periodi di decadenza, rinascite e tentativi, in età contemporanea, di ammodernamento del tessuto urbano.
@@ -215,7 +282,7 @@ Roma è la città con più monumenti al mondo sia in senso assoluto     sia come
 Architetture religiose
 Chiese e altri luoghi di culto
 
-Lo stesso argomento in dettaglio: Architetture religiose di Roma e Chiese di Roma.
+
 
 Le architetture religiose di Roma costituiscono una parte fondamentale del patrimonio monumentale della città: esse sono il simbolo dell'importanza culturale, sociale ed artistica della componente religiosa nell'intero arco della storia di Roma.
 
@@ -311,7 +378,7 @@ Tra gli uccelli, in ambito urbano, si distinguono gli storni comuni, stimati in 
 Società
 Evoluzione demografica
 
-Lo stesso argomento in dettaglio: Demografia di Roma.
+
 Con i suoi oltre 2 752 000 abitanti, Roma è il comune più popoloso d'Italia. Nel contesto dell'Unione europea, il comune di Roma si colloca al terzo posto in termini di popolazione, dopo Berlino e Madrid. Annoverando anche pendolari, militari, studenti, residenti vaticani, politici e diplomatici, il totale degli abitanti di Roma in un normale giorno lavorativo raggiunge la cifra di circa 4 000 000 di persone.  
 
 Etnie e minoranze straniere
@@ -382,6 +449,7 @@ Natale di Roma, il 21 aprile; è la data in cui, secondo la tradizione, Romolo a
 Festa della Repubblica, il 2 giugno; si svolge la tradizionale parata militare lungo via dei Fori Imperiali che termina a piazza Venezia, presso l'Altare della Patria;
 SS. Pietro e Paolo, patroni della città, il 29 giugno. La festa di San Pietro e Paolo è stata istituita con decreto dello Stato Pontificio il 29 aprile 1818; 
 Festa de Noantri, si svolge a Trastevere. Si festeggia il primo sabato dopo il 16 luglio in occasione della ricorrenza della Madonna del Carmelo.
+
 Istituzioni, enti e associazioni
 La città è il centro di molte istituzioni finanziarie (banche ed assicurazioni), di centri di produzione televisiva, di aziende operanti nella moda e nella pubblicità e soprattutto dell'industria cinematografica, grazie alle numerose case di produzione e agli studi di Cinecittà.
 
@@ -393,6 +461,7 @@ lo Stato maggiore dell'Aeronautica Militare
 lo Stato maggiore della difesa
 il Comando generale dell'Arma dei Carabinieri
 l'Agenzia Spaziale Italiana.
+
 Ospedali
 La città è servita da numerosi ospedali e centri di cura pubblici e privati, nelle varie ASL in cui è suddivisa la città. Tra i principali ospedali romani, vi sono i quattro policlinici universitari Umberto I (l'ospedale pubblico più grande in Italia ), Tor Vergata, Agostino Gemelli (dell'Università Cattolica) e Campus Bio-Medico, i grandi complessi del San Camillo-Forlanini e del San Giovanni Addolorata, l'ospedale pediatrico Bambino Gesù (appartenente al Vaticano) e il policlinico militare del Celio. Inoltre l'Istituto superiore di sanità opera al servizio del Ministero della salute.
 
@@ -471,6 +540,137 @@ Università
 Roma città ha il maggior numero di laureati in Italia e anche la percentuale più alta rispetto al numero degli abitanti . Inoltre ha il maggior numero di atenei e di iscritti universitari in Italia; sul suo territorio sono presenti ventidue atenei statali e privati e ventiquattro atenei pontifici, per un totale di quarantasei atenei. 
 
 La più importante è la Sapienza, che nel 2013 è stata anche l'unica università italiana a comparire tra le prime cento del mondo secondo la classifica internazionale elaborata dal Center for World University Rankings, collocandosi al 63º posto. 
+
+Università Statali:
+
+Università degli Studi di Roma "La Sapienza";
+Università degli Studi di Roma Tor Vergata;
+Università degli Studi Roma Tre;
+Università degli Studi di Roma "Foro Italico".
+Università Private:
+
+Luiss Guido Carli;
+Università commerciale Luigi Bocconi (Sede di Roma);
+Università Cattolica del Sacro Cuore;
+Università Campus Bio-Medico;
+Università Europea di Roma;
+John Cabot University;
+Libera Università Maria Santissima Assunta - LUMSA;
+Facoltà Valdese di Teologia;
+Link Campus University;
+SSML Gregorio VII;
+Istituto Superiore di Studi e Ricerca per l'Assistenza Sociale e Sanitaria - I.S.S.A.S.;
+Saint Camillus International University of Health Sciences;
+Istituto Lorenzo de' Medici;
+John Felice Rome Center;
+American University of Rome;
+Quasar Design University;
+Università degli Studi Internazionali di Roma.
+Università Private Telematiche:
+
+Università telematica "Guglielmo Marconi";
+Università degli Studi "Niccolò Cusano"
+Università Telematica UNITELMA Sapienza;
+Università Telematica internazionale "UniNettuno";
+Università Telematica "San Raffaele";
+Rome University of Fine Arts - RUFA.
+Università, Accademie e Istituti Pontifici:
+
+Pontificia Università Antonianum;
+Pontificia Università gregoriana;
+Pontificia Università lateranense;
+Università Pontificia salesiana;
+Pontificia Università della Santa Croce;
+Pontificia università "San Tommaso d'Aquino" (Angelicum);
+Pontificia Università urbaniana;
+Pontificio Ateneo Sant'Anselmo;
+Pontificio Ateneo Regina Apostolorum;
+Pontificia Facoltà di scienze dell'educazione Auxilium;
+Pontificia facoltà teologica "Marianum";
+Pontificia facoltà teologica San Bonaventura;
+Pontificia facoltà teologica Teresianum;
+Pontificio Istituto Patristico Augustinianum;
+Pontificio Istituto Biblico;
+Pontificio istituto Giovanni Paolo II;
+Pontificio istituto orientale;
+Pontificio Istituto di Studi Arabi e d'Islamistica;
+Pontificio istituto di musica sacra;
+Pontificia Accademia Alfonsiana;
+Pontificia Accademia di Belle Arti e Lettere dei Virtuosi del Pantheon;
+Pontificio Istituto di Archeologia;
+Istituto Romano della Società di Görres.
+Accademie:
+
+Accademia nazionale d'arte drammatica;
+Accademia nazionale di danza;
+Accademia Nazionale di Santa Cecilia;
+Accademia Nazionale dei Lincei;
+Accademia nazionale di San Luca;
+Accademia di belle arti di Roma;
+Accademia Filarmonica Romana;
+Accademia Lancisiana;
+Accademia Nazionale dei Sartori;
+Accademia dell'Arcadia;
+Accademia di Studi Storici Aldo Moro;
+Accademia Nazionale delle Acienze detta XL;
+American Academy;
+Accademia di Francia;
+British Academy;
+Accademia Tedesca;
+Real Academia de España;
+Accademia d’Austria;
+Accademia di Danimarca;
+Accademia Belgica;
+Accademia Polacca;
+Accademia d’Ungheria;
+Accademia di Romania;
+Accademia d’Egitto.
+Istituti:
+
+Istituto Svizzero;
+Istituto Portoghese di Sant’Antonio;
+Reale Istituto neerlandese;
+Institutum Romanum Finlandiae;
+Istituto di Norvegia;
+Istituto Svedese;
+Istituto Polacco;
+Istituto Bulgaro di Cultura;
+Istituto Culturale Ceco;
+Istituto Slovacco;
+Istituto di Cultura e Lingua Russa;
+Istituto italo-latino americano;
+Istituto Giapponese;
+Istituto Culturale Iraniano;
+Istituto di Studi Germanici;
+Istituto Cervantes;
+Istituto Gramsci;
+Istituto Lugi Sturzo;
+Istituto Nazionale di Archeologia e Storia dell’Arte;
+Istituto Centrale per la Grafica;
+Istituto Centrale per i Beni sonori e Audiovisivi;
+Istituto centrale per il restauro;
+Istituto Centrale per il Restauro e la Conservazione del Patrimonio Archivistico e Librario;
+Istituto Centrale per il Catalogo e la Documentazione;
+Istituto di Studi Pirandelliani e sul Teatro Contemporaneo;
+Istituto dell’Enciclopedia Italiana Treccani.
+Organismi Culturali:
+
+Centro Studi Americani;
+Centro Culturale Brasile-Italia;
+Centro Russo di Scienza e Cultura;
+Casa Argentina;
+Circolo Scandinavo;
+Associazione Malacologica Internazionale;
+Associazione Nazionale degli Archivi dell’Unione Donne Italiane;
+Archivio Audiovisivo del Movimento Operaio;
+Hertziana - Istituto Max ;
+Casa dell’Architettura;
+Casa di Dante;
+Circolo Gianni Bosio;
+Giunta Storica Nazionale;
+Società Geografica Italiana;
+Dipartimento Beni e Attività Culturali della Comunità Ebraica.
+Per quanto attiene l'università popolare, in città è presente l'Università popolare di Roma (UPTER).
 
 Musei
 
@@ -632,7 +832,6 @@ Geografia antropica
 
 Suddivisioni storiche
 
-Lo stesso argomento in dettaglio: Suddivisioni di Roma.
 La suddivisione storica è composta di 116 comprensori toponomastici organizzati in quattro gruppi:
 
 22 rioni che compongono il centro storico, istituiti nel Medioevo sulla base delle 14 regioni augustee e ampliati alla fine del XIX secolo, tutti compresi entro le Mura aureliane tranne Borgo e Prati;
@@ -809,27 +1008,27 @@ Dal 1956 Roma è gemellata in modo esclusivo e reciproco con : Parigi.
 
 Il Comune di Roma ha inoltre firmato patti di amicizia e collaborazione con altre città del mondo  (da non confondere con gemellaggio):
 
-Algeria  , Algeri
-Serbia  , Belgrado
-Brasile  , Brasilia
-Canada  , Calgary
-Venezuela  , Caracas
-Messico  , Città del Messico
-Egitto  , Il Cairo
-Ucraina  , Kiev
-Regno Unito  , Londra
-Spagna  , Madrid
-Colombia , Medellín
-Canada , Montréal
-Stati Uniti , New York
-Cina , Pechino
-Bulgaria , Plovdiv
-Corea del Sud , Seul
-Australia , Sydney
-Albania , Tirana
-Giappone , Tokyo
-Canada , Toronto
-Tunisia , Tunisi
+Algeri
+Belgrado
+Brasilia
+Calgary
+Caracas
+Messico
+Il Cairo
+Kiev
+Londra
+Madrid
+Medellín
+Montréal
+New York
+Pechino
+Plovdiv
+Seul
+Sydney
+Tirana
+Tokyo
+Toronto
+Tunisi
 
 Sport
 
@@ -847,6 +1046,7 @@ Concorso ippico internazionale "Piazza di Siena", competizione equestre che si t
 Golden Gala Pietro Mennea evento internazionale di atletica leggera che si svolge annualmente presso lo Stadio Olimpico;
 Maratona di Roma, organizzata in primavera con partenza e arrivo in via dei Fori Imperiali; 
 Rally di Roma Capitale, evento annuale presente in modo fisso nel calendario europeo e italiano, prossimo all'inserimento in quello mondiale.
+
 Società sportive
 
 A Roma vi sono diverse società sportive che gareggiano nel massimo campionato della loro disciplina:
@@ -860,6 +1060,7 @@ Gladiatori Roma, Grizzlies Roma, Lazio Marines (football americano);
 Ginnastica Romana, Olos Gym 2000 (ginnastica artistica);
 Roma Volley Club Femminile (pallavolo);
 A.S.D. Roma Tamburello MMXX (tamburello).
+
 Impianti sportivi
 
 Secondo la mappatura degli impianti sportivi siti nel territorio comunale romano realizzata dal Prisp (Piano Regolatore Impianti Sportivi),  a Roma sono presenti circa 2 500 strutture per lo sport, tra cui 1700 palestre per giochi di squadra, 1100 spazi per il benessere, 231 campi scoperti e numerosi spazi all'aperto e piccoli impianti.  Di seguito ne sono elencati i principali, alcuni dei quali caratterizzano l'area sportiva del Foro Italico:

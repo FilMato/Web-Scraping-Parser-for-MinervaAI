@@ -47,7 +47,22 @@ urls_to_process = [
      {"url" : "https://it.wikipedia.org/wiki/Seconda_guerra_mondiale", 
      "domain" : "it.wikipedia.org", 
      "title" : "Seconda guerra mondiale", 
-     "golden_text" : "wikipedia_gs_txt/Seconda_Guerra_Mondiale_gs.txt"}
+     "golden_text" : "wikipedia_gs_txt/Seconda_Guerra_Mondiale_gs.txt"},
+
+     {"url" : "https://it.wikipedia.org/wiki/Leonardo_da_Vinci", 
+     "domain" : "it.wikipedia.org", 
+     "title" : "Leonardo da Vinci", 
+     "golden_text" : "wikipedia_gs_txt/Leonardo_da_Vinci_gs.txt"},
+
+     {"url" : "https://it.wikipedia.org/wiki/Equazione_di_Schr%C3%B6dinger", 
+     "domain" : "it.wikipedia.org", 
+     "title" : "Equazione di Schrödinger", 
+     "golden_text" : "wikipedia_gs_txt/Equazione_di_Schrodinger_gs.txt"},
+
+     {"url" : "https://it.wikipedia.org/wiki/Massa_(fisica)", 
+     "domain" : "it.wikipedia.org", 
+     "title" : "Massa (fisica)", 
+     "golden_text" : "wikipedia_gs_txt/Massa_(fisica)_gs.txt"}
 
     ]
 
