@@ -1,33 +1,25 @@
 In meccanica quantistica, l'equazione di Schrödinger è un'equazione fondamentale che determina l'evoluzione temporale dello stato di un sistema, ad esempio di una particella, di un atomo o di una molecola.
-
 Formulata da Erwin Schrödinger nel gennaio 1926 e subito pubblicata, è un'equazione differenziale alle derivate parziali, lineare, complessa e non relativistica che ha come incognita la funzione d'onda 
 ψ, introdotta basandosi sull'ipotesi di de Broglie dell'onda di materia. Secondo l'interpretazione di Copenaghen, il modulo quadro della funzione d'onda è legato alla probabilità di trovare una particella in una determinata regione spaziale.
 
 L'equazione di Schrödinger, fondante quella che verrà chiamata dall'autore meccanica ondulatoria, ha avuto un ruolo determinante nella storia della meccanica quantistica, ad esempio permettendo di comprendere perché soltanto alcuni valori discreti di energia sono ammessi per l'elettrone nell'atomo di idrogeno.
-
 Storia e sviluppo
 Agli inizi del Novecento Max Planck, per risolvere il problema del corpo nero, sollevato da John Rayleigh, gettò le basi della futura meccanica quantistica invalidando uno dei principi cardine della fisica classica, secondo il quale un dato sistema può assumere valori di energia che variano con continuità. Planck, al contrario, ipotizzò che l'energia della radiazione elettromagnetica non potesse assumere valori arbitrari, ma soltanto determinati valori discreti, multipli di una quantità elementare detta quanto, proporzionale alla frequenza propria di vibrazione dell'oscillatore. Applicando tale concetto, egli risolse il problema proponendo che gli oscillatori che generano la radiazione elettromagnetica potessero oscillare solo con un’energia data dalla relazione:
 
 E = nhν
-
 dove h è una costante detta costante di Planck, ν indica la frequenza della radiazione considerata e n è un numero intero positivo.
 
 Fu Einstein a dare significato fisico all'ipotesi di Planck, teorizzando che la radiazione elettromagnetica sia formata da pacchetti indivisibili di energia E = hν, nel 1926 chiamati fotoni. Nel 1922 Arthur Compton scoprì che un quanto di radiazione che urta un elettrone si comporta come una particella dotata di quantità di moto, pur avendo massa zero.
-
 Nel 1924 Louis de Broglie ebbe un'intuizione: se la luce può comportarsi sia come onda che come corpuscolo, allora una particella, come ad esempio l’elettrone, potrebbe comportarsi anche come un'onda. Riprendendo concetti tratti dalla teoria della relatività ristretta, de Broglie ricavò la relazione:
 
 λ = h/p
-
 dove p è la quantità di moto della particella considerata e λ prende il nome di lunghezza d'onda di de Broglie.
 
 Su tale base de Broglie riuscì a ricavare la quantizzazione del momento angolare nel modello atomico di Bohr, fino a quel momento introdotta ad hoc, e a dimostrare che le orbite atomiche erano effettivamente ellittiche-circolari, in linea con le previsioni di Bohr-Sommerfeld per l'atomo di idrogeno. A conferma della sua brillante idea, dal 1926 si susseguirono diversi esperimenti che confermarono l'ipotesi del dualismo onda-particella. Il più importante fu l'esperimento di Davisson e Germer del 1927 nel quale i due scienziati americani osservarono la diffrazione degli elettroni attraverso una serie di fenditure, da cui si ebbe la conferma che le particelle hanno la facoltà di comportarsi come onde.
-
 Sulla scia di tali risultati Schrödinger andò alla ricerca di un'equazione che descrivesse il propagarsi della onda di materia di de Broglie. Rifacendosi alla fisica classica, dove il comportamento di un'onda e le sue caratteristiche sono espresse da una funzione continua, lo scienziato austriaco ottenne un'equazione differenziale le cui soluzioni, le funzioni d'onda, restituivano quei numeri quantici cruciali per la risoluzione della struttura atomica di un elemento. L'equazione di Schrödinger è inoltre in grado di descrivere l'evoluzione di una particella libera, rappresentando l'analogo della seconda legge di Newton 
 (F⃗ = ma⃗) in meccanica classica, utilizzata per ricavare una predizione sulla traiettoria che un dato sistema seguirà date certe condizioni iniziali; va sottolineato tuttavia che in ambito quantistico il concetto classico di traiettoria perde significato. Sebbene questa teoria, chiamata dall'autore meccanica ondulatoria, possa sembrare un'interpretazione diversa dalla meccanica matriciale di Heisenberg, Born e Jordan, Schrödinger dimostrò che i due procedimenti matematici sono equivalenti.
 
 Equazione
-
-
 L'equazione di Schrödinger dipende dalle interazioni fra le varie componenti del sistema. Nel caso più generale l'equazione è scritta come:
 
 iℏ ∂Ψ(r, t)/∂t = Ĥ Ψ(r, t)
@@ -41,109 +33,83 @@ r = (x, y, z) è un punto nello spazio tridimensionale;
 Il valore medio dell'operatore hamiltoniano sullo stato ψ(x) rappresenta il valore atteso dell'energia:
 
 ⟨Ĥ⟩_ψ = ∫ ψ*(x) Ĥ ψ(x) dx
-
 Poiché gli operatori posizione e impulso sono operatori hermitiani, l'equazione per sistemi scleronomi si può scrivere nel limite non relativistico:
 
 [iℏ ∂/∂t + (ℏ² / 2m)∇² - Û(r)] ψ(r, t) = 0
-
 dove intervengono gli operatori impulso −iℏ∇ = ℏk e energia potenziale U.
 
 L'ipotesi di de Broglie
-
 I risultati ottenuti con l'ipotesi di de Broglie portarono allo sviluppo della meccanica quantistica intesa come meccanica ondulatoria. Con de Broglie, si associa a ogni particella un pacchetto d'onda del tipo:
 
 ψ(r, t) = ∫ dk A(k) e^(i(k·r - ωt))
-
 che si propaga con velocità di gruppo:
 
 v_g = dω/dk = dE/dp = p/m = c²(k/ω)
-
 dove 
 ω è la frequenza angolare o pulsazione intesa come quella centrale del pacchetto d'onde, k è il vettore d'onda che identifica la direzione di propagazione del pacchetto, E è l'energia associata alla particella e p il suo impulso lineare.
 
 Una volta associato il pacchetto d'onda alla particella, era necessario scoprire quale equazione fosse in grado di descrivere l'evoluzione del pacchetto d'onda compatibilmente alla meccanica quantistica e interpretarne le soluzioni. In tal senso applicando l'operatore di d'Alembert al pacchetto d'onde si ottiene:
-
 ∇² ψ(r, t) - (1/c²) ∂²/∂t² ψ(r, t) = (m²c² / ℏ²) ψ(r, t)
 
 tenendo presente la relazione relativistica dell'energia :
-
 E² = c²(p² + m²c²)
 
 L'equazione scritta sopra è l'equazione di Klein-Gordon in cui appare un termine a secondo membro che è un termine di sorgente della particella con lunghezza d'onda di Compton. Per particelle con massa nulla come i fotoni, l'equazione di Klein-Gordon è una normale equazione di d'Alembert che descrive la propagazione di un'onda elettromagnetica. Formalmente, tale equazione è ottenibile mediante le sostituzioni:
-
 E → iℏ ∂/∂t
 p → −iℏ∇
 
 Limite non relativistico
-
 L'equazione di Schrödinger nel limite non relativistico si può dedurre dall'equazione di Klein-Gordon. Considerando per l'energia la serie di Taylor al primo ordine:
 
 E = mc² √(1 + p² / (m²c²)) ≃ mc² + p² / 2m + ...
-
 e definendo la frequenza angolare ω′ non relativistica ottenuta da:
 
 ω = E/ℏ = mc²/ℏ + ℏk²/(2m) = mc²/ℏ + ω'
-
 si ottiene che usando l'espressione dell'energia non relativistica l'equazione di Klein-Gordon diventa l'equazione di Schrödinger:
 
 (iℏ ∂/∂t + (ℏ² / 2m)∇² - U(r)) ψ(r, t) = 0
-
 Equazione di bilancio e di continuità
 
-
 Dall'equazione di Schrödinger:
-
 iℏ ∂/∂t ψ(x, t) = -(ℏ² / 2m)∇² ψ(x, t) + Û(x) ψ(x, t)
 
 deriva un'equazione di bilancio. Per dimostrarlo si può prendere il complesso coniugato ad ambo i membri:
-
 -iℏ ∂/∂t ψ*(x, t) = -(ℏ² / 2m)∇² ψ*(x, t) + Û(x) ψ*(x, t)
 
 dove si è supposto che il potenziale U(x) è reale. Moltiplicando l'equazione di Schrödinger per ψ∗(x, t)
-
 iℏ ψ*(x, t) ∂/∂t ψ(x, t) = -ψ*(x, t) (ℏ² / 2m)∇² ψ(x, t) + Û(x) ψ*(x, t) ψ(x, t)
 
 e per ψ(x, t) la sua coniugata
-
 -iℏ ψ(x, t) ∂/∂t ψ*(x, t) = -ψ(x, t) (ℏ² / 2m)∇² ψ*(x, t) + Û(x) ψ(x, t) ψ*(x, t)
 
 e sottraendo membro a membro si ottiene a sinistra dell'uguaglianza
-
 iℏ [ ψ*(x, t) ∂/∂t ψ(x, t) + ψ(x, t) ∂/∂t ψ*(x, t) ] = iℏ ∂/∂t (ψ*(x, t) ψ(x, t))
 
 e a destra invece
-
 -ψ*(x, t) (ℏ² / 2m)∇² ψ(x, t) + ψ(x, t) (ℏ² / 2m)∇² ψ*(x, t) = -(ℏ² / 2m) ∇ · (ψ*(x, t) ∇⃗ ψ(x, t) - ψ(x, t) ∇⃗ ψ*(x, t))
 
 dato che il termine proporzionale al potenziale si cancella. Ma chiamando la grandezza scalare
-
 ψ*(x, t) ψ(x, t) = |ψ|² = ρ
 
 e il vettore
-
 -(iℏ / 2m)(ψ* ∇⃗ψ - ψ ∇⃗ψ*) = J
 
 dall'uguaglianza del membro di destra e di sinistra si deduce l'equazione di continuità:
-
 ∂ρ/∂t + ∇ · J = 0
 
 Interpretazione della funzione d'onda
 Si poneva a questo punto il problema del significato da attribuire alla funzione d'onda e più specificamente alla quantità ρ = |ψ|² = ψ*(x, t) ψ(x, t). Inizialmente si pensò d'interpretarla nel modo più "intuitivo", cioè come la densità di materia contenuta nel volume infinitesimo dV = dxdydz. L'equazione di continuità avrebbe rappresentato così la conservazione della massa. Ma questa interpretazione risultò scorretta. Stessa sorte ebbe il tentativo di interpretazione come densità di carica. Successivamente Max Born mise in correlazione il concetto di funzione d'onda con la probabilità di rinvenire la particella in un punto qualsiasi dello spazio basandosi sull'analogia con la teoria ondulatoria della luce, per la quale il quadrato dell'ampiezza dell'onda luminosa in una regione rappresenta la sua intensità.
 
 Si può esaminare il seguente esempio.
-
 Dall'esperimento della doppia fenditura si evince che gli elettroni, anche se presi singolarmente, interferiscono con entrambe le fenditure come onde, per le quali si sommano le ampiezze. Nel caso di due onde sull'asse x:
 
 ψ(x) = ψ₁(x) + ψ₂(x)
-
 Mutuando dall'espressione della intensità luminosa nel principio di sovrapposizione in ottica ondulatoria |E⃗₁ + E⃗₂|², esprimiamo la probabilità associata alle due onde nell'attraversare una o l'altra fenditura come:
 
 P = |ψ₁(x) + ψ₂(x)|² = |ψ₁(x)|² + |ψ₂(x)|² + ψ₁*(x)ψ₂(x) + ψ₁(x)ψ₂*(x)
-
 che è espressione evidentemente diversa da quella che sarebbe la classica composizione della probabilità nei due stati fondamentali in cui le due fenditure siano aperte separatamente: (|ψ₁(x)|² + |ψ₂(x)|²).
 
 Vi è infatti, per lo sviluppo del quadrato di un binomio, la comparsa dei due termini a destra, chiamati termini di interferenza, i quali determinano una gamma di valori, compreso lo zero, che giustificano le frange di distribuzione elettronica osservate sperimentalmente. Al concetto di interferenza ondulatoria viene quindi sostituito quello di "interferenza di probabilità".
-
 Da tali considerazioni nacque l'interpretazione della funzione d'onda come ampiezza di probabilità e del suo modulo quadro come densità di probabilità. Ne deriva che l'equazione di continuità viene a esprimere la conservazione della probabilità.
 
 Soluzioni dell'equazione di Schrödinger
@@ -151,221 +117,168 @@ Proprietà delle soluzioni
 La classe di funzioni accettabili come soluzioni dell'equazione di Schrödinger è data dalle funzioni complesse definite su ℝ³ quadrato sommabili. Infatti deve essere:
 
 ∫ |ψ(r, t)|² dr = N
-
 cioè l'integrale deve convergere a un numero N finito. Questa costante viene normalizzata, N = 1, per compatibilità con il significato probabilistico della funzione d'onda: l'integrale esteso a tutto lo spazio del modulo quadro della funzione d'onda rappresenta la certezza, uguale a 1, che la particella si trovi in un punto qualsiasi dello spazio stesso. Quindi le funzioni accettabili come soluzione sono le funzioni che appartengono a uno spazio lineare complesso chiamato spazio di Hilbert.
 
 Dato che l'equazione di Schrödinger è lineare, date due possibili soluzioni Ψ₁(r, t) e Ψ₂(r, t), allora anche la funzione d'onda somma Ψ₁(r, t) + Ψ₂(r, t) è a sua volta una soluzione dell'equazione. Questa linearità, espressa nel principio di sovrapposizione, ha numerose importanti conseguenze sulla dinamica e sulle proprietà dei corpi microscopici che obbediscono alle leggi della meccanica quantistica. Supponendo infatti di avere un sistema che ammetta una proprietà con due possibili valori, come ad esempio lo spin lungo una direzione, allora una possibile soluzione dell'equazione di Schrödinger prevede che il sistema possa essere in una combinazione lineare di due funzioni d'onda, una in cui ad esempio lo spin è up, l'altro in cui lo spin è down. In un certo senso, è come se una particella fosse in contemporanea in diversi stati e non in uno soltanto come viene invece sempre osservata. Questo problema fu affrontato da Schrödinger nel celebre paradosso del gatto.
-
 Soluzioni per una particella libera
 L'equazione di Schrödinger per una particella libera che si muove in uno spazio con una sola dimensione si riduce a
 
 iℏ ∂/∂t ψ(x, t) = -(ℏ² / 2m) ∂²/∂x² ψ(x, t)
-
 Seguendo la quantizzazione canonica, questa equazione può essere ottenuta semplicemente prendendo l'Hamiltoniana di una particella libera:
 
 H(p, x) = p² / 2m
-
 e sostituendo all'impulso la derivata rispetto alla coordinata spaziale x, p → −iℏ ∂/∂x, e considerando il quadrato p² come la doppia applicazione della derivata, cioè la derivata seconda.
 
 Una possibile soluzione dell'equazione di Schrödinger per una particella libera è semplicemente la funzione
-
 ψ(x, t) = exp( (i/ℏ) (px - (p²/2m)t) )
 
 dove p è al momento un semplice parametro libero. Infatti:
-
 ∂/∂t ψ(x, t) = -(i/ℏ) (p² / 2m) ψ(x, t)
 ∂²/∂x² ψ(x, t) = -(p² / ℏ²) ψ(x, t),
 da cui si ricava l'uguaglianza membro a membro:
 
 iℏ ∂/∂t ψ(x, t) = (p² / 2m) ψ(x, t) = -(ℏ² / 2m) ∂²/∂x² ψ(x, t) = (p² / 2m) ψ(x, t).
-
 La soluzione più generale può essere ottenuta considerando la sovrapposizione di diverse soluzioni con differenti parametri liberi p, cioè il pacchetto d'onda in una dimensione:
 
 ψ(x, t) = (1 / √(2πℏ)) ∫ dp ϕ(p) e^( i(px - (p²/2m)t) / ℏ )
-
 dove il fattore prima dell'integrale è dovuto alla corretta normalizzazione e l'integrale sostituisce la somma per un parametro continuo come p.
 
 Essendo un'equazione differenziale al primo ordine nel tempo, l'equazione di Schrödinger deve essere accompagnata dalla condizione iniziale che stabilisca la forma della funzione d'onda a un certo istante. Ad esempio al tempo t = 0 si può imporre che la funzione d'onda sia:
-
 ψ(x, t = 0) = (1 / √(2πℏ)) ∫ dp ϕ(p) e^(ipx/ℏ)
 
 in modo che la sua evoluzione nel tempo esista determinata per ogni istante t. Secondo l'interpretazione di Copenaghen della funzione d'onda la quantità:
-
 P(x, t) dx = |ψ(x, t)|² dx
 
 rappresenta la probabilità che la particella si trovi nell'intervallo x, x + dx, se la funzione d'onda è stata correttamente normalizzata:
-
 ∫_(-∞)^∞ |ψ(x, t)|² dx = 1
 
 in modo tale che la probabilità di trovare la particella in qualche punto dello spazio (in questo caso siamo su una retta perché stiamo prendendo in considerazione solo il caso unidimensionale, ma tutto ciò vale anche nel caso tridimensionale), deve essere 1 con certezza. Abbiamo inoltre stabilito che le funzioni accettabili come soluzioni dell'equazione di Schrödinger siano le funzioni definite in un campo vettoriale complesso e siano quadrato sommabili, cioè sia sempre verificata:
-
 ∫_(-∞)^∞ |ψ(x, 0)|² dx < ∞
 
 Il fatto che si tratti di un'equazione lineare implica che possiamo considerare la sovrapposizione:
-
 ψ(x, t) = c₁ψ₁(x, t) + c₂ψ₂(x, t)
 
 (dove c₁, c₂ ∈ ℂ rende valido il principio di sovrapposizione) che è anch'essa soluzione dell'equazione di Schrödinger. Un'altra caratteristica delle soluzioni dell'equazione di Schrödinger è che mentre il modulo quadro della funzione d'onda è importante perché rappresenta una probabilità, la fase dell'onda non ha rilevanza fisica.
-
 Valori medi nelle rappresentazioni dell'impulso e della posizione
 
 Poiché il significato della funzione d'onda è probabilistico si può parlare di valore medio di una grandezza fisica. Il valore medio della posizione (unidimensionale per semplicità) nella rappresentazione delle coordinate è dato:
-
 ⟨x̂⟩ = ∫ dx x̂ |ψ(x, t)|² = ∫ dx ψ*(x, t) x̂ ψ(x, t)
 
 e più in generale una qualsiasi funzione di 
-
 ⟨f̂(x)⟩ = ∫ dx f̂(x)|ψ(x, t)|² = ∫ dx ψ*(x, t) f̂(x) ψ(x, t)
 
 Il valore medio dell'impulso è invece per analogia con il caso classico:
-
 ⟨p̂⟩ = m d⟨x̂⟩/dt = m d/dt ∫ dx ψ*(x, t) x̂ ψ(x, t) = (ℏ / 2i) ∫_(-∞)^(+∞) dx ( (∂²ψ*/∂x²) x̂ ψ - ψ* x̂ (∂²ψ/∂x²) )
 
 Risolvendo l'integrando che è uguale a:
-
 ∂/∂x ( (∂ψ*/∂x) x̂ ψ - ψ* x (∂ψ/∂x) - ψ*ψ ) + 2ψ* (∂ψ/∂x)
 
 si vede che:
-
 ⟨p̂⟩ = ∫ dx ψ*(x, t) (ℏ/i) ∂/∂x ψ(x, t)
 
 cioè
-
 p = ℏ/i ∂/∂x
 che è la definizione dell'impulso nella rappresentazione delle coordinate e più in generale qualsiasi funzione di p:
 
 ⟨f̂(p)⟩ = ∫ dx ψ*(x, t) f( (ℏ/i) ∂/∂x ) ψ(x, t)
-
 Nella rappresentazione degli impulsi il valor medio dell'impulso è semplicemente:
 
 ⟨p̂⟩ = ∫ dp ϕ*(p) p̂ ϕ(p)
-
 con il significato che |ϕ(p)|² dp rappresenta la probabilità che la particella o il sistema abbia momento p determinato nell'intervallo p, p + dp. Il valor medio di una qualsiasi funzione di p in questa rappresentazione è dato:
 
 ⟨f̂(p)⟩ = ∫ dp ϕ*(p, t) f̂(p) ϕ(p, t)
-
 Vediamo infine che la posizione nello spazio degli impulsi è:
 
 ⟨x̂⟩ = ∫ dp ϕ*(p, t) iℏ ∂/∂p ϕ(p, t)
-
 cioè
 
 x̂ = iℏ ∂/∂p
-
 che è la definizione della posizione nella rappresentazione dell'impulso e più in generale qualsiasi funzione di x:
 
 ⟨f̂(x)⟩ = ∫ dp ϕ*(p, t) f(iℏ ∂/∂p) ϕ(p, t)
-
 Da notare la simmetria delle due rappresentazioni. Vediamo che la posizione x e l'impulso p devono avere valore medio reale, poiché sono grandezze fisiche devono essere direttamente misurabili, cioè sono osservabili del sistema, per cui deve valere:
 
 ⟨x̂⟩ = ⟨x̂⟩*
-
 e
 
 ⟨p̂⟩ = ⟨p̂⟩*
-
 cioè in meccanica quantistica le grandezze fisiche di interesse, le osservabili, tra le quali la posizione e l'impulso, sono operatori hermitiani e questo si può verificare direttamente.
 
 Se calcoliamo il commutatore tra la posizione e l'impulso nell'asse x:
-
 [p̂_x, x̂] ψ(x, t) = p̂_x x̂ ψ(x, t) - x̂ p̂_x ψ(x, t) = (ℏ/i) ∂/∂x x̂ ψ(x, t) - x̂ (ℏ/i) ∂/∂x ψ(x, t) = (ℏ/i) ψ(x, t)
 
 cioè si ottiene una delle parentesi fondamentali della commutazione in meccanica quantistica:
-
 [p̂_x, x̂] = ℏ/i
 
 che significa che non si possono misurare simultaneamente posizione e impulso in una direzione con precisione. Mentre:
-
 [p̂_y, x̂] = 0
 [p̂_z, x̂] = 0
 
 Queste parentesi sono le parentesi fondamentali della meccanica quantistica ed esprimono il principio di indeterminazione di Heisenberg.
-
 Soluzione generale dell'equazione di Schrödinger (per potenziali non dipendenti dal tempo)
 L'equazione di Schrödinger è l'equazione fondamentale della meccanica quantistica. La sua risoluzione in molti casi non è possibile, tuttavia esiste un metodo di risoluzione generale che va sotto il nome di metodo di Fourier per la soluzione di equazioni differenziali, il quale permette di ottenere importanti informazioni sul sistema ed è un metodo generale applicabile in molti problemi fisici di interesse.
 
 Esplicitando l'operatore hamiltoniano dell'equazione di Schrödinger unidimensionale:
-
 iℏ ∂ψ(x, t)/∂t + (ℏ² / 2m) ∂²ψ(x, t)/∂x² - Û(x)ψ(x, t) = 0
 
 l'equazione può essere fattorizzata per variabili, cioè la soluzione può scriversi:
-
 ψ(x, t) = T(t) ⋅ X(x)
 
 dove T(t) è una funzione che contiene solo la variabile temporale e X(x) contiene solo la variabile coordinata. Sostituendo la seconda relazione nella prima si ha:
-
 iℏ X(x) dT(t)/dt + (ℏ²/2m) T(t) d²X(x)/dx² - Û(x)X(x)T(t) = 0
 
 Separando le variabili ai due membri, cioè dividendo ambo i membri per T(t)⋅X(x), si ottiene che entrambi i membri devono essere uguali a una stessa costante che si denota con E:
-
 iℏ (dT(t)/dt) / T(t) = ( -(ℏ²/2m) d²X(x)/dx² + Û(x)X(x) ) ⋅ (1/X(x)) = E
 
 Quindi si hanno due equazioni separate:
-
 iℏ dT(t)/dt = E ⋅ T(t)          -(ℏ²/2m) d²X(x)/dx² + Û(x)X(x) = E ⋅ X(x)
 
 La prima equazione si risolve subito:
-
 T(t) = C ⋅ e^(-iEt/ℏ)
 
 e C è una costante: questa dà la dipendenza dal tempo della funzione d'onda ψ(x, t). La seconda equazione è detta equazione di Schrödinger indipendente dal tempo, e ha la forma di un'equazione agli autovalori per l'operatore hamiltoniano:
-
 [-(ℏ²/2m) d²/dx² + Û(x)] X(x) = E ⋅ X(x)          ĤX(x) = EX(x)
 
 essa rappresenta gli stati stazionari del sistema, cioè gli stati che non dipendono dal tempo. Questa equazione si risolve trovando lo spettro degli autovalori che può essere discreto o continuo o nel caso più generale sia discreto che continuo e quindi degli autovettori associati in modo che nel caso più generale la funzione d'onda si può scrivere:
-
 ψ(x, t) = ( ∑ C_E X(x) + ∫ C(E) X(x) dE ) e^(-iEt/ℏ)
 
 dove C_E, C(E) sono coefficienti dipendenti da E, i primi nel caso discreto e i secondi nel caso continuo, mentre E rappresenta l'energia del sistema. Quindi l'operatore hamiltoniano fornisce la dipendenza temporale della funzione d'onda e permette tramite la soluzione dell'equazione di Schrödinger di risolvere il problema agli autovalori per l'energia.
-
 Autofunzioni dell'energia
 
 Supponiamo inizialmente che la soluzione dell'equazione di Schrödinger indipendente dal tempo abbia uno spettro discreto di autovalori, allora la funzione d'onda ψ(x) può essere sviluppata come:
-
 ψ(x) = ∑_E C_E u_E(x)
 
 dove i coefficienti C_E sono unicamente determinati, infatti:
-
 ∑_E u*_{E'}(x) ψ(x) = ∑_E C_E u*_{E'}(x) u_E(x) = ∑_E C_E δ_{EE'} = C_{E'}
 
 dove u_{E}(x) sono ancora le autofunzioni dell'energia. L'unica restrizione è che la funzione d'onda deve essere normalizzata e quadrato sommabile:
-
 ∫_(-∞)^∞ dx ψ*(x) ψ(x) = ∫_(-∞)^∞ dx |ψ(x)|² = 1
 
 e di conseguenza anche le autofunzioni devono essere normalizzate:
-
 ∫ dx u*_{E'}(x) u_{E''}(x) = δ_{E'E''}
 
 L'equazione di Schrödinger dipendente dal tempo si scrive:
-
 iℏ ∂/∂t ψ(x, t) = Ĥ ψ(x, t)
 
 Utilizzando lo sviluppo della funzione d'onda ψ(x), la soluzione è:
-
 u_E(x, t) = u_E(x) e^(-iEt/ℏ)
 
 quindi la funzione d'onda completa è:
-
 ψ(x, t) = ∑_E C_E u_E(x) ⋅ e^(-iEt/ℏ)
 
 Se lo spettro è continuo invece si può sviluppare la funzione d'onda in termini di autofunzioni di energia nel modo:
-
 ψ(x) = ∫ C(E) u_E(x)
 
 dove u_{E}(x) sono ancora autofunzioni dell'energia, e queste devono essere normalizzate:
-
 ∫ u*_{E'}(x) ⋅ u_{E''}(x) = δ_{E' - E''}
 
 dove interviene la funzione Delta di Dirac. I coefficienti C(E) sono automaticamente determinati, infatti:
-
 ∫ dx u*_{E'}(x) ψ(x) = ∫ C(E) u*_{E'}(x) u_E(x) = ∫ C(E) δ_{E - E'} = C(E')
 
 quindi la funzione d'onda completa è:
-
 ψ(x, t) = ∫ C(E) u_E(x) ⋅ e^(-iEt/ℏ)
 
 L'equazione di Schrödinger unidimensionale ammette una proprietà speciale. Non esistono degenerazioni dei livelli di energia: a ogni autovalore E_n discreto corrisponde un solo autostato.
-
 Approssimazioni dell'equazione di Schrödinger
 Approssimazione di Born-Oppenheimer, nota anche come approssimazione adiabatica, è una tecnica usata in chimica quantistica e nella fisica della materia condensata al fine di disaccoppiare i moti di nuclei ed elettroni (cioè per separare le variabili corrispondenti al moto nucleare e le coordinate elettroniche nell'equazione di Schrödinger associata alla Hamiltoniana molecolare). Si basa sul fatto che le tipiche velocità elettroniche sono molto maggiori di quelle nucleari.
 Approssimazione orbitalica, tecnica usata in chimica quantistica. Ogni elettrone viene considerato singolarmente come appartenente a un atomo idrogenoide e la carica nucleare Z_e, carica che viene utilizzata per calcolare il termine relativo all'energia potenziale da inserire nell'equazione di Schrödinger, viene corretta utilizzando la carica nucleare efficace Z_eff. Quindi la forma semplificata della funzione d'onda, utilizzata per descrivere un atomo polielettronico, diviene una funzione del tipo Ψ = Ψ(n_1)Ψ(n_2)Ψ(n_3)…Ψ(n_x).
@@ -377,6 +290,5 @@ Teoria perturbativa, metodo di calcolo che si basa sull'introduzione, nell'hamil
 Metodo di Hartree-Fock, metodo ab initio usato in chimica computazionale basato sull'approssimazione, valevole nel caso di fermioni, che N funzioni d'onda associate al sistema siano approssimabili tramite un singolo determinante di Slater.
 
 Evoluzione relativistica
-
 L'equazione di Schrödinger, essendo basata sull'Hamiltoniana classica, non può rappresentare il comportamento quantistico di particelle con massa nulla, come i fotoni. Un importante sviluppo risultò pertanto fondamentale per introdurre anche il formalismo della relatività speciale, e portò alle due equazioni, di Klein Gordon e di Dirac, che rappresentano, rispettivamente, particelle a spin 
 0 (dette anche particelle scalari) e particelle a spin 1/2.
