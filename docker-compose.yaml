@@ -1,0 +1,25 @@
+
+services:
+
+  # 1. Definiamo il servizio BACKEND
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8003:8003"
+    container_name: container_backend  
+    volumes:
+      - ./gs_data:/app/gs_data
+      - ./domains.json:/app/domains.json
+
+  # 2. Definiamo il servizio FRONTEND
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8004:8004"
+    container_name: container_frontend 
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8003
