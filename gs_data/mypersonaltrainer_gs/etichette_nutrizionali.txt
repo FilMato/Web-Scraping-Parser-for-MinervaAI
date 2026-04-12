@@ -1,0 +1,152 @@
+Etichettatura Nutrizionale: E' Obbligatoria?
+Come citato nell'articolo "Impariamo a Leggere le Etichette Alimentari", l'etichettatura nutrizionale (anche detta dichiarazione nutrizionale) è ugualmente regolamentata in tutta l'Unione Europea. Attualmente è ancora un parametro "selettivamente facoltativo" ed obbligatorio SOLO se presente un claim; in pratica, interessa i prodotti pre-confezionati caratterizzati da una qualsiasi indicazione nutrizionale sull'etichetta. Sono esonerati da tale requisito: i prodotti confezionati in maniera artigianale, o forniti dal fabbricante in piccole quantità, oppure preparati nei locali che forniscono direttamente il prodotto sul punto vendita *.
+
+*Decreto legislativo 16 febbraio 1993 n.77 (Direttiva 90/496/CEE); Decreto 18 marzo 2009 (Direttiva 2008/100/CE).
+
+NB. Dal 13 dicembre 2016 (Reg. UE 1169/2011), l'etichetta nutrizionale diverrà obbligatoria (e non più facoltativa in modo selettivo) per tutti gli articoli di tipo pre-confezionato.
+
+Dal 13 dicembre 2014 l'etichetta facoltativa deve rispettare uno schema ben preciso. Rimane l'esonero per i prodotti forniti senza pre-imballaggio, con possibili disposizioni di tipo nazionale.
+
+Organizzazione dell'Etichettatura Nutrizionale: Oggi, Domani, Obbligatoria e Non Obbligatoria
+In base a quanto detto nel paragrafo precedente, fino al 13 dicembre 2016, l'etichettatura nutrizionale risulta un requisito facoltativo; dal 13 dicembre 2014, invece, l'etichettatura nutrizionale volontaria deve seguire un schema ben preciso.
+Diversi prodotti mostrano un riquadro nutrizionale più meno dettagliato con l'obbiettivo di guadagnare pregio, consolidare la fiducia del consumatore e aumentare di riflesso le vendite. Il modello più diffuso è quello semplificato (obbligatorio dal 13/12/2014), nel quale si citano: valore energetico, proteine, carboidrati, di cui zuccheri, grassi, di cui grassi saturi e sale^.
+
+Non mancano anche i brand che puntano "sull'accuratezza" dell'analisi dei propri articoli; in tal caso, è possibile adottare lo schema esteso, in cui sono facoltativi: la differenziazione dei carboidrati (in zuccheri, amido e polialcoli), quella dei grassi (in saturi, monoinsaturi, polinsaturi, colesterolo), fibra alimentare, vitamine e minerali presenti in quantità significativi (questi ultimi due calcolati su 100g o 100ml e %RDA).
+Nel momento in cui entrerà in vigore il regolamento del 2016, l'etichettatura nutrizionale (obbligatoria) dovrà contenere le seguenti voci:
+
+Valore energetico (kj/kcal)
+proteine (g)
+carboidrati (g)
+ di cui zuccheri (g)
+ grassi (g)
+ di cui saturi (g)
+ sale (g)
+Il contenuto equivalente di sale viene calcolato mediante la formula: sale (g) = sodio (g) × 2,5, e viceversa.
+
+Il legislatore ha specificato che risulta opportuno che l'etichetta rechi il termine «sale» invece del termine corrispondente della sostanza nutritiva «sodio». Questo nell'ottica di facilitare il consumatore medio nella comprensione delle informazioni fornite sulle etichette.
+
+ 
+
+Ad esse, potranno essere aggiunti (come in precedenza) alcuni elementi facoltativi, come differenziazione di grassi monoinsaturi e polinsaturi (g), colesterolo (mg) differenziazione dei carboidrati in polioli e amido (g), fibre (g), vitamine e sali minerali (espressi in mg, tranne Iodio, Selenio, Molibdeno, Cromo, Vit. A, D, K, B12, Biotina e Folacina, per i quali vale l'obbligo di riportarli in  µg).
+
+Vitamine e minerali andrebbero indicati solo se presenti in quantità significativa (di norma, per decidere se una quantità è significativa per ogni 100 g o 100 ml o per ogni confezione, se questa contiene un'unica porzione, si prende come riferimento il 15% della dose raccomandata nei relativi allegati e riportata nel prossimo articolo)
+
+NON SARA' POSSIBILE AGGIUNGERE ALTRI ELEMENTI!
+
+Oltre ai casi già menzionati, alcuni prodotti pre-confezionati ad uso alimentare saranno oggetto di ESONERO dell'etichetta obbligatoria; la lista è piuttosto lunga, ma si tratta fondamentalmente di: bevande, lieviti, gomme da masticare, aditivi gelificanti o addensanti, alimenti con contenitori troppo piccoli ecc.
+
+Dettaglio sulle Varie Voci dell'Etichettatura Nutrizionale
+I produttori di alimenti di qualità tendono ad esaltare le caratteristiche nutrizionali dei loro prodotti, attraverso un'etichetta graficamente attraente e dettagliata. Visto che produrre un alimento sano e genuino costa di più che ricorrere ad economiche scorciatoie industriali, sarebbe infatti controproducente non comunicare all'acquirente le sue benefiche proprietà.
+Nelle etichette nutrizionali compaiono così numerose voci e grafici. Si cerca in questo modo di trasmettere un senso di qualità al consumatore, sottolineando, per esempio, il basso contenuto di nutrienti ritenuti dannosi per la salute.
+Di seguito è riportato, a titolo esemplificativo, il testo di un'etichetta alimentare particolarmente esauriente: successivamente spiegheremo nel dettaglio il significato di ogni singola voce:
+
+Valore energetico	 	 
+kcal
+
+213	Indica l'energia espressa in kcal fornita da 100 g di alimento
+kj
+
+900	Indica l'energia espressa in chiloJoule fornita da 100 g di alimento
+PROTEINE	5,3 g	Indica i grammi di proteine contenute in 100 g di alimento
+CARBOIDRATI	58 g	Indica i grammi di carboidrati contenuti in 100 g di alimento
+  di cui zuccheri:
+
+  di cui amido:
+
+8 g
+
+50 g
+
+Indica che i carboidrati presenti in 100 g di alimento sono costituiti da:
+x grammi di zuccheri semplici
+
+x grammi di amido
+
+GRASSI	9 g	Indica i grammi di grassi contenuti in 100 g di alimento
+
+di cui:
+- saturi
+- monoinsaturi
+- polinsaturi	
+
+4,3 g
+3,3 g
+1,4 g	Indica che i grassi presenti in 100 g di alimento sono costituiti da:
+x grammi di grassi saturi
+x grammi di grassi monoinsaturi
+x grammi di grassi polinsaturi
+FIBRA
+
+9 g	Indica i grammi totali di fibra contenuti in 100 g di alimento
+di cui:
+
+-solubile:
+
+-insolubile:
+
+
+
+4 g
+
+5 g
+
+ 
+Indica che la fibra presente in 100 g di alimento è costituita da:
+x grammi di fibra solubile
+x grammi di fibra insolubile
+
+
+ 	 	 
+SODIO	4 g	Indica i grammi di sodio contenuti in 100 g di alimento
+Vitamine:	 	Indica il contenuto vitaminico in 100 grammi di alimento:
+B1
+
+0,3 mg
+21%*
+
+*RDA: rapporta il contenuto vitaminico con la scala RDA
+B6
+
+0,5 mg
+30%*
+
+PP
+
+6,8 mg
+38%*
+
+*Accanto ai valori nutrizionali per 100 grammi di alimento, nell'etichetta nutrizionale possono essere specificati i valori per porzione o per pezzo.
+
+Il Valore Energetico
+Kcal: la chilocaloria (caloria nel linguaggio comune) rappresenta la quantità  di calore necessaria per portare la temperatura di 1 Kg di acqua distillata da 14,5°C a 15,5°C. Nel linguaggio comune il termine chilocaloria viene abbreviato a caloria, commettendo in realtà un errore di valutazione in quanto una chilocaloria equivale a 1000 calorie.
+
+Kjoule: nel sistema internazionale l'unità di misura del calore non è la caloria ma il joule. Tale valore dev'essere specificato in etichetta per adeguarsi agli standard internazionali.
+
+Una caloria equivale a 4,186 joule, quindi per passare da kcal a kjoule basta moltiplicare per 4,186.
+
+Il valore energetico di un alimento ci permette di capire se si tratta di un cibo ipo- o iper-calorico, sia in termini generali che specifici (per esempio confrontandolo con gli alimenti dello stesso gruppo).
+
+Attenzione agli inganni! Un errore abbastanza frequente è quello di confondere le calorie per 100 grammi e quelle per pezzo. Non è detto che un alimento sia meno calorico di un altro solo perché lo è una sua porzione. Il discorso è valido se, e solo se, le due porzioni sono equivalenti. E più calorica una porzione di burro da 10 grammi o una porzione di merendina da 75 grammi?!
+
+Può inoltre accadere che sull'etichetta nutrizionale compaia un errato valore energetico. Per verificare la coerenza di questo dato basta munirsi di carta e penna ed effettuare il seguente calcolo:
+
+Valore energetico (kcal)= 4*(g proteine + g carboidrati) + 9 *(g grassi)
+Valorre energetcio (Kjoule)= Valore energetico (in kcal) * 4,186
+Pur rappresentando un parametro fondamentale per stabilire l'aspetto salutistico di un alimento, le calorie sono solo uno dei tanti fattori da tenere in considerazione: meglio un salame casereccio di 450 Kcal/100 grammi o un salame "industriale" con budello sintetico, aromi, nitriti, coloranti e conservanti vari da 400 Kcal/100 grammi?
+
+Per approfondire: Fabbisogno calorico quotidiano; Calcolatore fabbisogno calorico giornaliero
+
+Le Proteine
+Nel nostro organismo le proteine hanno funzione plastica e come tali intervengono nei meccanismi di rinnovamento tissutale. Rappresentano inoltre il principale costituente dei muscoli e ne regolano la contrazione.
+
+Le proteine hanno, in particolari condizioni, anche funzione energetica, ma in una alimentazione bilanciata questo ruolo è marginale.
+
+I nutrizionisti consigliano di assumere durante l'arco della giornata una quantità di proteine pari a circa il 15-20% dell'apporto calorico giornaliero, pari a circa 1 g di proteine per Kg di peso corporeo. Tale fabbisogno aumenta in fase di crescita, gestazione e allattamento.
+
+Di che tipo?
+
+Queste proteine dovrebbero derivare per i 2/3 da prodotti di origine animale e per 1/3 da prodotti di origine vegetale.
+
+Per approfondire l'argomento: Le proteine
+
+CONTINUA: Capire le etichette nutrizionali »

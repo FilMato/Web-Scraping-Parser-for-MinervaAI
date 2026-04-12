@@ -1,0 +1,60 @@
+La Malnutrizione nel Mondo
+La nutrizione è la scienza che studia gli alimenti ed il loro rapporto con la salute. Per malnutrizione si intende, invece, una condizione patologica che si instaura quando l'organismo non riceve i vari nutrienti in proporzioni adeguate. In base a questa definizione i casi di malnutrizione possono essere suddivisi in due grandi categorie: quelli dovuti ad una riduzione dell'apporto energetico e quelli legati all'iperassunzione calorica (di cui non parleremo in questo articolo).
+
+Prima di descrivere il lato patologico della malnutrizione è bene ricordare che le persone denutrite non risiedono soltanto nei Paesi in via di sviluppo, ma sono una realtà comune anche nelle Nazioni più industrializzate, specie tra i ceti più bassi e nei pazienti ospedalizzati.
+
+
+
+Nel 1996 la fame è costata all'India il 6-9% del PIL
+
+Fine anni 90: l'obesità è costata agli Stati Uniti il 12% della spesa sanitaria (118 miliardi di dollari)
+
+Nel 2001 il numero degli obesi ha raggiunto il numero delle persone che rischiano la morte per denutrizione.
+
+ 
+
+Quando il digiuno si protrae oltre le 24 ore l'organismo inizia ad utilizzare massicciamente le proteine muscolari per ricavare energia. Ciò comporta una riduzione della massa muscolare, con conseguente debolezza ed apatia. Inoltre si assiste ad una notevole riduzione delle proteine plasmatiche, con conseguente comparsa di edema generalizzato (presenza di liquido in eccesso negli spazi interstiziali dell'organismo).
+
+CAUSE DI MALNUTRIZIONE: Ridotto apporto nutrizionale; Aumento del dispendio energetico; Perdita o mancato assorbimento di nutrienti.
+
+Patologie da malnutrizione: Kwashiorkor e Marasma
+PROTEIN-ENERGY MALNUTRITION (PEM): termine coniato nel 1976 per indicare una condizione patologica sostenuta dalla riduzione eccessiva dell'apporto proteico e calorico. Si manifesta in due forme: il Kwashiorkor ed il marasma.
+
+Il Kwashiorkor è conosciuto anche come malattia del secondo figlio, poiché interessa soprattutto il primogenito. Nei Paesi più poveri il periodo che intercorre tra una gravidanza e l'altra è piuttosto ristretto, non appena la madre rimane incinta del seconddo figlio non riesce più a fornire la giusta quantità di nutrienti al primogenito, che va incontro a questa grave patologia da denutrizione. In particolare, l'agente causale del kwashiorkor è rappresentato da una dieta ricca in carboidrati (amido) ma estremamente povera in proteine. Le caratteristiche principali dei bambini colpiti da Kwashiorkor sono l'addome rigonfio, causato dall'edema (agente causale: ipoalbunemia), e la steatosi epatica o fegato grasso (agente causale: riduzione delle lipoproteine circolanti). Altri segni evidenti di questa malattia da malnutrizione sono la depigmentazione della pelle, il ritardo nella crescita, la debolezza muscolare ed il rigonfiamento del viso (faccia a luna). Il tasso di mortalità può raggiungere il 30-60%.
+
+L'altra forma di malnutrizione da PEM è il marasma (dal greco maraimo = consumare, debilitare). Al contrario del Kwashiorkor, il marasma è dovuto all'adattamento del corpo alla malnutrizione ed è sostenuto da una privazione sia proteica che calorica. L'organismo reagisce al misero apporto energetico andando a sfruttare tutte le riserve energetiche (lipidiche e proteiche) di cui dispone, comprese quelle essenziali o primarie. La patologia è quindi caratterizzata da un'estrema perdita di tessuto adiposo e muscolare che comporta: secchezza cutanea (i bambini affetti da marasma hanno un aspetto invecchiato), ipotermia, atrofia muscolare, irritabilità ed arresto della crescita.
+
+ 
+
+ 	Kwashiorkor	Marasma
+Vedi anche:
+circonferenza del braccio
+come indice di malnutrizione
+
+COMPARSA	Tardiva	Precoce, entro il primo anno di vita
+DIFETTI DELLA CRESCITA	 	Molto pronunciati
+EDEMA	Sì	No
+PROTEINE PLASMATICHE	- - - - - -	-
+CAMBIAMENTI DELLA PELLE	Macchie, punti rossi	Poco frequenti
+FEGATO	grasso	 
+PERIODO DI RICOVERO	breve	Molto lungo
+
+La malnutrizione può essere legata anche ad un deficit nell'assunzione di micronutrienti (acqua, sali minerali e vitamine).
+
+Carenze vitaminiche
+Si parla di ipovitaminosi in presenza di una insufficiente assunzione di vitamine con la dieta. Tale deficit può essere legato ad una carenza nutrizionale assoluta (avitaminosi) o relativa (ipovitaminosi), all'aumentato fabbisogno (gravidanza, stress ecc.) o a patologie che interessano il tubo digerente (ulcere, cancro allo stomaco ecc.).
+
+ 
+
+VITAMINA	FONTE	EFFETTI CLINICI DA CARENZA
+A (retinolo)	Carote, pesce, uova, fegato	Problemi oculari e della vista
+B1 (tiamina)	Cereali, frutta, prodotti caseari	Beriberi, problemi SN
+B2 (riboflavina)	Cereali, frutta, caseari, fegato	Danni alle mucose
+B6 (piridossina)	Carote, pesce, carne	Anemie e neuropatie
+B12 (cobalamina)	Pesce, carne, caseari	Midollo spinale, anemie
+C (acido ascorbico)	Frutta, verdura a foglia verde	Scorbuto
+D (colecalciferolo)	Caseari, pesce, "luce solare"	Rachitismo, osteomalacia
+E (tocoferolo)	Cereali, uova, oli	Anemia, neuropatie
+K	verdure, fegato, "flora batterica intestinale"	Coagulazione del sangue
+Niacina	Caseari, fagioli, piselli	Pellagra
+Folati	Foglia verde, frutta	Anemia, atrofia intestino tenue, ulcere; spina bifida nel feto

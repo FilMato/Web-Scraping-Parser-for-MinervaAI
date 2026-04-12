@@ -46,7 +46,7 @@ class Evaluator:
         gs_set = Counter(self.tokenization(self.gs_txt)) #get a Counter of token, goal: be more accurate with token evaluation
         ps_set = Counter(self.tokenization(self.parsed_txt))
 
-        marks = self.calculation(sum(gs_set.values()), sum(ps_set.values), sum((gs_set & ps_set).values())) #matches = G intersection E
+        marks = self.calculation(sum(gs_set.values()), sum(ps_set.values()), sum((gs_set & ps_set).values())) #matches = G intersection E
         if marks["F1"] < 0.6:
             grade = "Scarso"
         elif marks["F1"] > 0.8:
