@@ -14,7 +14,7 @@ PARSERS_DOMAINS = {
     "www.my-personaltrainer.it": MyPersonalTrainerParser(),
     "it.wikipedia.org": WikipediaParser(),
 }
-@app.get("/parse", URL=str)
+@app.get("/parse")
 async def parse(url: str):
     domain = urlparse(url).netloc
     if domain not in PARSERS_DOMAINS:
@@ -23,7 +23,6 @@ async def parse(url: str):
     parser = PARSERS_DOMAINS[domain]
     try:
         risultato = await parser.parser_url(url)
-        parser.salva_risultati(risultato["parsed_text"], risultato["html_text"])
         return risultato
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -32,19 +31,19 @@ async def parse(url: str):
 async def domains():
     return {"domains": list(PARSERS_DOMAINS.keys())}
 
-@app.get("/gold_standard",  URL=str)
+@app.get("/gold_standard")
 def gold_standard(URL: str):
     pass
 
-@app.get("/full_gold_standard:", dominio=str)
+@app.get("/full_gold_standard:")
 def full_gold_standard(dominio: str):
     pass
 
-@app.get("/full_gs_eval:", dominio=str)
+@app.get("/full_gs_eval:")
 def full_gs_eval(dominio: str):
     pass
     
-@app.post("/evaluate", parsed_text=str, gold_text=str)
+@app.post("/evaluate")
 def evaluate(parsed_text: str, gold_text: str):
     pass
     

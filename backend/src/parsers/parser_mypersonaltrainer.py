@@ -3,7 +3,7 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 import os
 from urllib.parse import urlparse
 
-from parser_base import Parser
+from parsers.parser_base import Parser
 
 CSS_SELECTORS = [
     "#toc-hook",          # id che contiene i contenuti che ci servono nella stramaggioranza degli URL

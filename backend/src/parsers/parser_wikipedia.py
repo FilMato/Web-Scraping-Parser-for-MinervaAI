@@ -4,7 +4,7 @@ import re
 import os
 from urllib.parse import urlparse, unquote
 
-from parser_base import Parser
+from parsers.parser_base import Parser
 
 
 def clean_output(testo_grezzo:str)->str:
