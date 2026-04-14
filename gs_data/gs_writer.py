@@ -27,42 +27,89 @@ urls_to_process = [
     {"url" : "https://it.wikipedia.org/wiki/Roma", 
      "domain" : "it.wikipedia.org", 
      "title" : "Roma", 
-     "golden_text" : "wikipedia_gs_txt/Roma_gs.txt"},
+     "golden_text" : "gs_data/wikipedia_gs_txt/Roma_gs.txt"},
 
      {"url" : "https://it.wikipedia.org/wiki/Sistema_solare", 
      "domain" : "it.wikipedia.org", 
      "title" : "Sistema Solare", 
-     "golden_text" : "wikipedia_gs_txt/Sistema_Solare_gs.txt"},
+     "golden_text" : "gs_data/wikipedia_gs_txt/Sistema_Solare_gs.txt"},
 
      {"url" : "https://it.wikipedia.org/wiki/Permesso_di_soggiorno_UE_per_soggiornanti_di_lungo_periodo", 
      "domain" : "it.wikipedia.org", 
      "title" : "Permesso di soggiorno UE per soggiornanti di lungo periodo", 
-     "golden_text" : "wikipedia_gs_txt/GS_PermessoSoggiorno.txt"},
+     "golden_text" : "gs_data/wikipedia_gs_txt/GS_PermessoSoggiorno.txt"},
 
     {"url" : "https://it.wikipedia.org/wiki/Mercurio_(elemento_chimico)", 
      "domain" : "it.wikipedia.org", 
      "title" : "Mercurio (elemento chimico)", 
-     "golden_text" : "wikipedia_gs_txt/Mercurio(elemento_chimico)_gs.txt"},
+     "golden_text" : "gs_data/wikipedia_gs_txt/Mercurio(elemento_chimico)_gs.txt"},
 
      {"url" : "https://it.wikipedia.org/wiki/Seconda_guerra_mondiale", 
      "domain" : "it.wikipedia.org", 
      "title" : "Seconda guerra mondiale", 
-     "golden_text" : "wikipedia_gs_txt/Seconda_Guerra_Mondiale_gs.txt"},
+     "golden_text" : "gs_data/wikipedia_gs_txt/Seconda_Guerra_Mondiale_gs.txt"},
 
      {"url" : "https://it.wikipedia.org/wiki/Leonardo_da_Vinci", 
      "domain" : "it.wikipedia.org", 
      "title" : "Leonardo da Vinci", 
-     "golden_text" : "wikipedia_gs_txt/Leonardo_da_Vinci_gs.txt"},
+     "golden_text" : "gs_data/wikipedia_gs_txt/Leonardo_da_Vinci_gs.txt"},
 
      {"url" : "https://it.wikipedia.org/wiki/Equazione_di_Schr%C3%B6dinger", 
      "domain" : "it.wikipedia.org", 
      "title" : "Equazione di Schrödinger", 
-     "golden_text" : "wikipedia_gs_txt/Equazione_di_Schrodinger_gs.txt"},
+     "golden_text" : "gs_data/wikipedia_gs_txt/Equazione_di_Schrodinger_gs.txt"},
 
      {"url" : "https://it.wikipedia.org/wiki/Massa_(fisica)", 
      "domain" : "it.wikipedia.org", 
      "title" : "Massa (fisica)", 
-     "golden_text" : "wikipedia_gs_txt/Massa_(fisica)_gs.txt"}
+     "golden_text" : "gs_data/wikipedia_gs_txt/Massa_(fisica)_gs.txt"},
+
+     {"url" : " https://it.wikipedia.org/wiki/Antico_Egitto", 
+     "domain" : "it.wikipedia.org", 
+     "title" : "Antico Egitto", 
+     "golden_text" : "gs_data/wikipedia_gs_txt/Antico_Egitto_gs.txt"},
+
+      #from here
+
+     {"url" : "https://www.un.org/fr/about-us/history-of-the-un/san-francisco-conference", 
+     "domain" : "un.org", 
+     "title" : "La Conférence de San Francisco", 
+     "golden_text" : "gs_data/un_gs_txt/La_Conference_de_San_Francisco_gs.txt"},
+
+     {"url" : "https://www.un.org/es/common-agenda/implementation", 
+     "domain" : "un.org", 
+     "title" : "Implementacion", 
+     "golden_text" : "gs_data/un_gs_txt/Implementacion_gs.txt"},
+
+     {"url" : "https://www.un.org/unispal/history/", 
+     "domain" : "un.org", 
+     "title" : "History of the Question of Palestine", 
+     "golden_text" : "gs_data/un_gs_txt/History_of_the_question_of_palestine_gs.txt"},
+
+     {"url" : "https://www.un.org/en/observances/asteroid-day", 
+     "domain" : "un.org", 
+     "title" : "International Asteroid Day 30 June", 
+     "golden_text" : "gs_data/un_gs_txt/International_Asteroid_day_30_June_gs.txt"},
+
+     {"url" : "https://www.un.org/peacebuilding/gender-strategy", 
+     "domain" : "un.org", 
+     "title" : "The Peacebuilding Commission's Gender Strategy", 
+     "golden_text" : "gs_data/un_gs_txt/The_Peacebuilding_Commissions_Gender_Strategy_gs.txt"},
+
+     {"url" : "https://www.un.org/en/about-us/universal-declaration-of-human-rights", 
+     "domain" : "un.org", 
+     "title" : "Universal Declaration of Human Rights", 
+     "golden_text" : "gs_data/un_gs_txt/Universal_Declaration_of_Human_Rights_gs_txt"},
+
+     {"url" : "https://www.un.org/en/climatechange/science/mythbusters", 
+     "domain" : "un.org", 
+     "title" : "Myth Busters", 
+     "golden_text" : "gs_data/un_gs_txt/Myth_Busters_gs.txt"},
+
+     {"url" : "https://www.un.org/depts/los/piracy/piracy_legal_framework.htm", 
+     "domain" : "un.org", 
+     "title" : "Legal Framework for the Repression of Piracy Under UNCLOS", 
+     "golden_text" : "gs_data/un_gs_txt/Legal_Framework_for_the_Repression_of_Piracy_Under_UNCLOS_gs.txt"}
 
     ]
 
