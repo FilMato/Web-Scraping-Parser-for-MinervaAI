@@ -15,7 +15,7 @@ PARSERS_DOMAINS = {
     "it.wikipedia.org": WikipediaParser(),
 }
 @app.get("/parse", URL=str)
-async def get_parse(url: str):
+async def parse(url: str):
     domain = urlparse(url).netloc
     if domain not in PARSERS_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
@@ -29,24 +29,24 @@ async def get_parse(url: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/domains")
-async def get_domains():
+async def domains():
     return {"domains": list(PARSERS_DOMAINS.keys())}
 
 @app.get("/gold_standard",  URL=str)
 def gold_standard(URL: str):
-    ciao
+    pass
 
 @app.get("/full_gold_standard:", dominio=str)
 def full_gold_standard(dominio: str):
-    ciao
+    pass
 
 @app.get("/full_gs_eval:", dominio=str)
 def full_gs_eval(dominio: str):
-    ciao
+    pass
     
 @app.post("/evaluate", parsed_text=str, gold_text=str)
 def evaluate(parsed_text: str, gold_text: str):
-    ciao
+    pass
     
 
 
