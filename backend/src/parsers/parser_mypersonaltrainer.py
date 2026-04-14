@@ -22,7 +22,8 @@ class MyPersonalTrainerParser(Parser):
 
         path = urlparse(url).path
         urlname = os.path.basename(path)
-        title_slug = os.path.splitext(urlname)[0].replace("-", " ").capitalize()
+        titolo = os.path.splitext(urlname)[0].replace("-", " ").capitalize()
+
         async with AsyncWebCrawler(config=browser_cfg) as crawler:
             for selector in CSS_SELECTORS:
                 crawler_cfg = CrawlerRunConfig(
@@ -36,7 +37,7 @@ class MyPersonalTrainerParser(Parser):
                     return {
                         "url": url,
                         "domain": "www.my-personaltrainer.it",
-                        "title": title_slug,
+                        "title": titolo,
                         "parsed_text": result.markdown,
                         "html_text": result.html or ""   
                     }
