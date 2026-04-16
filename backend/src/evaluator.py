@@ -5,9 +5,7 @@ import re
 #class for evaluating parser output
 class Evaluator:
 
-    def __init__(self, gs_txt: str, parsed_txt: str):
-        self.gs_txt = gs_txt
-        self.parsed_txt = parsed_txt
+    def __init__(self):
         self.chunk_size = 500
 
     #clean text
@@ -54,12 +52,14 @@ class Evaluator:
         else:
             F1 = 2*(precision*recall / (precision+recall))
 
-        return {"P" : precision, "R" : recall, "F1" : F1}
+        return {"precision": precision, 
+                "recall": recall,
+                "f1": F1}
 
-    def token_level_eval(self): 
+    def token_level_eval(self, parsed_txt:str, gs_txt:str): 
 
-        gs_set = Counter(self.tokenization(self.gs_txt)) #get a Counter of token, goal: be more accurate with token evaluation
-        ps_set = Counter(self.tokenization(self.parsed_txt))
+        gs_set = Counter(self.tokenization(gs_txt)) #get a Counter of token, goal: be more accurate with token evaluation
+        ps_set = Counter(self.tokenization(parsed_txt))
 
         marks = self.calculation(sum(gs_set.values()), sum(ps_set.values()), sum((gs_set & ps_set).values())) #matches = G intersection E
         if marks["F1"] < 0.6:
@@ -68,18 +68,17 @@ class Evaluator:
             grade = "Buono"
         else:
             grade = "Medio"
-
-        return f"{grade}  ->  Precision = {marks['P']}, Recall = {marks['R']}, F1 = {marks['F1']}\n"
+        return marks
     
     @staticmethod
     def extract_ngrams(tokens, n):
         return [tuple(tokens[i : i + n]) for i in range(len(tokens) - n + 1)]
 
     #takes a bigram (two consecutive tokens) instead of a single one, then the calculation method is the same as token - level
-    def rouge_2_eval(self): #very short texts are penalized as a text of length n produces n-1 bigrams.
+    def rouge_2_eval( self, parsed_txt:str, gs_txt:str): #very short texts are penalized as a text of length n produces n-1 bigrams.
 
-        gs_bigram_set = Counter(self.extract_ngrams(self.tokenization(self.gs_txt), 2)) #get a Counter of token, goal: be more accurate with token evaluation
-        ps_bigram_set = Counter(self.extract_ngrams(self.tokenization(self.parsed_txt), 2))
+        gs_bigram_set = Counter(self.extract_ngrams(self.tokenization(gs_txt), 2)) #get a Counter of token, goal: be more accurate with token evaluation
+        ps_bigram_set = Counter(self.extract_ngrams(self.tokenization(parsed_txt), 2))
 
         marks = self.calculation(sum(gs_bigram_set.values()), sum(ps_bigram_set.values()), sum((gs_bigram_set & ps_bigram_set).values())) #matches = G intersection E
         if marks["F1"] < 0.6:
@@ -88,7 +87,13 @@ class Evaluator:
             grade = "Buono"
         else:
             grade = "Medio"
-
-        return f"{grade}  ->  Precision = {marks['P']}, Recall = {marks['R']}, F1 = {marks['F1']}\n"
+        return marks
     
+    #funzione da usare nel server per POST/evaluate
+    def eval_server(self,parser_txt: str, gs_txt:str):
+
+        return {
+            "token_level_eval": self.token_level_eval(parser_txt,gs_txt),
+            "rouge_2_eval":self.rouge_2_eval(parser_txt,gs_txt)
+        }
     

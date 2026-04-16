@@ -8,6 +8,9 @@ from urllib.parse import urlparse
 from parsers.parser_mypersonaltrainer import MyPersonalTrainerParser
 from parsers.parser_wikipedia import WikipediaParser
 
+#importo per evaluation
+from evaluator import Evaluator
+
 app = FastAPI()
 
 PARSERS_DOMAINS = {
@@ -45,7 +48,7 @@ def full_gs_eval(dominio: str):
     
 @app.post("/evaluate")
 def evaluate(parsed_text: str, gold_text: str):
-    pass
+    return Evaluator().eval_server(parsed_text,gold_text)
     
 
 
