@@ -11,6 +11,7 @@ services:
     volumes:
       - ./gs_data:/app/gs_data
       - ./domains.json:/app/domains.json
+      - ./backend/src/parsers/risultati:/app/src/parsers/risultati
 
   # 2. Definiamo il servizio FRONTEND
   frontend:

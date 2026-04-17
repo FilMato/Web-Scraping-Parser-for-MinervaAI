@@ -62,12 +62,6 @@ class Evaluator:
         ps_set = Counter(self.tokenization(parsed_txt))
 
         marks = self.calculation(sum(gs_set.values()), sum(ps_set.values()), sum((gs_set & ps_set).values())) #matches = G intersection E
-        if marks["F1"] < 0.6:
-            grade = "Scarso"
-        elif marks["F1"] > 0.8:
-            grade = "Buono"
-        else:
-            grade = "Medio"
         return marks
     
     @staticmethod
@@ -81,12 +75,6 @@ class Evaluator:
         ps_bigram_set = Counter(self.extract_ngrams(self.tokenization(parsed_txt), 2))
 
         marks = self.calculation(sum(gs_bigram_set.values()), sum(ps_bigram_set.values()), sum((gs_bigram_set & ps_bigram_set).values())) #matches = G intersection E
-        if marks["F1"] < 0.6:
-            grade = "Scarso"
-        elif marks["F1"] > 0.8:
-            grade = "Buono"
-        else:
-            grade = "Medio"
         return marks
     
     #funzione da usare nel server per POST/evaluate

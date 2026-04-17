@@ -22,11 +22,11 @@ class Parser(ABC):
         }
 
     #solo per noi, da eliminare alla fine 
-    def salva_risultati(parsed_text: str, html_text: str) -> None: # prende in input html_text e parsed_text della funzione precente e salva i file
+    def salva_risultati(self,parsed_text: str, html_text: str) -> None: # prende in input html_text e parsed_text della funzione precente e salva i file
 
         base_dir = os.path.dirname(os.path.abspath(__file__))
         risultati_dir = os.path.join(base_dir, "risultati")
-        
+        os.makedirs(risultati_dir, exist_ok=True)
         file_txt_path = os.path.join(risultati_dir, "Risultato_parser.txt")
         file_html_path = os.path.join(risultati_dir, "Risultato_html_parser.html")
 

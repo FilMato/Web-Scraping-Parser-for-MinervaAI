@@ -26,6 +26,7 @@ async def parse(url: str):
     parser = PARSERS_DOMAINS[domain]
     try:
         risultato = await parser.parser_url(url)
+        parser.salva_risultati(risultato["parsed_text"], risultato["html_text"]) #salva i risultati in file, da eliminare alla fine
         return risultato
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -46,9 +47,14 @@ def full_gold_standard(dominio: str):
 def full_gs_eval(dominio: str):
     pass
     
+
+# Classe per il corpo della richiesta
+class EvaluationRequest(BaseModel):
+    parsed_text: str
+    gold_text: str
+
 @app.post("/evaluate")
-def evaluate(parsed_text: str, gold_text: str):
-    return Evaluator().eval_server(parsed_text,gold_text)
-    
+def evaluate(request: EvaluationRequest):
+    return Evaluator().eval_server(request.parsed_text, request.gold_text)
 
 
