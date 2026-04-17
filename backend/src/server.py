@@ -46,6 +46,3 @@ def full_gs_eval(dominio: str):
 @app.post("/evaluate")
 def evaluate(parsed_text: str, gold_text: str):
     pass
-    
-
-
