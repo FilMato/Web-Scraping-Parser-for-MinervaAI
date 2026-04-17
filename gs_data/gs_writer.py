@@ -106,12 +106,7 @@ urls_to_process = [
      "title" : "Myth Busters", 
      "golden_text" : "gs_data/un_gs_txt/Myth_Busters_gs.txt"},
 
-     {"url" : "https://www.un.org/depts/los/piracy/piracy_legal_framework.htm", 
-     "domain" : "un.org", 
-     "title" : "Legal Framework for the Repression of Piracy Under UNCLOS", 
-     "golden_text" : "gs_data/un_gs_txt/Legal_Framework_for_the_Repression_of_Piracy_Under_UNCLOS_gs.txt"}
-
-    ]
+     ]
 
 for current_page in urls_to_process:
 
