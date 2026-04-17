@@ -34,7 +34,7 @@ class WikipediaParser(Parser):
                 cache_mode=CacheMode.BYPASS, 
                 excluded_tags=['nav','footer','header','aside','figure'], 
                 css_selector=".mw-parser-output", 
-                excluded_selector=".torna-a, .hatnote, .mw-editsection, .infobox, .sinottico, a[href*='Voci_di_qualità'], a[href*='Politica_di_protezione'], .thumb, .gallery, #coordinates, .navbox, .noviewer, .timeline-wrapper, p[typeof*='mw:Transclusion'], .ambox, table.noprint[style*='float']" )
+                excluded_selector=".torna-a, .hatnote, .mw-editsection, .infobox, .sinottico, a[href*='Voci_di_qualità'], a[href*='Politica_di_protezione'], .thumb, .gallery, #coordinates, .navbox, .noviewer, .timeline-wrapper, p[typeof*='mw:Transclusion'], .ambox, table.noprint[style*='float'], .vector-body-before-content, .mw-file-element" )
             
             result = await crawler.arun(url=url, config=crawler_cfg)
             result_markdown = clean_output(result.markdown)
