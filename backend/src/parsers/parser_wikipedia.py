@@ -37,7 +37,7 @@ class WikipediaParser(Parser):
                 excluded_selector=".torna-a, .hatnote, .mw-editsection, .infobox, .sinottico, a[href*='Voci_di_qualità'], a[href*='Politica_di_protezione'], .thumb, .gallery, #coordinates, .navbox, .noviewer, .timeline-wrapper, p[typeof*='mw:Transclusion'], .ambox, table.noprint[style*='float']" )
             
             result = await crawler.arun(url=url, config=crawler_cfg)
-            result_markdown =clean_output(result.markdown)
+            result_markdown = clean_output(result.markdown)
             if result.success and result_markdown and len(result_markdown.strip()) > 50:
                 return {
                     "url": url,
