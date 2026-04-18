@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 # Importiamo i nostri parser
 from parsers.parser_mypersonaltrainer import MyPersonalTrainerParser
 from parsers.parser_wikipedia import WikipediaParser
+from parsers.parser_premier import PremierLeagueParser
 
 #importo per evaluation
 from evaluator import Evaluator
@@ -16,6 +17,7 @@ app = FastAPI()
 PARSERS_DOMAINS = {
     "www.my-personaltrainer.it": MyPersonalTrainerParser(),
     "it.wikipedia.org": WikipediaParser(),
+    "www.premierleague.com": PremierLeagueParser()
 }
 @app.get("/parse")
 async def parse(url: str):
