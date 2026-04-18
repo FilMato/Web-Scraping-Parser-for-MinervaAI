@@ -83,5 +83,6 @@ class Evaluator:
         return {
             "token_level_eval": self.token_level_eval(parser_txt,gs_txt),
             "rouge_2_eval":self.rouge_2_eval(parser_txt,gs_txt)
+            #aggiungere eventuali nuovi metodi
         }
     
