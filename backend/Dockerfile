@@ -5,8 +5,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 RUN crawl4ai-setup
-
-# Questo comando dice a Python di scaricare i dizionari di NLTK dentro il container
 RUN python -m nltk.downloader stopwords punkt
 
 COPY src/ ./src/
