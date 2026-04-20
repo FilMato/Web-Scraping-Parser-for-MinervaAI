@@ -7,7 +7,7 @@ import os
 from urllib.parse import urlparse
 import json
 
-from  parser_base import Parser
+from parsers.parser_base import Parser
 
 class Parser_UN(Parser):
 
