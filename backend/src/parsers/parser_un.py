@@ -102,7 +102,6 @@ class Parser_UN(Parser):
             }
         
     async def parser_url2(self, url: str, html_text: str) -> dict: #input url, output json obj
-
         domain = urlparse(url).netloc
         browser_cfg = BrowserConfig(headless = True)
         title = self._get_title(html_text)
