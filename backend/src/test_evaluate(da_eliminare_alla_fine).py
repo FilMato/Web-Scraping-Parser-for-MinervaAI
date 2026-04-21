@@ -14,7 +14,7 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 percorso_parsed = os.path.join(base_dir, "parsers", "risultati", "Risultato_parser.txt")
 
 # gs_data si trova 2 livelli sopra src (nella root del progetto)
-percorso_gold = os.path.join(base_dir, "..", "..", "gs_data", "wikipedia_gs_txt", "Roma_gs.txt")
+percorso_gold = os.path.join(base_dir, "..", "..", "gs_data", "mypersonaltrainer_gs", "torta_ricotta.txt")
 
 # 3. Leggiamo i file con un blocco di sicurezza (try/except)
 try:
