@@ -30,9 +30,6 @@ class PremierLeagueParser(Parser):
             css_selector=".main-content",
             excluded_selector="picture, .article__tags, .video-player, .video-embedded, .article__author, .article__publish-date, .sg-wrapper, .sg-skipnav-container, .js-live-audio, noscript, .embeddable-article, .content-grid, .filters-chips, .club-badge, .filters, .u-show-tablet, .standings-row__team-name-short, .tab-navigation, .standings-row__form, th[scope='col']:last-child, .standings__segmented-controls, .transfer-centre__tabs, .page-header__wrapper, .standings-footer, .article__header-title, .embeddable-photo__description, .content-rail, .generic-promo, .global-ad-slot",
             wait_until="networkidle",)
-
-
-
         async with AsyncWebCrawler(config=browser_cfg) as crawler: #
             
             result= await crawler.arun(url=url, config=crawler_cfg)
@@ -69,22 +66,32 @@ class PremierLeagueParser(Parser):
             soup.select_one("title")
         )
         titolo_estratto = titolo_estratto.text.strip() if titolo_estratto else "Titolo non trovato"
-        result_markdown = clean_output(soup.get_text(separator="\n").strip())
-        if result_markdown:
-            return {
-                "url": url,
-                "domain": "www.premierleague.com",
-                "title": titolo_estratto,
-                "parsed_text": result_markdown,
-                "html_text": html_text
-            }
-        else:
-            return {
-                "url": url,
-                "domain": "www.premierleague.com",
-                "title": titolo_estratto,
-                "parsed_text": "",
-                "html_text": html_text
-            }
+        browser_cfg = BrowserConfig(headless=True)
+        crawler_cfg = CrawlerRunConfig(
+            cache_mode=CacheMode.BYPASS,
+            css_selector=".main-content",
+            excluded_selector="picture, .article__tags, .video-player, .video-embedded, .article__author, .article__publish-date, .sg-wrapper, .sg-skipnav-container, .js-live-audio, noscript, .embeddable-article, .content-grid, .filters-chips, .club-badge, .filters, .u-show-tablet, .standings-row__team-name-short, .tab-navigation, .standings-row__form, th[scope='col']:last-child, .standings__segmented-controls, .transfer-centre__tabs, .page-header__wrapper, .standings-footer, .article__header-title, .embeddable-photo__description, .content-rail, .generic-promo, .global-ad-slot",
+            wait_until="networkidle",
+        )
+        async with AsyncWebCrawler(config=browser_cfg) as crawler:
+            result = await crawler.arun(url=f"raw:{html_text}", config=crawler_cfg)
+            if result.success and result.markdown:
+                result_markdown = clean_output(result.markdown)
+                if result_markdown:
+                    return {
+                        "url": url,
+                        "domain": "www.premierleague.com",
+                        "title": titolo_estratto,
+                        "parsed_text": result_markdown,
+                        "html_text": html_text
+                    }
+        return {
+            "url": url,
+            "domain": "www.premierleague.com",
+            "title": titolo_estratto,
+            "parsed_text": "",
+            "html_text": html_text
+        }
+    
                 
 

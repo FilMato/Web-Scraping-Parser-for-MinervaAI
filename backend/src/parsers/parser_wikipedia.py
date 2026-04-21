@@ -56,26 +56,34 @@ class WikipediaParser(Parser):
             }  
     
     async def parser_url2(self, url: str, html_text: str) -> dict:
-        from bs4 import BeautifulSoup
-        soup = BeautifulSoup(html_text, "html.parser")
+        browser_cfg = BrowserConfig(headless=True)
 
         path = unquote(urlparse(url).path)
         urlname = os.path.basename(path)
         titolo = os.path.splitext(urlname)[0].replace("-", " ").capitalize()
-
-        element = soup.select_one(".mw-parser-output")
-        parsed_text = element.get_text(separator="\n").strip() if element else ""
-        parsed_text = clean_output(parsed_text)
-
-        if parsed_text and len(parsed_text.strip()) > 50:
-            return {
-                "url": url,
-                "domain": "it.wikipedia.org",
-                "title": titolo,
-                "parsed_text": parsed_text,
-                "html_text": html_text
-            }
-        else:
+        
+        async with AsyncWebCrawler(config=browser_cfg) as crawler:
+            crawler_cfg = CrawlerRunConfig(
+                cache_mode=CacheMode.BYPASS, 
+                excluded_tags=['nav','footer','header','aside','figure'], 
+                css_selector=".mw-parser-output", 
+                excluded_selector=".torna-a, .hatnote, .mw-editsection, .infobox, .sinottico, a[href*='Voci_di_qualità'], a[href*='Politica_di_protezione'], .thumb, .gallery, #coordinates, .navbox, .noviewer, .timeline-wrapper, p[typeof*='mw:Transclusion'], .ambox, table.noprint[style*='float'], .vector-body-before-content, .mw-file-element" 
+            )
+            
+            result = await crawler.arun(url=f"raw:{html_text}", config=crawler_cfg)
+            
+            if result.success and result.markdown:
+                result_markdown = clean_output(result.markdown)
+                
+                if result_markdown and len(result_markdown.strip()) > 50:
+                    return {
+                        "url": url,
+                        "domain": "it.wikipedia.org",
+                        "title": titolo,
+                        "parsed_text": result_markdown,
+                        "html_text": html_text
+                    }
+                
             return {
                 "url": url,
                 "domain": "it.wikipedia.org",

@@ -4,13 +4,12 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional, List
 from urllib.parse import urlparse
+
 # Importiamo i nostri parser
 from parsers.parser_mypersonaltrainer import MyPersonalTrainerParser
 from parsers.parser_wikipedia import WikipediaParser
 from parsers.parser_premier import PremierLeagueParser
 from parsers.parser_un import Parser_UN
-
-from markdownify import markdownify as md
 
 #importo per evaluation
 from evaluator import Evaluator
@@ -64,15 +63,10 @@ async def parse(request: PostRequest):
     domain = urlparse(request.url).netloc
     if domain not in PARSERS_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
-    
     parser = PARSERS_DOMAINS[domain]
     try:
-        testo_markdown = md(request.html_text)
-        risultato = await parser.parser_url2(request.url, testo_markdown)
-        parser.salva_risultati(risultato["parsed_text"], risultato["html_text"]) 
-        risultato["domain"] = domain
+        risultato = await parser.parser_url2(request.url, request.html_text)
         return risultato
-        
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
