@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Parser UI</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .panel { border: 1px solid #ccc; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        textarea { width: 100%; height: 200px; font-size: 13px; }
+        .metrics { background: #f0f8ff; padding: 10px; border-radius: 4px; }
+        .good { color: green; } .medium { color: orange; } .bad { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Web Parser - Laboratorio Ingegneria Informatica</h1>
+
+    <!-- FORM: inserimento URL libero -->
+    <form method="post" action="/parse">
+        <label><strong>Inserisci un URL:</strong></label><br>
+        <input type="text" name="url" style="width:70%" placeholder="https://...">
+        <button type="submit">Parsa</button>
+    </form>
+
+    <!-- MENU A TENDINA con gli URL del Gold Standard -->
+    <form method="post" action="/parse">
+        <label><strong>Oppure seleziona dal Gold Standard:</strong></label><br>
+        <select name="url" style="width:70%">
+            {% for url in gs_urls %}
+                <option value="{{ url }}">{{ url }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Parsa dal GS</button>
+    </form>
+
+    <!-- RISULTATI (mostrati solo se result non è None) -->
+    {% if result %}
+    <div class="panel">
+        <h2>Risultati per: {{ result.parsed.url }}</h2>
+
+        <div style="display: flex; gap: 20px;">
+            <div style="flex:1">
+                <h3>HTML grezzo</h3>
+                <textarea readonly>{{ result.parsed.html_text }}</textarea>
+            </div>
+            <div style="flex:1">
+                <h3>Testo pulito (parsed)</h3>
+                <textarea readonly>{{ result.parsed.parsed_text }}</textarea>
+            </div>
+            {% if result.gold_text %}
+            <div style="flex:1">
+                <h3>Gold Standard</h3>
+                <textarea readonly>{{ result.gold_text }}</textarea>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- METRICHE (solo se disponibili) -->
+        {% if result.evaluation %}
+        <div class="metrics">
+            <h3>Valutazione automatica</h3>
+            {% set f1 = result.evaluation.token_level_eval.f1 %}
+            <p>Precision: {{ "%.3f"|format(result.evaluation.token_level_eval.precision) }}</p>
+            <p>Recall: {{ "%.3f"|format(result.evaluation.token_level_eval.recall) }}</p>
+            <p>F1:
+                {% if f1 > 0.80 %}
+                    <span class="good">{{ "%.3f"|format(f1) }} ✓ Buono</span>
+                {% elif f1 >= 0.60 %}
+                    <span class="medium">{{ "%.3f"|format(f1) }} ~ Medio</span>
+                {% else %}
+                    <span class="bad">{{ "%.3f"|format(f1) }} ✗ Scarso</span>
+                {% endif %}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</body>
+</html>
