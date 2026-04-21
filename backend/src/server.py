@@ -38,15 +38,15 @@ async def domains():
     return {"domains": list(PARSERS_DOMAINS.keys())}
 
 @app.get("/gold_standard")
-def gold_standard(URL: str):
+def gold_standard(url: str):
     pass
 
-@app.get("/full_gold_standard:")
-def full_gold_standard(dominio: str):
+@app.get("/full_gold_standard")
+def full_gold_standard(domain: str):
     pass
 
-@app.get("/full_gs_eval:")
-def full_gs_eval(dominio: str):
+@app.get("/full_gs_eval")
+def full_gs_eval(domain: str):
     pass
     
 
