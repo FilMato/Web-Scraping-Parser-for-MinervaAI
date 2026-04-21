@@ -1,4 +1,4 @@
-import sys, os
+import sys, os, json
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -39,16 +39,65 @@ async def domains():
 
 @app.get("/gold_standard")
 def gold_standard(URL: str):
-    pass
+    domain = urlparse(URL).netloc
+    if domain not in PARSERS_DOMAINS:
+        return "Error: unsupported domain"
+    with open(f"gs_data/dominio_{domain}_gs.json") as json_data:
+        j = json.load(json_data)
+    
+    for obj in j:
+        if obj["url"] == URL:
+            return obj
+    return "Error: url not in gs"
 
 @app.get("/full_gold_standard:")
 def full_gold_standard(dominio: str):
-    pass
+    with open(f"gs_data/dominio_{dominio}_gs.json") as json_data:
+        j = json.load(json_data)
+    return j
 
 @app.get("/full_gs_eval:")
-def full_gs_eval(dominio: str):
-    pass
+def full_gs_eval(domain: str):
+    if domain not in PARSERS_DOMAINS:
+        return "Error: unsupported domain"
     
+    output_dict = {
+        "token_level_eval" : {
+            "precision": 0, 
+            "recall": 0,
+            "f1": 0
+        },
+        "rouge_2_eval": {
+            "precision": 0, 
+            "recall": 0,
+            "f1": 0
+        },
+        "information_density_evaluation" : {
+            "Score gold standard" : 0,
+            "Score parsed text" : 0,
+            "Difference" : 0
+        },
+        "TF-IDF_cosine_similarity" : {
+            "Score" : 0
+        } 
+    }
+
+    gs = full_gold_standard(domain)
+    parser = PARSERS_DOMAINS[domain]
+    tot_urls = 0
+    for obj in gs: #itera sui membri del gs
+       json_parsed = parser.parser_url(obj["url"])
+       evaluation = evaluate(json_parsed["parsed_text"], obj["gold_text"])
+       tot_urls += 1
+       for method in evaluation: #itera sui metodi
+            for score in method: #itera sui campi di ogni metodo
+                output_dict[method][score] += evaluation[method][score]
+    
+    for method in output_dict:
+        for score in method:
+            output_dict[method][score] /= tot_urls
+    
+    return output_dict
 
 # Classe per il corpo della richiesta
 class EvaluationRequest(BaseModel):

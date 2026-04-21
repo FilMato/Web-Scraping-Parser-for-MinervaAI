@@ -150,7 +150,7 @@ class Evaluator:
         magnitude_ps = sqrt(magnitude_ps)
         
         try:
-            return dot_product / (magnitude_gs * magnitude_ps) 
+            return {"Score" : dot_product / (magnitude_gs * magnitude_ps)} 
         except ZeroDivisionError: #con un testo reale questa cosa non dovrebbe succedere ma il controllo va messo per sicurezza
             return 0
 
