@@ -12,6 +12,10 @@ class Parser(ABC):
         #Ogni sottoclasse deve implementrlo in un modo diverso
         pass
 
+    async def parser_url2(self, url: str, html_text: str) -> dict:
+        #Ogni sottoclasse deve implementrlo in un modo diverso
+        pass
+
     def format_response(self, url: str, domain: str, title: str, html_text: str, parsed_text: str) -> dict:
         return {
             "url": url,

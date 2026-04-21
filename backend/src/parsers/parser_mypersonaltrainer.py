@@ -49,3 +49,32 @@ class MyPersonalTrainerParser(Parser):
                 "parsed_text": "",
                 "html_text": ""
             }
+        
+    async def parser_url2(self, url: str, html_text: str) -> dict:
+        # In questo caso, dato che abbiamo già l'html, non usiamo crawl4ai ma semplicemente BeautifulSoup per estrarre il testo in markdown
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(html_text, "html.parser")
+
+        path = urlparse(url).path
+        urlname = os.path.basename(path)
+        titolo = os.path.splitext(urlname)[0].replace("-", " ").capitalize()
+
+        for selector in CSS_SELECTORS:
+            element = soup.select_one(selector)
+            if element:
+                parsed_text = element.get_text(separator="\n").strip()
+                if len(parsed_text) > 50:
+                    return {
+                        "url": url,
+                        "domain": "www.my-personaltrainer.it",
+                        "title": titolo,
+                        "parsed_text": parsed_text,
+                        "html_text": html_text
+                    }
+        return {
+            "url": url,
+            "domain": "www.my-personaltrainer.it",
+            "title": titolo,
+            "parsed_text": "",
+            "html_text": html_text
+        }

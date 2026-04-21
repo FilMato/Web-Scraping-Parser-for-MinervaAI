@@ -101,11 +101,11 @@ class Parser_UN(Parser):
                 "html_text": ""
             }
         
-    async def parser_url2(self, url: str, raw_html: str) -> dict: #input url, output json obj
+    async def parser_url2(self, url: str, html_text: str) -> dict: #input url, output json obj
 
         domain = urlparse(url).netloc
         browser_cfg = BrowserConfig(headless = True)
-        title = self._get_title(raw_html)
+        title = self._get_title(html_text)
         md_generator = DefaultMarkdownGenerator(
             options={
                 "ignore_images": True
@@ -130,7 +130,7 @@ class Parser_UN(Parser):
                                         excluded_selector=".views-field-field-news-tags, .block-content-footer, .type-entermedia_image, #player-gui, #addtoany, #sharing_widget, #skip-link, .image-caption, #sharing-widget, #breadcrumbs, #more_button, .photo-credit, .page-header, .fusion-video, #player-controls, .wp-caption-text",
                                         markdown_generator=md_generator)
                 result = await crawler.arun(
-                    url = f'raw:{raw_html}', 
+                    url = f'raw:{html_text}', 
                     config = selector_cfg
                 )
                 result_markdown = self.clean_output(result.markdown)
@@ -145,7 +145,7 @@ class Parser_UN(Parser):
                     }
                 
             result = await crawler.arun( #se non dovesse esistere alcun selector faccio il parsing un'ultima volta senza alcun selector
-                url = f'raw:{raw_html}', 
+                url = f'raw:{html_text}', 
                 config = no_selector_cfg 
             )
             result_markdown = self.clean_output(result.markdown)
