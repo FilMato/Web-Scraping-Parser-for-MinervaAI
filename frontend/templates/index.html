@@ -60,18 +60,31 @@
         {% if result.evaluation %}
         <div class="metrics">
             <h3>Valutazione automatica</h3>
-            {% set f1 = result.evaluation.token_level_eval.f1 %}
+
+            <h4>Token Level</h4>
             <p>Precision: {{ "%.3f"|format(result.evaluation.token_level_eval.precision) }}</p>
             <p>Recall: {{ "%.3f"|format(result.evaluation.token_level_eval.recall) }}</p>
+            {% set f1 = result.evaluation.token_level_eval.f1 %}
             <p>F1:
-                {% if f1 > 0.80 %}
-                    <span class="good">{{ "%.3f"|format(f1) }} ✓ Buono</span>
-                {% elif f1 >= 0.60 %}
-                    <span class="medium">{{ "%.3f"|format(f1) }} ~ Medio</span>
-                {% else %}
-                    <span class="bad">{{ "%.3f"|format(f1) }} ✗ Scarso</span>
+                {% if f1 > 0.80 %}<span class="good">{{ "%.3f"|format(f1) }} ✓ Buono</span>
+                {% elif f1 >= 0.60 %}<span class="medium">{{ "%.3f"|format(f1) }} ~ Medio</span>
+                {% else %}<span class="bad">{{ "%.3f"|format(f1) }} ✗ Scarso</span>
                 {% endif %}
             </p>
+
+            <h4>Rouge-2</h4>
+            <p>Precision: {{ "%.3f"|format(result.evaluation.rouge_2_eval.precision) }}</p>
+            <p>Recall: {{ "%.3f"|format(result.evaluation.rouge_2_eval.recall) }}</p>
+            <p>F1: {{ "%.3f"|format(result.evaluation.rouge_2_eval.f1) }}</p>
+
+            <h4>Information Density</h4>
+            <p>Score GS: {{ "%.3f"|format(result.evaluation.information_density_evaluation['Score gold standard']) }}</p>
+            <p>Score Parsed: {{ "%.3f"|format(result.evaluation.information_density_evaluation['Score parsed text']) }}</p>
+            <p>Differenza: {{ "%.3f"|format(result.evaluation.information_density_evaluation['Difference']) }}</p>
+
+            <h4>TF-IDF Cosine Similarity</h4>
+            <p>Score: {{ "%.3f"|format(result.evaluation['TF-IDF_cosine_similarity']) }}</p>
+
         </div>
         {% endif %}
     </div>

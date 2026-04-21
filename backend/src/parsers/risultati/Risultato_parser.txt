@@ -1,90 +1,58 @@
-<<<<<<< HEAD
-Fantasy Premier League
-The Scout explains the basics of the all-important chip for beginners in Fantasy
-The Scout explains the basics of the Wildcard chip for novice managers in 2024/25[Fantasy Premier League](https://fantasy.premierleague.com/).
-The Wildcard chip is the most powerful of the five chips available to managers as it allows you unlimited free transfers to overhaul your entire squad without incurring any points hits.
-[ Fantasy Premier League  FPL experts: When should you use your Wildcard?  ](https://www.premierleague.com/news/4106422 "FPL experts: When should you use your Wildcard?") [ FPL experts: When should you use your Wildcard?  Some of the world's top managers reveal their plans for using the chip ](https://www.premierleague.com/news/4106422)
-The Wildcard chip can be used twice a season. The first Wildcard will be available from the start of this season until Sunday 29 December 13:30 GMT. The second Wildcard will be available afterSunday 29 December 13:30 GMT in readiness for the January transfer window opening and remains available until the end of the season. 
-The Wildcard chip is played when confirming transfers and can't be cancelled once played.
-When to play your Wildcard is very much a team-dependant decision. 
-When should you use your Wildcard?
-If you have suffered a poor start to 2024/25 and don’t own either Erling Haaland(£15.2m) or Mohamed Salah (£12.6m) – who are the top-scoring players after the first three Gameweeks – then there is plenty of upside in using it now.
-Both Haaland and Salah’s potential for huge captaincy hauls means you need to have at least one of them in your line-up to avoid falling further down the overall rankings.
-[ Fantasy Premier League  Are Haaland and Salah BOTH must-haves in FPL?  ](https://www.premierleague.com/news/4106018 "Are Haaland and Salah BOTH must-haves in FPL?") [ Are Haaland and Salah BOTH must-haves in FPL?  The Scout builds squad including Man City and Liverpool stars, with both producing best starts EVER in Fantasy ](https://www.premierleague.com/news/4106018)
-A club’s displays under a new head coach can be another reason to reassess plans for your squad.
-If you were cautious over loading up on [Liverpool](https://www.premierleague.com/clubs/10/Liverpool/overview) players in your opening squad after Jurgen Klopp departed last season, you could now reverse that decision with a Wildcard. 
-The Reds have thrived under Arne Slot and are the only side to keep a clean sheet in all three of the opening Gameweeks, with Trent Alexander-Arnold ’s (£7.0m) huge attacking potential making him the best option. Meanwhile, Luis Diaz and Diogo Jota(both £7.6m) provide strong double-up picks alongside Salah in attack. 
-Using the Wildcard now – during an international break – can also help lift your squad value, as players are more likely to change in cost when there is a two-week gap between Gameweek deadlines. Historically, players have risen or fallen in price by a maximum of £0.3m per Gameweek.
-[ Fantasy Premier League  FPL player price changes: how, why and when does it happen?  ](https://www.premierleague.com/news/2858775 "FPL player price changes: how, why and when does it happen?") [ FPL player price changes: how, why and when does it happen?  Find out why player prices fluctuate in FPL and how to avoid losing team value ](https://www.premierleague.com/news/2858775)
-Keep an eye out for Gameweek 6
-Assessing the schedules for each club can also help managers identify the best time to play their Wildcard.
-For example, if you don’t own any [Arsenal](https://www.premierleague.com/clubs/1/Arsenal/overview) attackers, then Gameweek 6 could be the ideal time to use the chip to bring in Bukayo Saka(£10.1m) and Kai Havertz(£8.1m).
-The Gunners have tough matches against [Tottenham Hotspur](https://www.premierleague.com/clubs/21/Tottenham-Hotspur/overview) and [Manchester City](https://www.premierleague.com/clubs/11/Manchester-City/overview) in the next two Gameweeks.
-But from Gameweek 6, they have back-to-back home matches with promoted pair [Leicester City](https://www.premierleague.com/clubs/26/Leicester-City/overview) and [Southampton](https://www.premierleague.com/clubs/20/Southampton/overview), followed by a visit to [AFC Bournemouth](https://www.premierleague.com/clubs/127/Bournemouth/overview).
-This window could be particularly appealing if you have loaded up on [Newcastle United](https://www.premierleague.com/clubs/23/Newcastle-United/overview) assets such as Anthony Gordon(£7.4m) and Alexander Isak (£8.5m) in your opening squad. The Magpies host Man City in Gameweek 6 and will then face [Chelsea](https://www.premierleague.com/clubs/4/Chelsea/overview) and Arsenal in their subsequent four fixtures. 
-Typically, the second Wildcard is best to save until late in the season to profit from any Double Gameweeks (DGWs). A DGW is when a club has two matches in a Gameweek and is usually caused by postponements due to domestic cup matches. 
-=======
-## Carta di Identità della Ricetta
-  * **183,2 KCal** Calorie per porzione
-  * Difficoltà [facile](https://www.my-personaltrainer.it/Tv/Ricette/Difficolta/2.html "Ricette facile")
-  * Dosi per [6 persone](https://www.my-personaltrainer.it/Tv/Ricette/Persone/6persone.html "Ricette per 6 persone")
-  * Preparazione [20 minuti](https://www.my-personaltrainer.it/Tv/Ricette/Preparazione/20minuti.html "Ricette con preparazione di circa 20 minuti")
-  * Costo [medio](https://www.my-personaltrainer.it/Tv/Ricette/Costo/medio.html "Ricette a costo medio")
-  * **Nota** 20 minuti per la preparazione; 40-45 minuti di cottura
+## Why Asteroid Day?
+In December 2016 the United Nations General Assembly adopted resolution [A/RES/71/90](http://undocs.org/en/A/RES/71/90), declaring 30 June International Asteroid Day in order to "observe each year at the international level the anniversary of the Tunguska impact over Siberia, Russian Federation, on 30 June 1908, and to raise public awareness about the asteroid impact hazard."
+International Asteroid Day aims to raise public awareness about the asteroid impact hazard and to inform the public about the crisis communication actions to be taken at the global level in case of a credible near-Earth object threat.
+The General Assembly’s decision was made based on a proposal by the [Association of Space Explorers](http://www.space-explorers.org/ "Association of Space Explorers"), which was endorsed by [Committee on the Peaceful Uses of Outer Space (COPUOS)](http://www.unoosa.org/oosa/en/copuos/index.html).
+### 2029 — International Year of Asteroid Awareness and Planetary Defence
+On 13 April 2029, the asteroid 99942 Apophis will pass safely at a distance of about 32,000 kilometers above Earth's surface, within the geostationary orbit, posing no threat to the planet. This extremely close approach will make the asteroid visible to billions of people with the naked eye in the clear night sky.
+This will be a once-in-a-millennium event and a unique occasion for a worldwide campaign to raise awareness with regard to asteroids, their scientific and resource value and the potential hazard they pose.
+In 2024, the General Assembly declared 2029 the [International Year of Asteroid Awareness and Planetary Defence](https://www.un.org/en/observances/asteroid-awareness-year) to take advantage on the close approach of 99942 Apophis and raise global awareness about asteroids.
+This initiative aims to highlight the collaborative efforts of the Committee on the Peaceful Uses of Outer Space in mitigating potential hazards from near-Earth objects, while also providing an opportunity for a global educational campaign.
+### Background
+Near-Earth objects ([NEOs](http://www.unoosa.org/oosa/en/ourwork/topics/neos/index.html)) are asteroids and comets whose orbit brings them closer than 1.3 astronomical units, or approximately 195 million kilometres, to the Sun. NEOs, that are closer than 0.05 astronomical units to Earth's orbit (about 7.5 million kilometers) and larger than about 140 meters in size, represent potentially catastrophic threats to our planet.
+According to NASA’s Center for NEO Studies, there are over [36,000 Near Earth Asteroids discovered](https://cneos.jpl.nasa.gov/stats/totals.html). The Tunguska asteroid event in Siberia, Russian Federation, on 30 June 1908, was the Earth's largest asteroid impact in recorded history.
+On 15 February 2013, a large fireball (technically, called a "superbolide"), traveling at a velocity of 18.6 kilometers per second, entered the atmosphere and disintegrated in the skies over Chelyabinsk. According to NASA, the approximate effective diameter of the asteroid was estimated at 18 meters and its mass at 11,000 tons. The approximate total impact energy of the Chelyabinsk Fireball, in kilotons of TNT explosives (the energy parameter usually quoted for a fireball), was 440 kilotons. The Chelyabinsk event was an extraordinarily large fireball, the most energetic impact event recognized since the 1908 Tunguska blast in Russian Siberia.
+The [United Nations Office for Outer Space Affairs (UNOOSA)](http://www.unoosa.org/) has worked on NEOs for many years, recognising a NEO impact hazard as a global issue demanding an international response. Addressing such a hazard, including the identification of those objects that pose a threat of impact and planning a corresponding mitigation campaign, requires cooperative action in the interest of public safety on the part of the global community.
+Building on recommendations for an international response to a near-Earth Object impact threat, endorsed by the Committee on the Peaceful Uses of Outer Space (COPUOS) in 2013, the International Asteroid Warning Network (IAWN) and the Space Mission Planning Advisory Group (SMPAG) were established in 2014.
+The [International Asteroid Warning Network (IAWN)](http://iawn.net/) uses well-defined communication plans and protocols to assist Governments in the analysis of possible consequences of an asteroid impact and to support the planning of mitigation responses.
+[The Space Mission Planning Advisory Group (SMPAG)](https://www.cosmos.esa.int/web/smpag/) is an inter-space agency forum that identifies technologies needed for near-Earth Object deflection, and aims to build consensus on recommendations for planetary defense measures.
+### International cooperation on planetary defense and protection against asteroids
+### Documents
+  * [Resolution declaring International Asteroid Day](http://undocs.org/A/RES/71/90)
+  * [COPUOS Reports](http://www.unoosa.org/oosa/documents-and-resolutions/search.jspx?view=documents&f=oosaDocument.doctags.doctag_s%3ACOPUOSRDOCS)
+  * [A/RES/54/68](http://daccess-ods.un.org/access.nsf/Get?Open&DS=A/RES/54/68): Third United Nations Conference on the Exploration and Peaceful Uses of Outer Space
+  * [Reports Archive](http://www.uncosa.unvienna.org/uncosa/en/reports/index.html)
+  * [Principles Governing the Use by States of Artificial Earth Satellites for International Direct Television Broadcasting (A/RES/37/92)](http://undocs.org/A/RES/37/92)
+  * [Principles relating to Remote Sensing of the Earth from Outer Space (A/RES/41/65)](http://undocs.org/A/RES/41/65)
+  * [Principles relevant to the Use of Nuclear Power Sources in Outer Space (A/RES/47/68)](http://undocs.org/A/RES/47/68)
+  * [Declaration on International Cooperation in the Exploration and Use of Outer Space for the Benefit and in the Interest of All States, Taking into Particular Account the Needs of Developing Countries (A/RES/51/122)](http://undocs.org/A/RES/51/122)
+  * [Treaty on Principles Governing the Activities of States in the Exploration and Use of Outer Space, including the Moon and Other Celestial Bodies (A/RES/2222 (XXI))](http://undocs.org/A/RES/2222%20\(XXI\))
+  * [Agreement on the Rescue of Astronauts, the Return of Astronauts and the Return of Objects Launched into Outer Space (A/RES/2345 (XXII))](http://undocs.org/A/RES/2345%20\(XXII\))
+  * [Convention on International Liability for Damage Caused by Space Objects (A/RES/2777 (XXVI))](http://undocs.org/A/RES/2777%20\(XXVI\))
+  * [Register of objects launched into outer space (A/RES/3235 (XXIX))](http://undocs.org/A/RES/3235%20\(XXIX\))
+  * [Agreement Governing the Activities of States on the Moon and Other Celestial Bodies (A/RES/34/68)](http://undocs.org/A/RES/34/68)
 
 
-Categoria Ricetta:  [Dolci e Dessert](https://www.my-personaltrainer.it/Tv/Ricette/Dolci_Dessert.html) / Torta alla Ricotta - Senza Farina 
-## Ingredienti
-  * 550 gr di [ricotta fresca](https://www.my-personaltrainer.it/Tv/Ricette/Ingredienti/ricotta_fresca.html "Ricette con ricotta fresca")
-  * 3 di [uova](https://www.my-personaltrainer.it/Tv/Ricette/Ingredienti/uova.html "Ricette con uova")
-  * 120 gr di [zucchero di canna](https://www.my-personaltrainer.it/Tv/Ricette/Ingredienti/zucchero_di_canna.html "Ricette con zucchero di canna")
-  * 100 gr di [uvetta sultanina](https://www.my-personaltrainer.it/Tv/Ricette/Ingredienti/uvetta_sultanina.html "Ricette con uvetta sultanina")
-  * 100 gr di [farina di riso](https://www.my-personaltrainer.it/Tv/Ricette/Ingredienti/farina_di_riso.html "Ricette con farina di riso")
-  * succo e scorza di [limone non trattato](https://www.my-personaltrainer.it/Tv/Ricette/Ingredienti/limone_non_trattato.html "Ricette con limone non trattato")
+### Useful links
+  * [International Asteroid Warning Network](http://iawn.net/)
+  * [Space Mission Planning Advisory Group](https://www.cosmos.esa.int/web/smpag/home)
+  * [NASA's center for computing asteroid and comet orbits and their odds of Earth impact](http://neo.jpl.nasa.gov/)
+  * [NASA Asteroid Watch](https://www.jpl.nasa.gov/asteroidwatch/)
+  * [NEO Coordination Centre](http://neo.ssa.esa.int/)
+  * [United Nations Committee on the Peaceful Uses of Outer Space](http://www.unoosa.org/oosa/en/COPUOS/copuos.html)
+  * [United Nations Office for Outer Space Affairs](http://www.oosa.unvienna.org/)
+  * [United Nations Coordination of Outer Space Activities](http://www.uncosa.unvienna.org/)
+  * [International Year of Asteroid Awareness and Planetary Defence (2029)](https://www.un.org/en/observances/asteroid-awareness-year)
+  * [International Day of Human Space Flight Day](https://www.un.org/en/observances/human-spaceflight-day) (12 April)
+  * [International Moon Day](https://www.un.org/en/observances/moon-day) (20 July)
+  * [World Space Week](https://www.un.org/en/observances/world-space-week) (4-10 October)
 
 
-Per guarnire
-  * (frutti rossi) quanto basta di [marmellata](https://www.my-personaltrainer.it/Tv/Ricette/Ingredienti/marmellata.html "Ricette con marmellata")
 
+### [UN and Outer Space](https://www.unoosa.org/oosa/index.html)
+The United Nations Office for Outer Space Affairs (UNOOSA) works to promote international cooperation in the peaceful use and exploration of space, and in the utilisation of space science and technology for sustainable economic and social development. The Office assists any United Nations Member States to establish legal and regulatory frameworks to govern space activities and strengthens the capacity of developing countries to use space science technology and applications for development by helping to integrate space capabilities into national development programmes.
 
-## Materiale Occorrente
-  * Fruste elettriche
-  * Ciotola
-  * Bilancina pesa [alimenti](https://www.my-personaltrainer.it/alimenti.html "Alimenti e Prodotti alimentari")
-  * Carta da forno
-  * Teglia a cerniera dal diametro di 18 cm
+### [Space and Global Goals](http://unoosa.org/oosa/en/ourwork/psa/hsti/chinaspacestation/ao_main.html)
+The United Nations Office for Outer Space Affairs (UNOOSA) in cooperation with the [China Manned Space Agency (CMSA)](http://en.cmse.gov.cn/) launched the programme, which capitalizes on the technological and innovative skills of the Government of China to benefit Member States of the United Nations, in particular developing countries, thereby contributing to the 17 Sustainable Development Goals (SDGs) through increasing access to space.
 
-
-## Preparazione
-  * In una ciotola, raccogliere le [uova](https://www.my-personaltrainer.it/nutrizione/uova.html "Uova e salute") insieme allo [zucchero](https://www.my-personaltrainer.it/zucchero.html "Zucchero"): lavorare il composto a crema per 5 minuti, fino a quando risulterà spumoso e soffice.
-  * Nel frattempo, ammorbidire l'uvetta in una ciotolina con acqua tiepida, per 5 minuti.
-  * A questo punto, versare la ricotta all'interno della crema di uova, un po' per volta, per evitare che il composto si sleghi.
-  * Aromatizzare la crema di ricotta e uova con succo e scorza di [limone](https://www.my-personaltrainer.it/erboristeria/limone.html "Limone in Erboristeria: Proprietà del Limone"), ed essenza di [vaniglia](https://www.my-personaltrainer.it/alimentazione/vaniglia.html "Vaniglia").
-  * Scolare l'uvetta, strizzarla dall'ammollo e farla rotolare nella [farina](https://www.my-personaltrainer.it/alimentazione/proprieta-nutrizionali-della-semola-di-grano-duro-e-differenze-dalla-farina-di-grano-tenero.html "Proprietà nutrizionali della semola di grano duro e differenze dalla farina di grano tenero") [di riso](https://www.my-personaltrainer.it/nutrizione/olio-di-riso.html "Olio di Riso") prima di unirla all'impasto.
-
-
-### Lo sapevi che...
-L'aggiunta di un po' di [farina di riso](https://www.my-personaltrainer.it/alimentazione/farina-di-riso.html "Farina di Riso") insieme all'uvetta è un consiglio utile per evitare che l'uvetta [affondi](https://www.my-personaltrainer.it/allenamento/affondi-frontali-manubri-sul-posto-come-eseguono-benefici-errori-non-commettere.html "Affondi frontali con manubri sul posto: come si eseguono, benefici e errori da non commettere") sulla base del dolce.
-  * Versare l'impasto all'interno di uno stampo a cerniera dal diametro di 18 cm, dunque cuocere in forno ventilato a 160°C per 40-45 minuti. Lasciar completamente raffreddare.
-
-
-### Qualche alternativa
-Per arricchire il dolce, si possono aggiungere delle scorze di [frutta candita](https://www.my-personaltrainer.it/alimentazione/frutta-candita.html "Frutta Candita: Nutrizione, Dieta e Cucina"), dei pezzi di [cioccolato](https://www.my-personaltrainer.it/alimentazione/il-cioccolato-fa-bene-o-fa-male-benefici-e-proprieta.html "Il cioccolato fa bene o fa male? Benefici e proprietà") oppure semplice [marmellata](https://www.my-personaltrainer.it/alimentazione/marmellata.html "Marmellata e confettura") agli [agrumi](https://www.my-personaltrainer.it/alimentazione/agrumi-quali-sono-proprieta-nurizionali-e-possibili-controindicazioni.html "Agrumi: quali sono, proprietà nutrizionali e possibili controindicazioni") o ai frutti.
-A piacere, prima di servire il dolce, distribuire della marmellata ai frutti rossi sulla superficie.
-## Il commento di Alice - PersonalCooker
-Farete un figurone con questa torta alla ricotta: morbida e scioglievole, perfetta anche per l'estate! Potete degustarla per [colazione](https://www.my-personaltrainer.it/dieta-colazione.html "Dieta e Colazione: Importanza e Consigli Utili"), oppure dopo cena per ultimare un pasto insieme agli amici!
-## Valori nutrizionali e Commento Salutistico sulla ricetta
-Se non volete usare lo zucchero, aggiungete all'impasto un paio di cucchiai di marmellata a vostro piacere.
-### Valori nutrizionali (100 g)
-  * Calorie: **183,2 Kcal**
-  * Carboidrati: **24,9 g**
-  * Proteine: **9,4 g**
-  * Grassi: **5,8 g**
-    * di cui saturi: **3,3g**
-    * di cui monoinsaturi: **2,17g**
-    * di cui polinsaturi: **0,37 g**
-  * Colesterolo: **96 mg**
-  * Fibre: **0,5 g**
-
-
->>>>>>> 7e53fe3d7137a86b85d377c93e2f21bfd3fade03
+### [Why do we mark International Days?](https://www.un.org/en/observances)
+[International days and weeks](https://www.un.org/en/observances/international-days-and-weeks) are occasions to educate the public on issues of concern, to mobilize political will and resources to address global problems, and to celebrate and reinforce achievements of humanity. The existence of international days predates the establishment of the United Nations, but the UN has embraced them as a powerful advocacy tool. We also mark other [UN observances](https://www.un.org/en/observances).
