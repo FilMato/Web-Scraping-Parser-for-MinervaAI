@@ -76,14 +76,14 @@ async def gold_standard(url: str):
         if j["url"] == url:
             return  j
 
-@app.get("/full_gold_standard:")
+@app.get("/full_gold_standard")
 async def full_gold_standard(domain: str):
     if domain not in GS_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
     gs=GS_DOMAINS[domain]
     return {"gold_standard": gs}
 
-@app.get("/full_gs_eval:")
+@app.get("/full_gs_eval")
 async def full_gs_eval(domain: str):
     if domain not in GS_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")

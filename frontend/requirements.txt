@@ -3,3 +3,4 @@ uvicorn==0.44.0
 Jinja2==3.1.6
 requests==2.33.1
 httpx
+python-multipart

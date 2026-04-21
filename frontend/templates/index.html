@@ -15,36 +15,39 @@
     <h1>Web Parser - Laboratorio Ingegneria Informatica</h1>
 
     <!-- FORM: inserimento URL libero -->
-    <form method="post" action="/parse">
+    <form method="post" action="/parse_url">
         <label><strong>Inserisci un URL:</strong></label><br>
         <input type="text" name="url" style="width:70%" placeholder="https://...">
         <button type="submit">Parsa</button>
     </form>
 
     <!-- MENU A TENDINA con gli URL del Gold Standard -->
-    <form method="post" action="/parse">
+    <form method="post" action="/parse_url">  <!-- ← corretto -->
         <label><strong>Oppure seleziona dal Gold Standard:</strong></label><br>
         <select name="url" style="width:70%">
-            {% for url in gs_urls %}
-                <option value="{{ url }}">{{ url }}</option>
+            {% for domain, urls in gs_urls.items() %}  <!-- ← corretto -->
+                <optgroup label="{{ domain }}">
+                    {% for url in urls %}
+                        <option value="{{ url }}">{{ url }}</option>
+                    {% endfor %}
+                </optgroup>
             {% endfor %}
         </select>
         <button type="submit">Parsa dal GS</button>
     </form>
 
-    <!-- RISULTATI (mostrati solo se result non è None) -->
     {% if result %}
     <div class="panel">
-        <h2>Risultati per: {{ result.parsed.url }}</h2>
+        <h2>Risultati per: {{ result.url }}</h2>  <!-- ← corretto -->
 
         <div style="display: flex; gap: 20px;">
             <div style="flex:1">
                 <h3>HTML grezzo</h3>
-                <textarea readonly>{{ result.parsed.html_text }}</textarea>
+                <textarea readonly>{{ result.html_text }}</textarea>  <!-- ← corretto -->
             </div>
             <div style="flex:1">
                 <h3>Testo pulito (parsed)</h3>
-                <textarea readonly>{{ result.parsed.parsed_text }}</textarea>
+                <textarea readonly>{{ result.parsed_text }}</textarea>  <!-- ← corretto -->
             </div>
             {% if result.gold_text %}
             <div style="flex:1">
@@ -54,7 +57,6 @@
             {% endif %}
         </div>
 
-        <!-- METRICHE (solo se disponibili) -->
         {% if result.evaluation %}
         <div class="metrics">
             <h3>Valutazione automatica</h3>
