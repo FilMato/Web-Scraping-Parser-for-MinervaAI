@@ -54,5 +54,34 @@ class WikipediaParser(Parser):
                 "parsed_text": "",
                 "html_text": ""
             }  
+    
+    async def parser_url2(self, url: str, html_text: str) -> dict:
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(html_text, "html.parser")
+
+        path = unquote(urlparse(url).path)
+        urlname = os.path.basename(path)
+        titolo = os.path.splitext(urlname)[0].replace("-", " ").capitalize()
+
+        element = soup.select_one(".mw-parser-output")
+        parsed_text = element.get_text(separator="\n").strip() if element else ""
+        parsed_text = clean_output(parsed_text)
+
+        if parsed_text and len(parsed_text.strip()) > 50:
+            return {
+                "url": url,
+                "domain": "it.wikipedia.org",
+                "title": titolo,
+                "parsed_text": parsed_text,
+                "html_text": html_text
+            }
+        else:
+            return {
+                "url": url,
+                "domain": "it.wikipedia.org",
+                "title": titolo,
+                "parsed_text": "",
+                "html_text": html_text
+            }
         
 

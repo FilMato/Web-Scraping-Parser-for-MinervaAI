@@ -10,6 +10,8 @@ from parsers.parser_wikipedia import WikipediaParser
 from parsers.parser_premier import PremierLeagueParser
 from parsers.parser_un import Parser_UN
 
+from markdownify import markdownify as md
+
 #importo per evaluation
 from evaluator import Evaluator
 
@@ -19,7 +21,7 @@ PARSERS_DOMAINS = {
     "www.my-personaltrainer.it": MyPersonalTrainerParser(),
     "it.wikipedia.org": WikipediaParser(),
     "www.premierleague.com": PremierLeagueParser(),
-    "un.org": Parser_UN()
+    "www.un.org": Parser_UN()
 }
 
 
@@ -29,7 +31,7 @@ cartella_gs = os.path.join(base_dir, "..", "gs_data")
 mappa_file = {
     "it.wikipedia.org": "dominio_it.wikipedia.org_gs.json",
     "www.premierleague.com": "dominio_premierleague.com_gs.json",
-    "un.org": "dominio_un.org_gs.json",
+    "www.un.org": "dominio_un.org_gs.json",
     "www.my-personaltrainer.it": "dominio_www.my-personaltrainer.it_gs.json"
 }
 for dominio, nome_file in mappa_file.items():
@@ -59,7 +61,20 @@ class PostRequest(BaseModel):
 
 @app.post("/parse")
 async def parse(request: PostRequest):
-    pass
+    domain = urlparse(request.url).netloc
+    if domain not in PARSERS_DOMAINS:
+        raise HTTPException(status_code=400, detail="Dominio non supportato")
+    
+    parser = PARSERS_DOMAINS[domain]
+    try:
+        testo_markdown = md(request.html_text)
+        risultato = await parser.parser_url2(request.url, testo_markdown)
+        parser.salva_risultati(risultato["parsed_text"], risultato["html_text"]) 
+        risultato["domain"] = domain
+        return risultato
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/domains")
@@ -76,14 +91,14 @@ async def gold_standard(url: str):
         if j["url"] == url:
             return  j
 
-@app.get("/full_gold_standard:")
+@app.get("/full_gold_standard")
 async def full_gold_standard(domain: str):
     if domain not in GS_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
     gs=GS_DOMAINS[domain]
     return {"gold_standard": gs}
 
-@app.get("/full_gs_eval:")
+@app.get("/full_gs_eval")
 async def full_gs_eval(domain: str):
     if domain not in GS_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
@@ -101,8 +116,25 @@ async def full_gs_eval(domain: str):
         print(articolo["url"])
         parser_json=await parser.parser_url(articolo["url"])
         gold_text = articolo["gold_text"]
-        parsed_text = parser_json["parsed_text"]
-        result = valutatore.eval_server(parsed_text, gold_text)
+        
+        #parsed_text = parser_json["parsed_text"]
+        # Inizializziamo parsed_text a una stringa vuota, e solo se parser_json è valido e contiene "parsed_text", lo aggiorniamo
+        parsed_text = ""
+        parser_json = await parser.parser_url(articolo["url"])
+        if parser_json and "parsed_text" in parser_json:
+            parsed_text = parser_json["parsed_text"]
+
+        try:
+            result = valutatore.eval_server(parsed_text, gold_text)
+        except Exception:
+            # Se la matematica esplode, mettiamo tutto a zero
+            result = {
+                "token_level_eval": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
+                "rouge_2_eval": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
+                "information_density_evaluation": {"Score gold standard": 0.0, "Score parsed text": 0.0, "Difference": 0.0},
+                "TF-IDF_cosine_similarity": 0.0
+            }
+        
         print(result)
         somme["token_level_eval"]["precision"] += result["token_level_eval"]["precision"]
         somme["token_level_eval"]["recall"] += result["token_level_eval"]["recall"]
@@ -142,6 +174,15 @@ class EvaluationRequest(BaseModel):
 
 @app.post("/evaluate")
 async def evaluate(request: EvaluationRequest):
-    return Evaluator().eval_server(request.parsed_text, request.gold_text)
+    try:
+        return Evaluator().eval_server(request.parsed_text, request.gold_text)
+    except Exception:
+        # Se c'è un errore restituiamo gli zeri in modo pulito
+        return {
+            "token_level_eval": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
+            "rouge_2_eval": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
+            "information_density_evaluation": {"Score gold standard": 0.0, "Score parsed text": 0.0, "Difference": 0.0},
+            "TF-IDF_cosine_similarity": 0.0
+        }
 
 

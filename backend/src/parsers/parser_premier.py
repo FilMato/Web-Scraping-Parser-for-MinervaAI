@@ -48,16 +48,43 @@ class PremierLeagueParser(Parser):
             if result.success and result_markdown:
                 return{
                     "url":url,
-                    "domain":"https://www.premierleague.com",
+                    "domain":"www.premierleague.com",
                     "title":titolo_estratto,
                     "parsed_text":result_markdown,
                     "html_text":result.html or ""
                 }
         return {
             "url":url,
-            "domain":"https://www.premierleague.com",
+            "domain":"www.premierleague.com",
             "title":"Errore di parsing",
             "parsed_text":"",
             "html_text":"" 
         }
+    
+    async def parser_url2(self, url: str, html_text: str) -> dict:
+        soup = BeautifulSoup(html_text, "html.parser")
+        titolo_estratto = (
+            soup.select_one(".article__header-title") or
+            soup.select_one("h1") or
+            soup.select_one("title")
+        )
+        titolo_estratto = titolo_estratto.text.strip() if titolo_estratto else "Titolo non trovato"
+        result_markdown = clean_output(soup.get_text(separator="\n").strip())
+        if result_markdown:
+            return {
+                "url": url,
+                "domain": "www.premierleague.com",
+                "title": titolo_estratto,
+                "parsed_text": result_markdown,
+                "html_text": html_text
+            }
+        else:
+            return {
+                "url": url,
+                "domain": "www.premierleague.com",
+                "title": titolo_estratto,
+                "parsed_text": "",
+                "html_text": html_text
+            }
+                
 
