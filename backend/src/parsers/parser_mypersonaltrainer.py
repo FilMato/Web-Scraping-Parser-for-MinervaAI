@@ -35,9 +35,7 @@ class MyPersonalTrainerParser(Parser):
                     magic=True,
                     css_selector=selector,
                     excluded_tags=["nav", "footer", "header", "aside", "figure", "img", "script", "style"],
-                    excluded_selector=".sal-content-whatsapp-channel, .sal-adv-slot, #relatedSearchesLeaf, .sal-widget-image,.sal-breadcrumb, .sal-social-share, .sal-tags",
-                    wait_until="domcontentloaded",
-                    delay_before_return_html=5.0
+                    excluded_selector=".sal-content-whatsapp-channel, .sal-adv-slot, #relatedSearchesLeaf, .sal-widget-image,.sal-breadcrumb, .sal-social-share, .sal-tags"
                 )
         
                 result = await crawler.arun(url=url, config=crawler_cfg)
