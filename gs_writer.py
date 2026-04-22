@@ -6,7 +6,7 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 async def json_creator(url: str, domain: str, title: str, gold_text: str): #crawler is only used to retrieve the html text
 
     json_dict = {}
-    browser_cfg = BrowserConfig(headless=False) #if true the page opened does not show
+    browser_cfg = BrowserConfig(headless=True) #if true the page opened does not show
     crawler_cfg = CrawlerRunConfig(cache_mode=CacheMode.BYPASS)
 
     async with AsyncWebCrawler(config=browser_cfg) as crawler:
