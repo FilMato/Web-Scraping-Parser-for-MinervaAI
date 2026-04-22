@@ -1,4 +1,6 @@
 import asyncio
+import requests
+from bs4 import BeautifulSoup
 from crawl4ai import AsyncWebCrawler, CacheMode, BrowserConfig, CrawlerRunConfig, LLMConfig, DefaultMarkdownGenerator, PruningContentFilter
 from crawl4ai.content_filter_strategy import LLMContentFilter
 
@@ -25,22 +27,20 @@ class Parser_UN(Parser):
             ]
 
     @staticmethod
-    def clean_output(text: str):
-
+    def _clean_output(text: str):
         text = re.sub(r'\[\]\([^)]+\)', '', text) #clear empty markdown links
         return text
-    
-    @staticmethod
-    def _get_title(text: str) -> str:
-
-        match_str = re.search(r'\<title>(.+)<\/title>', text)
-        return match_str.group(1) if match_str else "no matches!"
 
     async def parser_url(self, url: str) -> dict: #input url, output json obj
-
         domain = urlparse(url).netloc
+
+        reqs = requests.get(url)
+        soup = BeautifulSoup(reqs.text, 'html.parser')
+        title = soup.title.get_text()
+        title = soup.select_one("title")
+        title = title.text.strip() if title else "Errore nel trovare il titolo"
+
         browser_cfg = BrowserConfig(headless = True)
-        title = "title"
         md_generator = DefaultMarkdownGenerator(
             options={
                 "ignore_images": True
@@ -55,7 +55,6 @@ class Parser_UN(Parser):
                                             markdown_generator=md_generator)
         
         async with AsyncWebCrawler(config=browser_cfg) as crawler:
-
             for selector in self.css_selectors:
                 selector_cfg = CrawlerRunConfig(cache_mode=CacheMode.BYPASS,
                                         css_selector=selector,
@@ -68,7 +67,7 @@ class Parser_UN(Parser):
                     url = url, 
                     config = selector_cfg
                 )
-                result_markdown = self.clean_output(result.markdown)
+                result_markdown = self._clean_output(result.markdown)
                 if result.success and result_markdown and len(result_markdown.strip()) > 50:
                     print(title)
                     return {
@@ -78,14 +77,13 @@ class Parser_UN(Parser):
                         "parsed_text": result_markdown,
                         "html_text": result.html or ""   
                     }
-                
-            result = await crawler.arun( #se non dovesse esistere alcun selector faccio il parsing un'ultima volta senza alcun selector
+            #se non dovesse esistere alcun selector faccio il parsing un'ultima volta senza specificare il selector
+            result = await crawler.arun(
                 url = url, 
                 config = no_selector_cfg 
             )
-            result_markdown = self.clean_output(result.markdown)
+            result_markdown = self._clean_output(result.markdown)
             if result.success and result_markdown and len(result_markdown.strip()) > 50:
-                    print(title)
                     return {
                         "url": url,
                         "domain": domain,
@@ -104,7 +102,9 @@ class Parser_UN(Parser):
     async def parser_url2(self, url: str, html_text: str) -> dict: #input url, output json obj
         domain = urlparse(url).netloc
         browser_cfg = BrowserConfig(headless = True)
-        title = self._get_title(html_text)
+        soup = BeautifulSoup(html_text, "html.parser")
+        title = soup.select_one("title")
+        title = title.text.strip() if title else "Errore nel trovare il titolo"
         md_generator = DefaultMarkdownGenerator(
             options={
                 "ignore_images": True
@@ -132,7 +132,7 @@ class Parser_UN(Parser):
                     url = f'raw:{html_text}', 
                     config = selector_cfg
                 )
-                result_markdown = self.clean_output(result.markdown)
+                result_markdown = self._clean_output(result.markdown)
                 if result.success and result_markdown and len(result_markdown.strip()) > 50:
                     print(title)
                     return {
@@ -147,7 +147,7 @@ class Parser_UN(Parser):
                 url = f'raw:{html_text}', 
                 config = no_selector_cfg 
             )
-            result_markdown = self.clean_output(result.markdown)
+            result_markdown = self._clean_output(result.markdown)
             if result.success and result_markdown and len(result_markdown.strip()) > 50:
                     print(title)
                     return {
