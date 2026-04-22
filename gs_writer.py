@@ -156,6 +156,30 @@ urls_to_process = [
         "domain" : "premierleague.com", 
         "title" : "Season trends: Record low number of red cards", 
         "golden_text" : "gs_data/premierleague_gs/red_cards_gs.txt"
+    },
+
+    {"url" : "https://www.premierleague.com/en/stats/records", 
+     "domain" : "premierleague.com", 
+     "title" : "Stats Centre", 
+     "golden_text" : "gs_data/premierleague_gs/Stats_gs.txt"
+     },
+
+     {"url" : "https://www.premierleague.com/en/transfers/2025-26/january", 
+     "domain" : "premierleague.com", 
+     "title" : "Latest Injury News", 
+     "golden_text" : "gs_data/premierleague_gs/injuries_gs.txt"
+     },
+
+    {"url" : "https://www.premierleague.com/en/news/4637711/premier-league-news-stories-including-man-city-stats-without-rodri-arsene-wenger-arsenal-title-prediction", 
+        "domain" : "premierleague.com", 
+        "title" : "The Briefing: Rodri ruled out, Arsene Wenger’s title prediction and more", 
+        "golden_text" : "gs_data/premierleague_gs/Rodri_news_gs.txt"
+    },
+
+    {"url" : "https://www.premierleague.com/en/news/4604681/202526-premier-league-golden-glove-which-goalkeeper-has-kept-the-most-clean-sheets", 
+        "domain" : "premierleague.com", 
+        "title" : "2025/26 Premier League Golden Glove race:Who has the most clean sheets?", 
+        "golden_text" : "gs_data/premierleague_gs/clean_sheets_gs.txt"
     }
 ]
 
