@@ -1,8 +1,9 @@
 import string
+import nltk
+import re 
 from collections import Counter
 from nltk.corpus import stopwords
 from math import log, sqrt
-import re 
 
 #class for evaluating parser output
 class Evaluator:
@@ -18,11 +19,10 @@ class Evaluator:
     #this method returns a list of token (words)
     @staticmethod
     def _tokenization(text: str) -> list:
-
         #clean text
         def strip_txt(text: str) -> str: #make the two comparable (lower, strip markdown if necessary, links...)
+            
             text = text.lower()
-
             text = re.sub(r'\*+([^*]+)\*+', r'\1', text) #grassettp
             text = re.sub(r'\_+([^_]+)\_+', r'\1', text) #corsivo
             text = re.sub(r'\#+\s?([^#]+)', r'\1', text) #titoli
@@ -31,7 +31,7 @@ class Evaluator:
             return text
 
         text = strip_txt(text)
-        cleaning_rule = str.maketrans('', '', string.punctuation) #strips punctuation
+        cleaning_rule = str.maketrans(string.punctuation, ' ' * len(string.punctuation)) #strips punctuation
         clean_txt = text.translate(cleaning_rule)
         clean_list = clean_txt.split() #creates list of word
 
@@ -79,6 +79,8 @@ class Evaluator:
             return detected_language
     
     def _filter_stopwords(self, tokenized_txt: list, language: str) -> list:
+        if not language or language not in self._languages_stopwords:
+            return tokenized_txt
         return [word for word in tokenized_txt if word not in self._languages_stopwords[language]]
     
     @staticmethod
@@ -161,8 +163,15 @@ class Evaluator:
         filtered_gs = self._filter_stopwords(tokens_gs, self._detect_language(tokens_gs))
         tokens_ps = self._tokenization(ps_txt)
         filtered_ps = self._filter_stopwords(tokens_ps, self._detect_language(tokens_ps))
-        score_gs = len(filtered_gs) / len(tokens_gs)
-        score_ps = len(filtered_ps) / len(tokens_ps)
+        try: 
+            score_gs = len(filtered_gs) / len(tokens_gs)
+        except ZeroDivisionError:
+            score_gs = 0
+        
+        try:
+            score_ps = len(filtered_ps) / len(tokens_ps)
+        except ZeroDivisionError:
+            score_ps = 0
         
         return {
             'Score gold standard' : score_gs,
@@ -181,8 +190,14 @@ class Evaluator:
     #takes a bigram (two consecutive tokens) instead of a single one, then the calculation method is the same as token - level
     def _rouge_2_eval(self, parsed_txt:str, gs_txt:str) -> dict: #very short texts are penalized as a text of length n produces n-1 bigrams.
 
-        gs_bigram_set = Counter(self._extract_ngrams(self._tokenization(gs_txt), 2)) #get a Counter of token, goal: be more accurate with token evaluation
-        ps_bigram_set = Counter(self._extract_ngrams(self._tokenization(parsed_txt), 2))
+        gs_tokens = self._tokenization(gs_txt)
+        ps_tokens = self._tokenization(parsed_txt)
+
+        if len(gs_tokens) < 2 or len(ps_tokens) < 2:
+            return self._token_level_eval(parsed_txt, gs_txt)
+
+        gs_bigram_set = Counter(self._extract_ngrams(gs_tokens, 2)) #get a Counter of token, goal: be more accurate with token evaluation
+        ps_bigram_set = Counter(self._extract_ngrams(ps_tokens, 2))
         marks = self._calculation(sum(gs_bigram_set.values()), sum(ps_bigram_set.values()), sum((gs_bigram_set & ps_bigram_set).values())) #matches = G intersection E
         
         return marks
