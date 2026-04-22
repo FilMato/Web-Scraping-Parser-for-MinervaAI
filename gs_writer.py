@@ -64,7 +64,7 @@ urls_to_process = [
      "title" : "Massa (fisica)", 
      "golden_text" : "gs_data/wikipedia_gs_txt/Massa_(fisica)_gs.txt"},
 
-     {"url" : " https://it.wikipedia.org/wiki/Antico_Egitto", 
+     {"url" : "https://it.wikipedia.org/wiki/Antico_Egitto", 
      "domain" : "it.wikipedia.org", 
      "title" : "Antico Egitto", 
      "golden_text" : "gs_data/wikipedia_gs_txt/Antico_Egitto_gs.txt"},
@@ -104,35 +104,56 @@ urls_to_process = [
      "title" : "Myth Busters", 
      "golden_text" : "gs_data/un_gs_txt/Myth_Busters_gs.txt"},
 
-     {"url" : "https://www.my-personaltrainer.it/salute-benessere/cervello.html", 
-     "domain" : "www.my-personaltrainer.it", 
-     "title" : "Cervello", 
-     "golden_text" : "gs_data/mypersonaltrainer_gs/cervello.txt"
-    },
-
-    {"url" : "https://www.my-personaltrainer.it/ETICHETTE-NUTRIZIONALI.htm", 
-    "domain" : "www.my-personaltrainer.it", 
-    "title" : "Etichette nutrizionali", 
+     {   "url": "https://www.my-personaltrainer.it/salute-benessere/cervello.html",
+    "domain": "www.my-personaltrainer.it",
+    "title": "Cervello", 
+    "golden_text" : "gs_data/mypersonaltrainer_gs/cervello.txt"
+},
+{   "url": "https://www.my-personaltrainer.it/ETICHETTE-NUTRIZIONALI.htm",
+    "domain": "www.my-personaltrainer.it",
+    "title": "Etichette nutrizionali",
     "golden_text" : "gs_data/mypersonaltrainer_gs/etichette_nutrizionali.txt"
-    },
-
-    {"url" : "https://www.my-personaltrainer.it/nutrizione/malnutrizione.html", 
-    "domain" : "www.my-personaltrainer.it", 
-    "title" : "Malnutrizione", 
+},
+{   "url": "https://www.my-personaltrainer.it/nutrizione/malnutrizione.html",
+    "domain": "www.my-personaltrainer.it",
+    "title": "Malnutrizione", 
     "golden_text" : "gs_data/mypersonaltrainer_gs/malnutrizione.txt"
-    },
-
-    {"url" : "https://www.my-personaltrainer.it/Tv/Ricette/Dolci_Dessert/torta-alla-ricotta-senza-farina.html", 
-    "domain" : "www.my-personaltrainer.it", 
-    "title" : "Torta alla ricotta senza farina", 
+},
+{   "url": "https://www.my-personaltrainer.it/Tv/Ricette/Dolci_Dessert/torta-alla-ricotta-senza-farina.html",
+    "domain": "www.my-personaltrainer.it",
+    "title": "Torta alla ricotta senza farina",
     "golden_text" : "gs_data/mypersonaltrainer_gs/torta_ricotta.txt"
-    },
-
-    {"url" : "https://www.my-personaltrainer.it/nutrizione/vitamine-minerali.html", 
-    "domain" : "www.my-personaltrainer.it", 
-    "title" : "Vitamine minerali", 
+},
+{   "url": "https://www.my-personaltrainer.it/nutrizione/vitamine-minerali.html",
+    "domain": "www.my-personaltrainer.it",
+    "title": "Vitamine minerali", 
     "golden_text" : "gs_data/mypersonaltrainer_gs/vitamine.txt"
-    },
+},
+{   "url" : "https://www.my-personaltrainer.it/nutrizione/dieta-mediterranea.html", 
+     "domain" : "www.my-personaltrainer.it", 
+     "title" : "Dieta mediterranea", 
+     "golden_text" : "gs_data/mypersonaltrainer_gs/dieta_mediterranea.txt"
+},
+{   "url" : "https://www.my-personaltrainer.it/alimentazione/alimentazione-prima-allenamento.html", 
+     "domain" : "www.my-personaltrainer.it", 
+     "title" : "Alimentazione prima allenamento", 
+     "golden_text" : "gs_data/mypersonaltrainer_gs/alimentazione_allenamento.txt"
+},
+{   "url" : "https://www.my-personaltrainer.it/salute/influenza.html", 
+     "domain" : "www.my-personaltrainer.it", 
+     "title" : "Influenza", 
+     "golden_text" : "gs_data/mypersonaltrainer_gs/influenza.txt"
+},
+{   "url" : "https://www.my-personaltrainer.it/integratori/sport-e-integratori-quando-e-come-assumerli.html", 
+     "domain" : "www.my-personaltrainer.it", 
+     "title" : "Sport e integratori quando e come assumerli", 
+     "golden_text" : "gs_data/mypersonaltrainer_gs/integratori.txt"
+},
+{   "url" : "https://www.my-personaltrainer.it/allenamento/squat.html", 
+     "domain" : "www.my-personaltrainer.it", 
+     "title" : "Squat", 
+     "golden_text" : "gs_data/mypersonaltrainer_gs/squat.txt"
+},
 
     {"url" : "https://www.premierleague.com/en/tables/premier-league/2024-25/all-matchweeks", 
      "domain" : "premierleague.com", 
