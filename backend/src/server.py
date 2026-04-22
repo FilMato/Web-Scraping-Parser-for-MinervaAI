@@ -4,6 +4,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional, List
 from urllib.parse import urlparse
+import asyncio
 
 # Importiamo i nostri parser
 from parsers.parser_mypersonaltrainer import MyPersonalTrainerParser
@@ -107,13 +108,12 @@ async def full_gs_eval(domain: str):
         "TF-IDF_cosine_similarity": 0.0
     }
     for articolo in articoli:
-        print(articolo["url"])
-        parser_json=await parser.parser_url(articolo["url"])
         gold_text = articolo["gold_text"]
-        
-        #parsed_text = parser_json["parsed_text"]
         # Inizializziamo parsed_text a una stringa vuota, e solo se parser_json è valido e contiene "parsed_text", lo aggiorniamo
         parsed_text = ""
+        if domain == "www.my-personaltrainer.it":
+             await asyncio.sleep(5.0)
+
         parser_json = await parser.parser_url(articolo["url"])
         if parser_json and "parsed_text" in parser_json:
             parsed_text = parser_json["parsed_text"]
