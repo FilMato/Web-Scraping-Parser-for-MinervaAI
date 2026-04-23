@@ -191,7 +191,7 @@ urls_to_process = [
      "golden_text" : "gs_data/premierleague_gs/Stats_gs.txt"
      },
 
-     {"url" : "https://www.premierleague.com/en/transfers/2025-26/january", 
+     {"url" : "https://www.premierleague.com/en/latest-player-injuries", 
      "domain" : "premierleague.com", 
      "title" : "Latest Injury News", 
      "golden_text" : "gs_data/premierleague_gs/injuries_gs.txt"
