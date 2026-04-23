@@ -104,6 +104,11 @@ urls_to_process = [
      "title" : "Myth Busters", 
      "golden_text" : "gs_data/un_gs_txt/Myth_Busters_gs.txt"},
 
+     {"url" : "https://www.un.org/en/climatechange/cop26", 
+     "domain" : "un.org", 
+     "title" : "COP26: Together for our planet", 
+     "golden_text" : "gs_data\un_gs_txt\Cop26_together_for_our_planet.txt"},
+
      {   "url": "https://www.my-personaltrainer.it/salute-benessere/cervello.html",
     "domain": "www.my-personaltrainer.it",
     "title": "Cervello", 
