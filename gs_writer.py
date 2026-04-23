@@ -1,4 +1,5 @@
 import json
+import os
 import asyncio
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 
@@ -6,7 +7,7 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 async def json_creator(url: str, domain: str, title: str, gold_text: str): #crawler is only used to retrieve the html text
 
     json_dict = {}
-    browser_cfg = BrowserConfig(headless=False) #if true the page opened does not show
+    browser_cfg = BrowserConfig(headless=True) #if true the page opened does not show
     crawler_cfg = CrawlerRunConfig(cache_mode=CacheMode.BYPASS)
 
     async with AsyncWebCrawler(config=browser_cfg) as crawler:
@@ -64,7 +65,7 @@ urls_to_process = [
      "title" : "Massa (fisica)", 
      "golden_text" : "gs_data/wikipedia_gs_txt/Massa_(fisica)_gs.txt"},
 
-     {"url" : " https://it.wikipedia.org/wiki/Antico_Egitto", 
+     {"url" : "https://it.wikipedia.org/wiki/Antico_Egitto", 
      "domain" : "it.wikipedia.org", 
      "title" : "Antico Egitto", 
      "golden_text" : "gs_data/wikipedia_gs_txt/Antico_Egitto_gs.txt"},
@@ -104,35 +105,61 @@ urls_to_process = [
      "title" : "Myth Busters", 
      "golden_text" : "gs_data/un_gs_txt/Myth_Busters_gs.txt"},
 
-     {"url" : "https://www.my-personaltrainer.it/salute-benessere/cervello.html", 
-     "domain" : "www.my-personaltrainer.it", 
-     "title" : "Cervello", 
-     "golden_text" : "gs_data/mypersonaltrainer_gs/cervello.txt"
-    },
+     {"url" : "https://www.un.org/en/climatechange/cop26", 
+     "domain" : "un.org", 
+     "title" : "COP26: Together for our planet", 
+     "golden_text" : "gs_data\un_gs_txt\Cop26_together_for_our_planet.txt"},
 
-    {"url" : "https://www.my-personaltrainer.it/ETICHETTE-NUTRIZIONALI.htm", 
-    "domain" : "www.my-personaltrainer.it", 
-    "title" : "Etichette nutrizionali", 
+     {   "url": "https://www.my-personaltrainer.it/salute-benessere/cervello.html",
+    "domain": "www.my-personaltrainer.it",
+    "title": "Cervello", 
+    "golden_text" : "gs_data/mypersonaltrainer_gs/cervello.txt"
+},
+{   "url": "https://www.my-personaltrainer.it/ETICHETTE-NUTRIZIONALI.htm",
+    "domain": "www.my-personaltrainer.it",
+    "title": "Etichette nutrizionali",
     "golden_text" : "gs_data/mypersonaltrainer_gs/etichette_nutrizionali.txt"
-    },
-
-    {"url" : "https://www.my-personaltrainer.it/nutrizione/malnutrizione.html", 
-    "domain" : "www.my-personaltrainer.it", 
-    "title" : "Malnutrizione", 
+},
+{   "url": "https://www.my-personaltrainer.it/nutrizione/malnutrizione.html",
+    "domain": "www.my-personaltrainer.it",
+    "title": "Malnutrizione", 
     "golden_text" : "gs_data/mypersonaltrainer_gs/malnutrizione.txt"
-    },
-
-    {"url" : "https://www.my-personaltrainer.it/Tv/Ricette/Dolci_Dessert/torta-alla-ricotta-senza-farina.html", 
-    "domain" : "www.my-personaltrainer.it", 
-    "title" : "Torta alla ricotta senza farina", 
+},
+{   "url": "https://www.my-personaltrainer.it/Tv/Ricette/Dolci_Dessert/torta-alla-ricotta-senza-farina.html",
+    "domain": "www.my-personaltrainer.it",
+    "title": "Torta alla ricotta senza farina",
     "golden_text" : "gs_data/mypersonaltrainer_gs/torta_ricotta.txt"
-    },
-
-    {"url" : "https://www.my-personaltrainer.it/nutrizione/vitamine-minerali.html", 
-    "domain" : "www.my-personaltrainer.it", 
-    "title" : "Vitamine minerali", 
+},
+{   "url": "https://www.my-personaltrainer.it/nutrizione/vitamine-minerali.html",
+    "domain": "www.my-personaltrainer.it",
+    "title": "Vitamine minerali", 
     "golden_text" : "gs_data/mypersonaltrainer_gs/vitamine.txt"
-    },
+},
+{   "url" : "https://www.my-personaltrainer.it/nutrizione/dieta-mediterranea.html", 
+     "domain" : "www.my-personaltrainer.it", 
+     "title" : "Dieta mediterranea", 
+     "golden_text" : "gs_data/mypersonaltrainer_gs/dieta_mediterranea.txt"
+},
+{   "url" : "https://www.my-personaltrainer.it/alimentazione/alimentazione-prima-allenamento.html", 
+     "domain" : "www.my-personaltrainer.it", 
+     "title" : "Alimentazione prima allenamento", 
+     "golden_text" : "gs_data/mypersonaltrainer_gs/alimentazione_allenamento.txt"
+},
+{   "url" : "https://www.my-personaltrainer.it/salute/influenza.html", 
+     "domain" : "www.my-personaltrainer.it", 
+     "title" : "Influenza", 
+     "golden_text" : "gs_data/mypersonaltrainer_gs/influenza.txt"
+},
+{   "url" : "https://www.my-personaltrainer.it/integratori/sport-e-integratori-quando-e-come-assumerli.html", 
+     "domain" : "www.my-personaltrainer.it", 
+     "title" : "Sport e integratori quando e come assumerli", 
+     "golden_text" : "gs_data/mypersonaltrainer_gs/integratori.txt"
+},
+{   "url" : "https://www.my-personaltrainer.it/allenamento/squat.html", 
+     "domain" : "www.my-personaltrainer.it", 
+     "title" : "Squat", 
+     "golden_text" : "gs_data/mypersonaltrainer_gs/squat.txt"
+},
 
     {"url" : "https://www.premierleague.com/en/tables/premier-league/2024-25/all-matchweeks", 
      "domain" : "premierleague.com", 
@@ -183,6 +210,9 @@ urls_to_process = [
     }
 ]
 
+output_folder = "gs_data"
+os.makedirs(output_folder, exist_ok=True) 
+
 for current_page in urls_to_process:
 
     curr_url = current_page["url"]
@@ -192,10 +222,11 @@ for current_page in urls_to_process:
         curr_gold_text = f.read()
 
     json_data = asyncio.run(json_creator(curr_url,curr_domain,curr_title,curr_gold_text))
+    file_path = os.path.join(output_folder, f"dominio_{curr_domain}_gs.json")
 
     #json returns a python list
     try:
-        with open(f"dominio_{curr_domain}_gs.json", "r", encoding="utf-8") as r_file:
+        with open(file_path, "r", encoding="utf-8") as r_file:
             data = json.load(r_file)
     except FileNotFoundError:
         data = []
@@ -203,7 +234,7 @@ for current_page in urls_to_process:
     data.append(json_data)
 
     #write whole list to json file
-    with open(f"dominio_{curr_domain}_gs.json", "w", encoding="utf-8") as a_file:
+    with open(file_path, "w", encoding="utf-8") as a_file:
         json.dump(data, a_file, indent=2)
 
 
