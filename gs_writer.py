@@ -1,4 +1,5 @@
 import json
+import os
 import asyncio
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 
@@ -204,6 +205,9 @@ urls_to_process = [
     }
 ]
 
+output_folder = "gs_data"
+os.makedirs(output_folder, exist_ok=True) 
+
 for current_page in urls_to_process:
 
     curr_url = current_page["url"]
@@ -213,10 +217,11 @@ for current_page in urls_to_process:
         curr_gold_text = f.read()
 
     json_data = asyncio.run(json_creator(curr_url,curr_domain,curr_title,curr_gold_text))
+    file_path = os.path.join(output_folder, f"dominio_{curr_domain}_gs.json")
 
     #json returns a python list
     try:
-        with open(f"dominio_{curr_domain}_gs.json", "r", encoding="utf-8") as r_file:
+        with open(file_path, "r", encoding="utf-8") as r_file:
             data = json.load(r_file)
     except FileNotFoundError:
         data = []
@@ -224,7 +229,7 @@ for current_page in urls_to_process:
     data.append(json_data)
 
     #write whole list to json file
-    with open(f"dominio_{curr_domain}_gs.json", "w", encoding="utf-8") as a_file:
+    with open(file_path, "w", encoding="utf-8") as a_file:
         json.dump(data, a_file, indent=2)
 
 
