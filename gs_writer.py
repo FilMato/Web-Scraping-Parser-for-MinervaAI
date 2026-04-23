@@ -108,7 +108,7 @@ urls_to_process = [
      {"url" : "https://www.un.org/en/climatechange/cop26", 
      "domain" : "un.org", 
      "title" : "COP26: Together for our planet", 
-     "golden_text" : "gs_data\un_gs_txt\Cop26_together_for_our_planet.txt"},
+     "golden_text" : "gs_data/un_gs_txt/Cop26_together_for_our_planet.txt"},
 
      {   "url": "https://www.my-personaltrainer.it/salute-benessere/cervello.html",
     "domain": "www.my-personaltrainer.it",
@@ -225,28 +225,28 @@ output_folder = "gs_data"
 os.makedirs(output_folder, exist_ok=True) 
 
 for current_page in urls_to_process:
+    if current_page["domain"] == "premierleague.com":
+        curr_url = current_page["url"]
+        curr_domain = current_page["domain"]
+        curr_title = current_page["title"]
+        with open(current_page["golden_text"], "r", encoding="utf-8") as f: #gs.txt is a general txt file that contains the text manually pasted from the selected url
+            curr_gold_text = f.read()
 
-    curr_url = current_page["url"]
-    curr_domain = current_page["domain"]
-    curr_title = current_page["title"]
-    with open(current_page["golden_text"], "r", encoding="utf-8") as f: #gs.txt is a general txt file that contains the text manually pasted from the selected url
-        curr_gold_text = f.read()
+        json_data = asyncio.run(json_creator(curr_url,curr_domain,curr_title,curr_gold_text))
+        file_path = os.path.join(output_folder, f"dominio_{curr_domain}_gs.json")
 
-    json_data = asyncio.run(json_creator(curr_url,curr_domain,curr_title,curr_gold_text))
-    file_path = os.path.join(output_folder, f"dominio_{curr_domain}_gs.json")
+        #json returns a python list
+        try:
+            with open(file_path, "r", encoding="utf-8") as r_file:
+                data = json.load(r_file)
+        except FileNotFoundError:
+            data = []
 
-    #json returns a python list
-    try:
-        with open(file_path, "r", encoding="utf-8") as r_file:
-            data = json.load(r_file)
-    except FileNotFoundError:
-        data = []
+        data.append(json_data)
 
-    data.append(json_data)
-
-    #write whole list to json file
-    with open(file_path, "w", encoding="utf-8") as a_file:
-        json.dump(data, a_file, indent=2)
+        #write whole list to json file
+        with open(file_path, "w", encoding="utf-8") as a_file:
+            json.dump(data, a_file, indent=2)
 
 
 
