@@ -134,7 +134,6 @@ async def full_gs_eval(domain: str):
                 "TF-IDF_cosine_similarity": 0.0
             }
         
-        print(result)
         somme["token_level_eval"]["precision"] += result["token_level_eval"]["precision"]
         somme["token_level_eval"]["recall"] += result["token_level_eval"]["recall"]
         somme["token_level_eval"]["f1"] += result["token_level_eval"]["f1"]
