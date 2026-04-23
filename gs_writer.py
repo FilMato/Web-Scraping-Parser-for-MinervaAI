@@ -207,7 +207,18 @@ urls_to_process = [
         "domain" : "premierleague.com", 
         "title" : "2025/26 Premier League Golden Glove race:Who has the most clean sheets?", 
         "golden_text" : "gs_data/premierleague_gs/clean_sheets_gs.txt"
-    }
+    },
+    {"url" : "https://www.premierleague.com/en/match/2562225/bournemouth-vs-leeds-united/overview", 
+        "domain" : "premierleague.com", 
+        "title" : "Bournemouth vs Leeds United | Season 2025/2026 | Premier League", 
+        "golden_text" : "gs_data/premierleague_gs/Bourn_leeds_match_gs.txt"
+    },
+    {"url" : "https://www.premierleague.com/en/match/2562223/nottingham-forest-vs-burnley/overview", 
+        "domain" : "premierleague.com", 
+        "title" : "Nottingham Forest vs Burnley | Season 2025/2026 | Premier League", 
+        "golden_text" : "gs_data/premierleague_gs/Nott_Burn_match_gs.txt"
+    },
+
 ]
 
 output_folder = "gs_data"
