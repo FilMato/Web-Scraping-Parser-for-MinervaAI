@@ -51,7 +51,7 @@ class Parser_UN(Parser):
                                             exclude_all_images= True,
                                             exclude_social_media_links=True,
                                             excluded_tags=['title', 'nav', 'header', 'footer','button', 'video'],
-                                            excluded_selector=".views-field-field-news-tags, .block-content-footer, .type-entermedia_image, #player-gui, #addtoany, #sharing_widget, #skip-link, .image-caption, #sharing-widget, #breadcrumbs, #more_button, .photo-credit, .page-header, .fusion-video, #player-controls, .wp-caption-text",
+                                            excluded_selector=".context-un_news_large_credi, #block-views-block-content-fields-block-tags, .minimal-share-wrapper, #block-content-footer, .views-field-field-news-tags, .block-content-footer, .type-entermedia_image, #player-gui, #addtoany, #sharing_widget, #skip-link, .image-caption, #sharing-widget, #breadcrumbs, #more_button, .photo-credit, .page-header, .fusion-video, #player-controls, .wp-caption-text",
                                             markdown_generator=md_generator)
         
         async with AsyncWebCrawler(config=browser_cfg) as crawler:
@@ -61,7 +61,7 @@ class Parser_UN(Parser):
                                         exclude_all_images= True,
                                         exclude_social_media_links=True,
                                         excluded_tags=['nav', 'header', 'footer','button', 'video'],
-                                        excluded_selector=".views-field-field-news-tags, .block-content-footer, .type-entermedia_image, #player-gui, #addtoany, #sharing_widget, #skip-link, .image-caption, #sharing-widget, #breadcrumbs, #more_button, .photo-credit, .page-header, .fusion-video, #player-controls, .wp-caption-text",
+                                        excluded_selector=".context-un_news_large_credi, #block-views-block-content-fields-block-tags, .minimal-share-wrapper, #block-content-footer, #sidebar_second, .views-field-field-news-tags, .block-content-footer, .type-entermedia_image, #player-gui, #addtoany, #sharing_widget, #skip-link, .image-caption, #sharing-widget, #breadcrumbs, #more_button, .photo-credit, .page-header, .fusion-video, #player-controls, .wp-caption-text",
                                         markdown_generator=md_generator)
                 result = await crawler.arun(
                     url = url, 

@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from parsers.parser_base import Parser
 
 def clean_output(testo_grezzo:str)->str:
-    sezioni_da_elimnare=["Related Content","Also in this series"]
+    sezioni_da_elimnare=["Related Content","Also in this series","Club reports"]
     testo_pulito=testo_grezzo
     testo_pulito = re.sub(r'###### Watch:.*\n?', '', testo_pulito)
     testo_pulito = re.sub(r'\#+\s?([^#]+)', r'\1', testo_pulito)
@@ -28,7 +28,7 @@ class PremierLeagueParser(Parser):
         crawler_cfg=CrawlerRunConfig(
             cache_mode=CacheMode.BYPASS, #PER AVERE SEMPRE DATI AGGIORNATI)
             css_selector=".main-content",
-            excluded_selector="#onetrust-consent-sdk,picture, .article__tags, .video-player, .video-embedded, .article__author, .article__publish-date, .sg-wrapper, .sg-skipnav-container, .js-live-audio, noscript, .embeddable-article, .content-grid, .filters-chips, .club-badge, .filters, .u-show-tablet, .standings-row__team-name-short, .tab-navigation, .standings-row__form, th[scope='col']:last-child, .standings__segmented-controls, .transfer-centre__tabs, .page-header__wrapper, .standings-footer, .article__header-title, .embeddable-photo__description, .content-rail, .generic-promo, .global-ad-slot, .injury-news__table-row > *:nth-child(3), .transfer-centre__table-row > *:nth-child(3)",
+            excluded_selector="#onetrust-consent-sdk,picture, .article__tags, .video-player, .video-embedded, .article__author, .article__publish-date, .sg-wrapper, .sg-skipnav-container, .js-live-audio, noscript, .embeddable-article, .content-grid, .filters-chips, .club-badge, .filters, .u-show-tablet, .standings-row__team-name-short, .tab-navigation, .standings-row__form, th[scope='col']:last-child, .standings__segmented-controls, .transfer-centre__tabs, .page-header__wrapper, .standings-footer, .article__header-title, .embeddable-photo__description, .content-rail, .generic-promo, .global-ad-slot, .injury-news__table-row > *:nth-child(3), .transfer-centre__table-row > *:nth-child(3), .scoreboard__content, .motm--winner, .match-report--club, .scoreboard-bottom__cta-all-matches, .base-TabsList-horizontal",
             wait_until="domcontentloaded",
             delay_before_return_html=5.0
             )
@@ -72,7 +72,7 @@ class PremierLeagueParser(Parser):
         crawler_cfg = CrawlerRunConfig(
             cache_mode=CacheMode.BYPASS,
             css_selector=".main-content",
-            excluded_selector="#onetrust-consent-sdk,picture, .article__tags, .video-player, .video-embedded, .article__author, .article__publish-date, .sg-wrapper, .sg-skipnav-container, .js-live-audio, noscript, .embeddable-article, .content-grid, .filters-chips, .club-badge, .filters, .u-show-tablet, .standings-row__team-name-short, .tab-navigation, .standings-row__form, th[scope='col']:last-child, .standings__segmented-controls, .transfer-centre__tabs, .page-header__wrapper, .standings-footer, .article__header-title, .embeddable-photo__description, .content-rail, .generic-promo, .global-ad-slot",
+            excluded_selector="#onetrust-consent-sdk,picture, .article__tags, .video-player, .video-embedded, .article__author, .article__publish-date, .sg-wrapper, .sg-skipnav-container, .js-live-audio, noscript, .embeddable-article, .content-grid, .filters-chips, .club-badge, .filters, .u-show-tablet, .standings-row__team-name-short, .tab-navigation, .standings-row__form, th[scope='col']:last-child, .standings__segmented-controls, .transfer-centre__tabs, .page-header__wrapper, .standings-footer, .article__header-title, .embeddable-photo__description, .content-rail, .generic-promo, .global-ad-slot, .injury-news__table-row > *:nth-child(3), .transfer-centre__table-row > *:nth-child(3), .scoreboard__content, .motm--winner, .match-report--club, .scoreboard-bottom__cta-all-matches, .base-TabsList-horizontal",
             wait_until="domcontentloaded",
         )
         async with AsyncWebCrawler(config=browser_cfg) as crawler:
