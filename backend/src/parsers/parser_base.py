@@ -5,7 +5,7 @@ import os
 class Parser(ABC):
     
     def __init__(self):
-        pass
+        self.domain = ""
 
     @abstractmethod
     async def parser_url(self, url: str) -> dict:
