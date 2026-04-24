@@ -110,6 +110,16 @@ urls_to_process = [
      "title" : "COP26: Together for our planet", 
      "golden_text" : "gs_data/un_gs_txt/Cop26_together_for_our_planet.txt"},
 
+     {"url" : "https://www.un.org/en/conferences/women", 
+     "domain" : "un.org", 
+     "title" : "Conferences | Women and gender equality", 
+     "golden_text" : "gs_data/un_gs_txt/Conferences_gs.txt"},
+
+     {"url" : "https://www.un.org/en/our-work/support-sustainable-development-and-climate-action", 
+     "domain" : "un.org", 
+     "title" : "Support Sustainable Development and Climate Action", 
+     "golden_text" : "gs_data/un_gs_txt/supportSustainabledevelopment_gs.txt"},
+
      {   "url": "https://www.my-personaltrainer.it/salute-benessere/cervello.html",
     "domain": "www.my-personaltrainer.it",
     "title": "Cervello", 
@@ -224,29 +234,57 @@ urls_to_process = [
 output_folder = "gs_data"
 os.makedirs(output_folder, exist_ok=True) 
 
-for current_page in urls_to_process:
-    if current_page["domain"] == "premierleague.com":
-        curr_url = current_page["url"]
-        curr_domain = current_page["domain"]
-        curr_title = current_page["title"]
-        with open(current_page["golden_text"], "r", encoding="utf-8") as f: #gs.txt is a general txt file that contains the text manually pasted from the selected url
-            curr_gold_text = f.read()
+"""file_path = "gs_data/dominio_it.wikipedia.org_gs.json"
+copied_html = """
 
-        json_data = asyncio.run(json_creator(curr_url,curr_domain,curr_title,curr_gold_text))
-        file_path = os.path.join(output_folder, f"dominio_{curr_domain}_gs.json")
+"""
+
+# Step 1: Read the existing JSON file
+with open(file_path, 'r', encoding='utf-8') as file:
+    json_data = json.load(file)
+
+# Step 2: Append/Update the specific field with the HTML
+# (Make sure 'html_text' matches the actual key in your JSON)
+for obj in json_data:
+    if obj["url"] == "https://it.wikipedia.org/wiki/Equazione_di_Schr%C3%B6dinger":
+        #for urls in urls_to_process:
+        #    if urls["url"] == obj["url"]:
+            #    html_text = asyncio.run(json_creator(obj["url"]))
+            #    break
+        with open("gs_data/wikipedia_gs_txt/Equazione_di_Schrodinger_gs.txt", "r", encoding="utf-8") as gs:
+           txt=  gs.read()
+        obj['gold_text'] = txt
+        break
+
+# Step 3: Write the updated data back to the same file
+with open(file_path, 'w', encoding='utf-8') as file:
+    # indent=4 makes the JSON readable rather than a single compressed line
+    json.dump(json_data, file, indent=4)"""
+
+obj = {"url" : "https://it.wikipedia.org/wiki/Nazionale_femminile_di_calcio_dell%27Italia", 
+     "domain" : "it.wikipedia.org", 
+     "title" : "Nazionale femminile di calcio dell'Italia", 
+     "golden_text" : "gs_data/wikipedia_gs_txt/NazionaleFemminileCalcio_gs.txt"}
+
+
+with open(obj["golden_text"], "r", encoding="utf-8") as f: #gs.txt is a general txt file that contains the text manually pasted from the selected url
+    curr_gold_text = f.read()
+
+json_data = asyncio.run(json_creator(obj["url"],obj["domain"],obj["title"],curr_gold_text))
+file_path = os.path.join(output_folder, f"dominio_{obj["domain"]}_gs.json")
 
         #json returns a python list
-        try:
-            with open(file_path, "r", encoding="utf-8") as r_file:
-                data = json.load(r_file)
-        except FileNotFoundError:
-            data = []
+try:
+    with open(file_path, "r", encoding="utf-8") as r_file:
+        data = json.load(r_file)
+except FileNotFoundError:
+    data = []
 
-        data.append(json_data)
+data.append(json_data)
 
         #write whole list to json file
-        with open(file_path, "w", encoding="utf-8") as a_file:
-            json.dump(data, a_file, indent=2)
+with open(file_path, "w", encoding="utf-8") as a_file:
+    json.dump(data, a_file, indent=2)
 
 
 
