@@ -6,6 +6,7 @@ import random
 
 from parsers.parser_base import Parser
 
+
 CSS_SELECTORS = [
     "#toc-hook",          # id che contiene i contenuti che ci servono nella stramaggioranza degli URL
     ".sal-article-body",  # corpo articolo alternativo
@@ -17,41 +18,16 @@ class MyPersonalTrainerParser(Parser):
 
     def __init__(self):
         super().__init__()
+        self.use_magic: bool = True
+        self.wait_until_type: str = "domcontentloaded" 
+        self.delay_time: float = 1.0
+        self.remove_overlays: bool = False
+        self._domain = "www.my-personaltrainer.it"
 
-    async def parser_url(self, url: str) -> dict: # prende in input un URL specifico e restituisce un dizionario con i risultati del parsing (url, dominio, titolo, testo in markdown e testo in html)
-        browser_cfg = BrowserConfig(headless=True)
-
-        path = urlparse(url).path
-        urlname = os.path.basename(path)
-        titolo = os.path.splitext(urlname)[0].replace("-", " ").capitalize()
-
-        async with AsyncWebCrawler(config=browser_cfg) as crawler:
-            for selector in CSS_SELECTORS:
-                crawler_cfg = CrawlerRunConfig(
-                    cache_mode=CacheMode.BYPASS,
-                    magic=True,
-                    css_selector=selector,
-                    excluded_tags=["nav", "footer", "header", "aside", "figure", "img", "script", "style"],
-                    excluded_selector=".sal-content-whatsapp-channel, .sal-adv-slot, #relatedSearchesLeaf, .sal-widget-image,.sal-breadcrumb, .sal-social-share, .sal-tags"
-                )
-        
-                result = await crawler.arun(url=url, config=crawler_cfg)
-                if result.success and result.markdown and len(result.markdown.strip()) > 50:
-                    return {
-                        "url": url,
-                        "domain": "www.my-personaltrainer.it",
-                        "title": titolo,
-                        "parsed_text": result.markdown,
-                        "html_text": result.html or ""   
-                    }
-                
-            return {
-                "url": url,
-                "domain": "www.my-personaltrainer.it",
-                "title": "Errore di parsing",
-                "parsed_text": "",
-                "html_text": ""
-            }
+    @property
+    def domain(self):
+        return self._domain
+      
         
     async def parser_url2(self, url: str, html_text: str) -> dict:
         session_id = f"session_{random.randint(1000, 9999)}"
@@ -74,14 +50,14 @@ class MyPersonalTrainerParser(Parser):
                 if result.success and result.markdown and len(result.markdown.strip()) > 50:
                     return {
                         "url": url,
-                        "domain": "www.my-personaltrainer.it",
+                        "domain": self._domain,
                         "title": titolo,
                         "parsed_text": result.markdown,
                         "html_text": html_text 
                     }
             return {
                 "url": url,
-                "domain": "www.my-personaltrainer.it",
+                "domain": self._domain,
                 "title": titolo,
                 "parsed_text": "", 
                 "html_text": html_text
