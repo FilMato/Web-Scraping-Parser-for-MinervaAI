@@ -213,11 +213,11 @@ urls_to_process = [
         "golden_text" : "gs_data/premierleague_gs/Rodri_news_gs.txt"
     },
 
-    {"url" : "https://www.premierleague.com/en/news/4604681/202526-premier-league-golden-glove-which-goalkeeper-has-kept-the-most-clean-sheets", 
-        "domain" : "premierleague.com", 
-        "title" : "2025/26 Premier League Golden Glove race:Who has the most clean sheets?", 
-        "golden_text" : "gs_data/premierleague_gs/clean_sheets_gs.txt"
-    },
+    {"url" : "https://www.premierleague.com/en/news/4638156/the-briefing-welbecks-ronaldo-tribute-pogba-praises-mainoo-and-more", 
+     "domain" : "premierleague.com", 
+     "title" : "The Briefing: Welbeck’s Ronaldo tribute, Pogba praises Mainoo and more", 
+     "golden_text" : "gs_data/premierleague_gs/ronaldo_tribute_gs.txt"
+     },
     {"url" : "https://www.premierleague.com/en/match/2562225/bournemouth-vs-leeds-united/overview", 
         "domain" : "premierleague.com", 
         "title" : "Bournemouth vs Leeds United | Season 2025/2026 | Premier League", 
@@ -261,10 +261,11 @@ with open(file_path, 'w', encoding='utf-8') as file:
     # indent=4 makes the JSON readable rather than a single compressed line
     json.dump(json_data, file, indent=4)"""
 
-obj = {"url" : "https://it.wikipedia.org/wiki/Nazionale_femminile_di_calcio_dell%27Italia", 
-     "domain" : "it.wikipedia.org", 
-     "title" : "Nazionale femminile di calcio dell'Italia", 
-     "golden_text" : "gs_data/wikipedia_gs_txt/NazionaleFemminileCalcio_gs.txt"}
+obj = {"url" : "https://www.premierleague.com/en/news/4638156/the-briefing-welbecks-ronaldo-tribute-pogba-praises-mainoo-and-more", 
+     "domain" : "premierleague.com", 
+     "title" : "The Briefing: Welbeck’s Ronaldo tribute, Pogba praises Mainoo and more", 
+     "golden_text" : "gs_data/premierleague_gs/ronaldo_tribute_gs.txt"
+     }
 
 
 with open(obj["golden_text"], "r", encoding="utf-8") as f: #gs.txt is a general txt file that contains the text manually pasted from the selected url
