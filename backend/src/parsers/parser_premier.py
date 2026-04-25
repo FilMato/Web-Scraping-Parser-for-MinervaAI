@@ -1,4 +1,3 @@
-import asyncio #QUESTO IMPORT SERVE A GESTIRE I LOOP ASINCRONI(ALTRIMENTI QUANDO CERCO LE COSE SUL WEB TUTTO IL RESTO SI BLOCCA)
 from crawl4ai import AsyncWebCrawler,BrowserConfig,CrawlerRunConfig,CacheMode
 import re
 from bs4 import BeautifulSoup

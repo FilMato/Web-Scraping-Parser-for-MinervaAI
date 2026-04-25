@@ -1,8 +1,6 @@
-import asyncio
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 import os
 from urllib.parse import urlparse
-import random
 
 from parsers.parser_base import Parser
 
@@ -30,8 +28,6 @@ class MyPersonalTrainerParser(Parser):
       
         
     async def parser_url2(self, url: str, html_text: str) -> dict:
-        session_id = f"session_{random.randint(1000, 9999)}"
-        
         browser_cfg = BrowserConfig(headless=True)
         path = urlparse(url).path
         urlname = os.path.basename(path)
