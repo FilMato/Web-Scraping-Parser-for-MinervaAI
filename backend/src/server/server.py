@@ -38,7 +38,7 @@ for dominio in SUPPORTED_DOMAINS:
     except FileNotFoundError:
         print(f"File Gold Standard non trovato per {dominio} ({nome_file})")
 
-GS_INDEX = {}
+GS_INDEX = {} # dizionario indicizzato per URL: permette di trovare un articolo del gold standard in O(1) invece di scorrere tutta la lista
 for dominio, articoli in GS_DOMAINS.items():
     GS_INDEX[dominio] = {a["url"]: a for a in articoli}
 #definizione classi pydantic per i corpi delle richieste e definizione endpoints
