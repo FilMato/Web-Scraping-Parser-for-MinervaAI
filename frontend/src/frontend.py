@@ -9,7 +9,8 @@ app = FastAPI()
 # URL del backend (sovrascrivibile via variabile d'ambiente per Docker)
 BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8003")
 
-templates = Jinja2Templates(directory="/LABORATORIO-PER-IL-110/frontend/templates")
+templates = Jinja2Templates(directory=os.path.join(os.path.dirname(__file__), "templates"))
+
 
 
 async def get_domains() -> list[str]: #funzione asincrona, non blocca l'intero sistema quando chiamata(in modo da poter gestire + richieste)
