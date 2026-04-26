@@ -9,27 +9,35 @@ from src.evaluator.evaluator import Evaluator
 #importo factory per parser
 from src.factory.parserfactory import ParserFactory
 
-SUPPORTED_DOMAINS = [
-"www.my-personaltrainer.it",
-"it.wikipedia.org",
-"www.premierleague.com",
-"www.un.org"
-]
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# lista dei domini supportati, caricata da un file json, in questo modo se vogliamo aggiungere un dominio basta aggiungerlo al file json senza dover modificare il codice
+percorso_domains = os.path.join(base_dir, "..", "..", "domains.json")
+try:
+    with open(percorso_domains, "r", encoding="utf-8") as f:
+        dati_json = json.load(f)
+        SUPPORTED_DOMAINS = dati_json.get("domains", [])
+except FileNotFoundError:   # Fallback in caso di problemi di percorso prendo i domini manualmente
+    SUPPORTED_DOMAINS = [
+        "www.my-personaltrainer.it",
+        "it.wikipedia.org",
+        "www.premierleague.com",
+        "www.un.org"
+    ]
 
 # dizionario che associa ad ogni dominio il suo gold standard, in questo modo non dobbiamo caricare il file ogni volta che viene fatta una richiesta, ma solo all'avvio del server
 GS_DOMAINS = {}
-base_dir = os.path.dirname(os.path.abspath(__file__))
 cartella_gs = os.path.join(base_dir, "..", "..", "gs_data")
-mappa_file = {
-    "it.wikipedia.org": "dominio_it.wikipedia.org_gs.json",
-    "www.premierleague.com": "dominio_premierleague.com_gs.json",
-    "www.un.org": "dominio_un.org_gs.json",
-    "www.my-personaltrainer.it": "dominio_www.my-personaltrainer.it_gs.json"
-}
-for dominio, nome_file in mappa_file.items():
+for dominio in SUPPORTED_DOMAINS:
+    nome_file = f"dominio_{dominio}_gs.json"    #prendo il nome del file in base al dominio con una stringa formattata, in questo modo se vogliamo aggiungere un dominio basta aggiungere il file con il nome corretto senza dover modificare il codice
     percorso_file = os.path.join(cartella_gs, nome_file)
-    with open(percorso_file, "r", encoding="utf-8") as f:
-        GS_DOMAINS[dominio] = json.load(f)
+    try:
+        with open(percorso_file, "r", encoding="utf-8") as f:
+            GS_DOMAINS[dominio] = json.load(f)
+    except FileNotFoundError:
+        print(f"File Gold Standard non trovato per {dominio} ({nome_file})")
+
 
 #definizione classi pydantic per i corpi delle richieste, e definizione endpoints
 class ParseOutput(BaseModel):
