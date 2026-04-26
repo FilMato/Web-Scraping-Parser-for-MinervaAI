@@ -8,13 +8,13 @@ def _clean_output(testo_grezzo:str)->str:
         sezioni_da_elimnare=["Related Content","Also in this series","Club reports"]
         testo_pulito=testo_grezzo
         testo_pulito = re.sub(r'###### Watch:.*\n?', '', testo_pulito)
-        testo_pulito = re.sub(r'\#+\s?([^#]+)', r'\1', testo_pulito)
+        #testo_pulito = re.sub(r'\#+\s?([^#]+)', r'\1', testo_pulito)
         for titoli in sezioni_da_elimnare:
             if titoli in testo_pulito:
                 testo_pulito=testo_pulito.split(titoli)[0]
         testo_pulito=re.sub(r'Share News\n?', '', testo_pulito)
-        testo_pulito = re.sub(r'\_+([^_]+)\_+', r'\1', testo_pulito)
-        testo_pulito = re.sub(r'\*+([^*]+)\*+', r'\1', testo_pulito)
+        #testo_pulito = re.sub(r'\_+([^_]+)\_+', r'\1', testo_pulito)
+        #testo_pulito = re.sub(r'\*+([^*]+)\*+', r'\1', testo_pulito)
         testo_pulito = re.sub(r'\[Read more about.*?\]\(.*?\)', '', testo_pulito)
         return testo_pulito
 
