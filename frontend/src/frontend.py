@@ -3,6 +3,7 @@ import httpx
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+import asyncio
 
 app = FastAPI()
 
@@ -13,8 +14,7 @@ templates = Jinja2Templates(directory=os.path.join(os.path.dirname(__file__), "t
 
 
 
-async def get_domains() -> list[str]: #funzione asincrona, non blocca l'intero sistema quando chiamata(in modo da poter gestire + richieste)
-    """Recupera la lista dei domini supportati dal backend."""
+async def get_domains() -> list[str]: #Recupera la lista dei domini supportati dal backend
     try:
         async with httpx.AsyncClient() as client: #apre una sessione di rete come client(si chiude in automatico poichè aperto nella with)
             resp = await client.get(f"{BACKEND_URL}/domains", timeout=10) #fa una chiamata get al end point /domains
@@ -24,8 +24,7 @@ async def get_domains() -> list[str]: #funzione asincrona, non blocca l'intero s
         return []
 
 
-async def get_full_gold_standard(domain: str) -> list[dict]:  #mi restituisce una lista di dizionari, cioè una lista di json 
-    """Recupera tutto il gold standard di un dominio dal backend."""
+async def get_full_gold_standard(domain: str) -> list[dict]: #Recupera tutto il gold standard di un dominio dal backend
     try:
         async with httpx.AsyncClient() as client:
             resp = await client.get(
@@ -39,18 +38,22 @@ async def get_full_gold_standard(domain: str) -> list[dict]:  #mi restituisce un
         pass
     return []
 
+async def build_gs_urls(domains: list[str]) -> dict[str, list[str]]: #funzione per mappare ogni dominio alla lista di URL presenti nel GS
+    results = await asyncio.gather(*[get_full_gold_standard(d) for d in domains]) #usiamo asyncio.gather per effettuare tutte le chiamate al backend in contemporanea anzicchè una alla volta
+
+    gs_urls = {}
+    for domain, entries in zip(domains, results):
+        urls = []
+        for entry in entries:
+            if "url" in entry:
+                urls.append(entry["url"])
+        gs_urls[domain] = urls
+    return gs_urls
 
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
-    """Pagina principale: carica domini e URL del GS per il menu a tendina."""
+async def index(request: Request):#Pagina principale: carica domini e URL del GS per il menu a tendina
     domains = await get_domains()
-
-    # Costruisce mappa domain -> lista URL del GS
-    gs_urls: dict[str, list[str]] = {}
-    for domain in domains:
-        entries = await get_full_gold_standard(domain)
-        gs_urls[domain] = [e["url"] for e in entries if "url" in e]
-
+    gs_urls= await build_gs_urls(domains)
     return templates.TemplateResponse(
         request=request,
         name="index.html",
@@ -63,16 +66,9 @@ async def index(request: Request):
         },
     )
 @app.post("/parse_url",response_class=HTMLResponse)
-async def parse_url(request:Request,url:str=Form(...)): #prende in input request(obligatorio per jinja2, serve la sessione corrente) e form cioè indica di cercare l'url nel corpo della richiesta http
+async def parse_url(request:Request,url:str=Form(...)): #prende in input form cioè indica di cercare l'url nel corpo della richiesta http
     domains= await get_domains()
-    gs_urls:dict[str,list[str]]={} #creiamo il dizionario degli url dei gs, per ogni dominio avremo tutti gli url presenti nel gs
-    for domini in domains:
-        gold=await get_full_gold_standard(domini)
-        lista_url=[]
-        for e in gold:
-            if "url" in e:
-                lista_url.append(e["url"])
-        gs_urls[domini]=lista_url
+    gs_urls= await build_gs_urls(domains)
     error=None #inizializziamo per contenere l'eventuale messaggio di errore da restituire
     result=None #per contenere la risposta json
     try:

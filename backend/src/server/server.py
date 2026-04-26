@@ -30,6 +30,10 @@ for dominio, nome_file in mappa_file.items():
     percorso_file = os.path.join(cartella_gs, nome_file)
     with open(percorso_file, "r", encoding="utf-8") as f:
         GS_DOMAINS[dominio] = json.load(f)
+GS_INDEX = {} # dizionario indicizzato per URL: permette di trovare un articolo del gold standard in O(1) invece di scorrere tutta la lista
+for dominio, articoli in GS_DOMAINS.items():
+    GS_INDEX[dominio] = {a["url"]: a for a in articoli}
+
 
 #definizione classi pydantic per i corpi delle richieste, e definizione endpoints
 class ParseOutput(BaseModel):
@@ -126,12 +130,10 @@ async def gold_standard(url: str) -> GSOutput:
     domain = urlparse(url).netloc
     if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
-    gs=GS_DOMAINS[domain]   #prendo in base al dominio il corrispettivo file dominio_gs.json che contiene il gold standard per quel dominio
-    for j in gs:
-        if j["url"] == url:
-            return  j
-    raise HTTPException(status_code=400, detail="URL non nel gold standard")
-
+    articolo = GS_INDEX.get(domain, {}).get(url)
+    if not articolo:
+        raise HTTPException(status_code=400, detail="URL non nel gold standard")
+    return articolo
 
 @app.get("/full_gold_standard")
 async def full_gold_standard(domain: str) -> FullGSOutput:
