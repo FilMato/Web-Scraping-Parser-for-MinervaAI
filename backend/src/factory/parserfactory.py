@@ -5,7 +5,7 @@ from src.parsers.parser_un import Parser_UN
 from src.parsers.parser_base import Parser
 
 
-_AVAILABLE_PARSERS = { #in questo modo il dizionario non è creato ogni volta che creiamo una istanza di 
+_AVAILABLE_PARSERS = { #in questo modo il dizionario non è creato ogni volta che creiamo una istanza di parse
             "www.my-personaltrainer.it" : MyPersonalTrainerParser,
             "it.wikipedia.org" : WikipediaParser,
             "www.premierleague.com" : PremierLeagueParser,
