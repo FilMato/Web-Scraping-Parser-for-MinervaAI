@@ -32,22 +32,15 @@ cartella_gs = os.path.join(base_dir, "..", "..", "gs_data")
 for dominio in SUPPORTED_DOMAINS:
     nome_file = f"dominio_{dominio}_gs.json"    #prendo il nome del file in base al dominio con una stringa formattata, in questo modo se vogliamo aggiungere un dominio basta aggiungere il file con il nome corretto senza dover modificare il codice
     percorso_file = os.path.join(cartella_gs, nome_file)
-<<<<<<< HEAD
-    with open(percorso_file, "r", encoding="utf-8") as f:
-        GS_DOMAINS[dominio] = json.load(f)
-GS_INDEX = {} # dizionario indicizzato per URL: permette di trovare un articolo del gold standard in O(1) invece di scorrere tutta la lista
-for dominio, articoli in GS_DOMAINS.items():
-    GS_INDEX[dominio] = {a["url"]: a for a in articoli}
-
-=======
     try:
         with open(percorso_file, "r", encoding="utf-8") as f:
             GS_DOMAINS[dominio] = json.load(f)
     except FileNotFoundError:
         print(f"File Gold Standard non trovato per {dominio} ({nome_file})")
->>>>>>> c59a60a0ef696e3d5d1e65f972e76e0b896f223c
 
-
+GS_INDEX = {}
+for dominio, articoli in GS_DOMAINS.items():
+    GS_INDEX[dominio] = {a["url"]: a for a in articoli}
 #definizione classi pydantic per i corpi delle richieste e definizione endpoints
 class ParseOutput(BaseModel):
     url: str
