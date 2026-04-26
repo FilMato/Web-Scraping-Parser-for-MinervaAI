@@ -18,7 +18,7 @@ class Evaluator:
 
     #this method returns a list of token (words)
     @staticmethod
-    def _tokenization(text: str) -> list:
+    def _tokenization(text: str) -> list[str]:
         #clean text
         def strip_txt(text: str) -> str: #make the two comparable (lower, strip markdown if necessary, links...)
             
@@ -39,7 +39,7 @@ class Evaluator:
     
     #calculates the three core metrics: precision, recall, F1-Score
     @staticmethod
-    def _calculation(G: int, E: int, matches: int) -> dict: 
+    def _calculation(G: int, E: int, matches: int) -> dict[str, float]: 
         
         if not E:
             precision = 0
@@ -61,7 +61,7 @@ class Evaluator:
                 "f1": F1}
     
     @staticmethod
-    def _extract_ngrams(tokens, n) -> list:
+    def _extract_ngrams(tokens, n) -> list[tuple[str]]:
         return [tuple(tokens[i : i + n]) for i in range(len(tokens) - n + 1)]
     
     def _detect_language(self, tokenized_txt: list) -> str:
@@ -78,13 +78,13 @@ class Evaluator:
 
             return detected_language
     
-    def _filter_stopwords(self, tokenized_txt: list, language: str) -> list:
+    def _filter_stopwords(self, tokenized_txt: list, language: str) -> list[str]:
         if not language or language not in self._languages_stopwords:
             return tokenized_txt
         return [word for word in tokenized_txt if word not in self._languages_stopwords[language]]
     
     @staticmethod
-    def _tf(tokens: list) -> dict:
+    def _tf(tokens: list) -> dict[str, float]:
 
         cnt = Counter(tokens)
         token_count = len(tokens)
@@ -95,7 +95,7 @@ class Evaluator:
         return tf
     
     @staticmethod
-    def _idf(gs_tokens: list, ps_tokens: list) -> dict:
+    def _idf(gs_tokens: list, ps_tokens: list) -> dict[str, float]:
 
         gs_tokens_set = set(gs_tokens)
         ps_tokens_set = set(ps_tokens)
@@ -115,7 +115,7 @@ class Evaluator:
 
         return idf
 
-    def _build_tf_idf(self, filtered_tokens_gs: list, filtered_tokens_ps: list) -> tuple[dict]:
+    def _build_tf_idf(self, filtered_tokens_gs: list, filtered_tokens_ps: list) -> tuple[dict[str, float]]:
         tf_gs_dict = self._tf(filtered_tokens_gs)
         tf_ps_dict = self._tf(filtered_tokens_ps)
         idf_dict = self._idf(filtered_tokens_gs, filtered_tokens_ps)
@@ -157,7 +157,7 @@ class Evaluator:
             return 0
 
 
-    def _information_density_score(self, ps_txt: str, gs_txt: str) -> dict:
+    def _information_density_score(self, ps_txt: str, gs_txt: str) -> dict[str, float]:
 
         tokens_gs = self._tokenization(gs_txt)
         filtered_gs = self._filter_stopwords(tokens_gs, self._detect_language(tokens_gs))
@@ -179,7 +179,7 @@ class Evaluator:
             'Difference' : abs(score_gs - score_ps)
             }
     
-    def _token_level_eval(self, parsed_txt:str, gs_txt:str) -> dict: 
+    def _token_level_eval(self, parsed_txt:str, gs_txt:str) -> dict[str, float]: 
 
         gs_set = Counter(self._tokenization(gs_txt)) #get a Counter of token, goal: be more accurate with token evaluation
         ps_set = Counter(self._tokenization(parsed_txt))
@@ -188,7 +188,7 @@ class Evaluator:
         return marks
 
     #takes a bigram (two consecutive tokens) instead of a single one, then the calculation method is the same as token - level
-    def _rouge_2_eval(self, parsed_txt:str, gs_txt:str) -> dict: #very short texts are penalized as a text of length n produces n-1 bigrams.
+    def _rouge_2_eval(self, parsed_txt:str, gs_txt:str) -> dict[float]: #very short texts are penalized as a text of length n produces n-1 bigrams.
 
         gs_tokens = self._tokenization(gs_txt)
         ps_tokens = self._tokenization(parsed_txt)
@@ -203,7 +203,7 @@ class Evaluator:
         return marks
     
     #funzione da usare nel server per POST/evaluate
-    def eval_server(self, parsed_txt: str, gs_txt:str) -> dict: 
+    def eval_server(self, parsed_txt: str, gs_txt:str) -> dict[dict]: 
 
         return {
             "token_level_eval": self._token_level_eval(parsed_txt, gs_txt),

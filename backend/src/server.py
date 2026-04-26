@@ -4,26 +4,21 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional, List
 from urllib.parse import urlparse
-import asyncio
+
 
 # Importiamo i nostri parser
-from parsers.parser_mypersonaltrainer import MyPersonalTrainerParser
-from parsers.parser_wikipedia import WikipediaParser
-from parsers.parser_premier import PremierLeagueParser
-from parsers.parser_un import Parser_UN
-
+from src.parsers.parser_base import Parser
 #importo per evaluation
-from evaluator import Evaluator
+from src.evaluator.evaluator import Evaluator
+#importo file necessari
+from src.factory.parserfactory import ParserFactory
 
-app = FastAPI()
-
-PARSERS_DOMAINS = {
-    "www.my-personaltrainer.it": MyPersonalTrainerParser(),
-    "it.wikipedia.org": WikipediaParser(),
-    "www.premierleague.com": PremierLeagueParser(),
-    "www.un.org": Parser_UN()
-}
-
+SUPPORTED_DOMAINS = [
+"www.my-personaltrainer.it",
+"it.wikipedia.org",
+"www.premierleague.com",
+"www.un.org"
+]
 
 GS_DOMAINS = {}
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -39,20 +34,19 @@ for dominio, nome_file in mappa_file.items():
     with open(percorso_file, "r", encoding="utf-8") as f:
         GS_DOMAINS[dominio] = json.load(f)
 
-
+app = FastAPI()
 @app.get("/parse")
 async def parse(url: str):
     domain = urlparse(url).netloc
-    if domain not in PARSERS_DOMAINS:
+    if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
-    
-    parser = PARSERS_DOMAINS[domain]
+    parser = ParserFactory.create(domain)
     try:
         risultato = await parser.parser_url(url)
-        parser.salva_risultati(risultato["parsed_text"], risultato["html_text"]) #salva i risultati in file, da eliminare alla fine
         return risultato
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+   
     
 # Classe per il corpo della richiesta
 class PostRequest(BaseModel):
@@ -62,9 +56,9 @@ class PostRequest(BaseModel):
 @app.post("/parse")
 async def parse(request: PostRequest):
     domain = urlparse(request.url).netloc
-    if domain not in PARSERS_DOMAINS:
+    if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
-    parser = PARSERS_DOMAINS[domain]
+    parser = ParserFactory.create(domain)
     try:
         risultato = await parser.parser_url2(request.url, request.html_text)
         return risultato
@@ -74,12 +68,12 @@ async def parse(request: PostRequest):
 
 @app.get("/domains")
 async def domains():
-    return {"domains": list(PARSERS_DOMAINS.keys())}
+    return {"domains": SUPPORTED_DOMAINS}
 
 @app.get("/gold_standard")
 async def gold_standard(url: str):
     domain = urlparse(url).netloc
-    if domain not in PARSERS_DOMAINS:
+    if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
     gs=GS_DOMAINS[domain]
     for j in gs:
@@ -101,7 +95,7 @@ async def full_gs_eval(domain: str):
     count = 0
     valutatore = Evaluator()
     articoli = GS_DOMAINS[domain]
-    parser = PARSERS_DOMAINS[domain]
+    parser = ParserFactory.create(domain)
     somme = {
         "token_level_eval": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
         "rouge_2_eval": {"precision": 0.0, "recall": 0.0, "f1": 0.0},
@@ -112,12 +106,6 @@ async def full_gs_eval(domain: str):
         gold_text = articolo["gold_text"]
         # Inizializziamo parsed_text a una stringa vuota, e solo se parser_json è valido e contiene "parsed_text", lo aggiorniamo
         parsed_text = ""
-        #if domain == "www.my-personaltrainer.it":
-        #     await asyncio.sleep(5.0)
-
-        #parser_json = await parser.parser_url(articolo["url"])
-        #if parser_json and "parsed_text" in parser_json:
-        #    parsed_text = parser_json["parsed_text"]
         try:
             parser_json = await parser.parser_url2(articolo["url"], articolo["html_text"])
             parsed_text = parser_json.get("parsed_text", "") if parser_json else ""
