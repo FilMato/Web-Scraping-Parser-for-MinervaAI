@@ -39,7 +39,7 @@ for dominio in SUPPORTED_DOMAINS:
         print(f"File Gold Standard non trovato per {dominio} ({nome_file})")
 
 
-#definizione classi pydantic per i corpi delle richieste, e definizione endpoints
+#definizione classi pydantic per i corpi delle richieste e definizione endpoints
 class ParseOutput(BaseModel):
     url: str
     domain: str
@@ -47,7 +47,7 @@ class ParseOutput(BaseModel):
     html_text: str
     parsed_text: str
 
-class PostParseRequest(BaseModel):
+class PostParseRequest(BaseModel):  #input di post/parse
     url: str
     html_text: str
 
@@ -64,7 +64,7 @@ class GSOutput(BaseModel):
 class FullGSOutput(BaseModel):
     gold_standard: list[GSOutput]
 
-class EvaluationRequest(BaseModel):
+class EvaluationRequest(BaseModel): #input di post/evaluate
     parsed_text: str
     gold_text: str
 
