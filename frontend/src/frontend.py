@@ -12,6 +12,7 @@ BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8003")
 templates = Jinja2Templates(directory=os.path.join(os.path.dirname(__file__), "templates"))
 
 
+
 async def get_domains() -> list[str]: #funzione asincrona, non blocca l'intero sistema quando chiamata(in modo da poter gestire + richieste)
     """Recupera la lista dei domini supportati dal backend."""
     try:

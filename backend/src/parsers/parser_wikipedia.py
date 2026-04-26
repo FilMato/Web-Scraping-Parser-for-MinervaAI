@@ -34,7 +34,7 @@ class WikipediaParser(Parser):
 
         path = unquote(urlparse(url).path)
         urlname = os.path.basename(path)
-        titolo = os.path.splitext(urlname)[0].replace("-", " ").capitalize()
+        titolo = os.path.splitext(urlname)[0].replace("-", " ").replace("_"," ").capitalize()
         
         async with AsyncWebCrawler(config=browser_cfg) as crawler:
             crawler_cfg = CrawlerRunConfig(
