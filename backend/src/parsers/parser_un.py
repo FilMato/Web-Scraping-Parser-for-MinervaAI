@@ -4,7 +4,7 @@ import re
 from parsers.parser_base import Parser
 
 
-
+#liste definite a priori per evitare che vengano istanziate ogni volta che l'oggetto viene creato
 _CSS_SELECTORS = [
                 ".body-article",          
                 ".radix-layouts-content", 
@@ -26,7 +26,7 @@ _EXCLUDED_TAGS = ['title',
 _EXCLUDED_SELECTOR = ".views-field-field-news-tags, .block-content-footer, .type-entermedia_image, #player-gui, #addtoany, #sharing_widget, #skip-link, .image-caption, #sharing-widget, #breadcrumbs, #more_button, .photo-credit, .page-header, .fusion-video, #player-controls, .wp-caption-text"
 
 def _clean_output(text: str) -> str:
-        text = re.sub(r'\[\]\([^)]+\)', '', text) #clear empty markdown links
+        text = re.sub(r'\[\]\([^)]+\)', '', text) #pulizia dei link vuoti
         return text
 
 
@@ -38,11 +38,10 @@ class Parser_UN(Parser):
         self.wait_until_type: str = "domcontentloaded" 
         self.delay_time: float = 0.0
         self.remove_overlays: bool = False
-        self._domain = "un.org"
 
     @property
     def domain(self):
-         return self._domain
+         return "www.un.org"
         
     async def parser_url2(self, url: str, html_text: str) -> dict[str, str]: #input url, output json obj
     
@@ -81,12 +80,14 @@ class Parser_UN(Parser):
                 if result.success and result_markdown and len(result_markdown.strip()) > 50:
                     return {
                         "url": url,
-                        "domain": self._domain,
+                        "domain": self.domain,
                         "title": title,
                         "parsed_text": result_markdown,
                         "html_text": result.html or ""   
                     }
-                
+            
+            #logica di fallback: (il dominio è molto eterogeneo, si da priorità alla raccolta di informazioni)
+            #se non dovesse esistere alcun selector faccio il parsing un'ultima volta senza alcun selector
             result = await crawler.arun( #se non dovesse esistere alcun selector faccio il parsing un'ultima volta senza alcun selector
                 url = f'raw:{html_text}', 
                 config = no_selector_cfg 
@@ -95,14 +96,14 @@ class Parser_UN(Parser):
             if result.success and result_markdown and len(result_markdown.strip()) > 50:
                     return {
                         "url": url,
-                        "domain": self._domain,
+                        "domain": self.domain,
                         "title": title,
                         "parsed_text": result_markdown,
                         "html_text": result.html or ""   
                     }
             return {
                 "url": url,
-                "domain": self._domain,
+                "domain": self.domain,
                 "title": "Errore di parsing",
                 "parsed_text": "",
                 "html_text": ""

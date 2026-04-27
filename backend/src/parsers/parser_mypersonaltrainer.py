@@ -20,11 +20,10 @@ class MyPersonalTrainerParser(Parser):
         self.wait_until_type: str = "domcontentloaded" 
         self.delay_time: float = 1.0
         self.remove_overlays: bool = False
-        self._domain = "www.my-personaltrainer.it"
 
     @property
     def domain(self):
-        return self._domain
+        return "www.my-personaltrainer.it"
       
         
     async def parser_url2(self, url: str, html_text: str) -> dict:
@@ -46,14 +45,14 @@ class MyPersonalTrainerParser(Parser):
                 if result.success and result.markdown and len(result.markdown.strip()) > 50:
                     return {
                         "url": url,
-                        "domain": self._domain,
+                        "domain": self.domain,
                         "title": titolo,
                         "parsed_text": result.markdown,
                         "html_text": html_text 
                     }
             return {
                 "url": url,
-                "domain": self._domain,
+                "domain": self.domain,
                 "title": titolo,
                 "parsed_text": "", 
                 "html_text": html_text

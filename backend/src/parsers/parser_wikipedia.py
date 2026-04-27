@@ -23,11 +23,10 @@ class WikipediaParser(Parser):
         self.wait_until_type: str = "domcontentloaded" 
         self.delay_time: float = 0.0
         self.remove_overlays: bool = False
-        self._domain = "it.wikipedia.org"
 
     @property
     def domain(self):
-        return self._domain  
+        return "it.wikipedia.org"  
     
     async def parser_url2(self, url: str, html_text: str) -> dict:
         browser_cfg = BrowserConfig(headless=True)

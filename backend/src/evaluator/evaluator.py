@@ -4,7 +4,7 @@ from collections import Counter
 from nltk.corpus import stopwords
 from math import log, sqrt
 
-#class for evaluating parser output
+#classe per valutare l'output del parser, i singoli metodi di valutazione e gli attributi sono privati
 class Evaluator:
 
     def __init__(self):
@@ -15,14 +15,14 @@ class Evaluator:
             'french' : set(stopwords.words('french'))
             }
 
-    #this method returns a list of token (words)
+    #metodo per creare una lista di token
     @staticmethod
     def _tokenization(text: str) -> list[str]:
-        #clean text
-        def strip_txt(text: str) -> str: #make the two comparable (lower, strip markdown if necessary, links...)
+        #funzione per rendere il testo pulito
+        def strip_txt(text: str) -> str: 
             
             text = text.lower()
-            text = re.sub(r'\*+([^*]+)\*+', r'\1', text) #grassettp
+            text = re.sub(r'\*+([^*]+)\*+', r'\1', text) #grassetto
             text = re.sub(r'\_+([^_]+)\_+', r'\1', text) #corsivo
             text = re.sub(r'\#+\s?([^#]+)', r'\1', text) #titoli
             text = re.sub(r'\[([^\]]+)\]\((?:[^)\\]|\\.)*\)', r'\1', text) #link
@@ -30,15 +30,15 @@ class Evaluator:
             return text
 
         text = strip_txt(text)
-        cleaning_rule = str.maketrans(string.punctuation, ' ' * len(string.punctuation)) #strips punctuation
+        cleaning_rule = str.maketrans(string.punctuation, ' ' * len(string.punctuation)) #sostituisce la punteggiatura con spazi vuoti
         clean_txt = text.translate(cleaning_rule)
-        clean_list = clean_txt.split() #creates list of word
+        clean_list = clean_txt.split() 
 
         return clean_list
     
-    #calculates the three core metrics: precision, recall, F1-Score
+    #calcola le tre metriche: precision, recall, F1-Score
     @staticmethod
-    def _calculation(G: int, E: int, matches: int) -> dict[str, float]: 
+    def _calculation(G: int, E: int, matches: int) -> dict[str, float]: #la funzione è comune per token_level_eval e rouge-2
         
         if not E:
             precision = 0
@@ -63,25 +63,30 @@ class Evaluator:
     def _extract_ngrams(tokens, n) -> list[tuple[str]]:
         return [tuple(tokens[i : i + n]) for i in range(len(tokens) - n + 1)]
     
-    def _detect_language(self, tokenized_txt: list) -> str:
+    #nel gold standard sono stati inseriti url di lingue diverse,
+    #per il filtro delle stopwords si cerca di stimare in che lingua sia il testo.
+    #si è definito un dizionario che mappa le stopwords alla lingua negli attributi della classe.
+    def _detect_language(self, tokenized_txt: list) -> str: 
             
             input_txt = Counter(tokenized_txt)
             max_cnt = 0
             detected_language = ''
-            for language in self._languages_stopwords:
+            for language in self._languages_stopwords: #Costo = O(tokens*lingue) = O(tokens) perché il numero delle lingue è costante
                 curr_set = self._languages_stopwords[language]
                 curr_intersection = sum((input_txt & Counter(curr_set)).values())
                 if curr_intersection > max_cnt:
                     max_cnt = curr_intersection
                     detected_language = language
 
-            return detected_language
+            return detected_language #non ottimale per testi troppo brevi: il conteggio delle stopwords potrebbe essere pari tra le lingue
+    
     
     def _filter_stopwords(self, tokenized_txt: list, language: str) -> list[str]:
         if not language or language not in self._languages_stopwords:
             return tokenized_txt
         return [word for word in tokenized_txt if word not in self._languages_stopwords[language]]
     
+    #term frequency (per ogni parola ne calcola il peso rapportandola al total delle parole)
     @staticmethod
     def _tf(tokens: list) -> dict[str, float]:
 
@@ -93,6 +98,9 @@ class Evaluator:
 
         return tf
     
+    #inverse document frequency -> da meno peso alle parole più comuni e ne aggiunge a quelle più rare. 
+    #nonostante i testi siano già stati filtrati a livello di stopwords idf colpisce le parole che non detengono
+    #particolare importanza per la semantica del testo (troppo comuni in entrambi)
     @staticmethod
     def _idf(gs_tokens: list, ps_tokens: list) -> dict[str, float]:
 
@@ -128,6 +136,8 @@ class Evaluator:
         
         return tfidf_gs, tfidf_ps
     
+    #prende i due vettori tf e idf e misura l'angolo tra di essi per poi calcolarne il coseno.
+    #misura se i due testi enfatizzano gli stessi concetti (cos~=1)
     def _tfidf_cosine_similarity(self, ps_txt: str, gs_txt: str) -> float:
         
         tokens_gs = self._tokenization(gs_txt)
@@ -155,7 +165,8 @@ class Evaluator:
         except ZeroDivisionError: #con un testo reale questa cosa non dovrebbe succedere ma il controllo va messo per sicurezza
             return 0
 
-
+    #il confronto con il gs non è necessario in quanto la densità testuale del testo è già una metrica di valutazione
+    #in questo contesto si fa una differenza alla fine per avere un ulteriore indice di similarità tra i due testi
     def _information_density_score(self, ps_txt: str, gs_txt: str) -> dict[str, float]:
 
         tokens_gs = self._tokenization(gs_txt)
@@ -174,7 +185,7 @@ class Evaluator:
         
         return {
             'Score gold standard' : score_gs,
-            'Score parsed text' : score_ps,
+            'Score parsed text' : score_ps, #viene calcolato quanto il testo è denso di informazioni una volta filtrato da rumore inutile (e.g stopwords che non aggiungono significato)
             'Difference' : abs(score_gs - score_ps)
             }
     
@@ -186,8 +197,8 @@ class Evaluator:
         
         return marks
 
-    #takes a bigram (two consecutive tokens) instead of a single one, then the calculation method is the same as token - level
-    def _rouge_2_eval(self, parsed_txt:str, gs_txt:str) -> dict[float]: #very short texts are penalized as a text of length n produces n-1 bigrams.
+    #invece di un singolo token prende coppie di parole consecutive, sensibile all'ordine testuale
+    def _rouge_2_eval(self, parsed_txt:str, gs_txt:str) -> dict[float]: #i testi molto corti sono penalizzati: un testo di lunghezza n produce n-1 bigrammi
 
         gs_tokens = self._tokenization(gs_txt)
         ps_tokens = self._tokenization(parsed_txt)
@@ -195,9 +206,9 @@ class Evaluator:
         if len(gs_tokens) < 2 or len(ps_tokens) < 2:
             return self._token_level_eval(parsed_txt, gs_txt)
 
-        gs_bigram_set = Counter(self._extract_ngrams(gs_tokens, 2)) #get a Counter of token, goal: be more accurate with token evaluation
+        gs_bigram_set = Counter(self._extract_ngrams(gs_tokens, 2)) 
         ps_bigram_set = Counter(self._extract_ngrams(ps_tokens, 2))
-        marks = self._calculation(sum(gs_bigram_set.values()), sum(ps_bigram_set.values()), sum((gs_bigram_set & ps_bigram_set).values())) #matches = G intersection E
+        marks = self._calculation(sum(gs_bigram_set.values()), sum(ps_bigram_set.values()), sum((gs_bigram_set & ps_bigram_set).values())) 
         
         return marks
     

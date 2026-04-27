@@ -22,11 +22,10 @@ class PremierLeagueParser(Parser):
         self.wait_until_type: str = "domcontentloaded" 
         self.delay_time: float = 5.0
         self.remove_overlays: bool = False
-        self._domain = "premierleague.com"
 
     @property
     def domain(self) -> str:
-        return self._domain
+        return "www.premierleague.com"
 
     async def parser_url2(self, url: str, html_text: str) -> dict[str, str]:
         soup = BeautifulSoup(html_text, "html.parser")

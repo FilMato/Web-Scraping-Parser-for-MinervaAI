@@ -37,7 +37,7 @@ class Parser(ABC):
         else:
              return {
                 "url": url,
-                "domain": self.domain(),
+                "domain": self.domain,
                 "title": "Errore di parsing",
                 "parsed_text": "",
                 "html_text": ""
