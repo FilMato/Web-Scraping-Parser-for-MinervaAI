@@ -26,7 +26,7 @@ class Evaluator:
             text = re.sub(r'\_+([^_]+)\_+', r'\1', text) #corsivo
             text = re.sub(r'\#+\s?([^#]+)', r'\1', text) #titoli
             text = re.sub(r'\[([^\]]+)\]\((?:[^)\\]|\\.)*\)', r'\1', text) #link
-
+            
             return text
 
         text = strip_txt(text)

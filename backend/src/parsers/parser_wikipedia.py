@@ -38,9 +38,9 @@ class WikipediaParser(Parser):
         async with AsyncWebCrawler(config=browser_cfg) as crawler:
             crawler_cfg = CrawlerRunConfig(
                 cache_mode=CacheMode.BYPASS, 
-                excluded_tags=['nav','footer','header','aside','figure'], 
+                excluded_tags=['nav','footer','header','aside','figure', 'img'], 
                 css_selector=".mw-parser-output", 
-                excluded_selector=".torna-a, .hatnote, .mw-editsection, .infobox, .sinottico, a[href*='Voci_di_qualità'], a[href*='Politica_di_protezione'], .thumb, .gallery, #coordinates, .navbox, .noviewer, .timeline-wrapper, p[typeof*='mw:Transclusion'], .ambox, table.noprint[style*='float'], .vector-body-before-content, .mw-file-element" 
+                excluded_selector="#section_SpokenWikipedia, .torna-a, .hatnote, .mw-editsection, .infobox, .sinottico, a[href*='Voci_di_qualità'], a[href*='Politica_di_protezione'], .thumb, .gallery, #coordinates, .navbox, .noviewer, .timeline-wrapper, p[typeof*='mw:Transclusion'], .ambox, table.noprint[style*='float'], .vector-body-before-content, .mw-file-element" 
             )
             
             result = await crawler.arun(url=f"raw:{html_text}", config=crawler_cfg)

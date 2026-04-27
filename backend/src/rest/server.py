@@ -185,7 +185,7 @@ async def full_gs_eval(domain: str) -> EvaluationOutput:
         if isinstance(value, dict):
             medie[key] = {sub_key: sub_val / count for sub_key, sub_val in value.items()}    # comprehension per calcolare la media di ogni sotto-elemento del dizionario
         else:
-            medie[key] = value / count   # media per i valori singoli     
+            medie[key] = value / count   # media per i valori singoli    
     return EvaluationOutput(**medie)
 
 

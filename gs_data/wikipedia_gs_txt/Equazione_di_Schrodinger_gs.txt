@@ -61,7 +61,7 @@ a
 
 Equazione
 
-Lo stesso argomento in dettaglio: Meccanica hamiltoniana e Operatore hamiltoniano.
+
 L'equazione di Schrödinger dipende dalle interazioni fra le varie componenti del sistema. Nel caso più generale l'equazione è scritta come:
 
 i
@@ -119,7 +119,7 @@ Il valore medio dell'operatore hamiltoniano sullo stato
 (
 x
 )
-{\displaystyle \psi (x)} rappresenta il valore atteso dell'energia:[note 1]
+{\displaystyle \psi (x)} rappresenta il valore atteso dell'energia:
 
 ⟨
 H
@@ -187,7 +187,7 @@ U
 
 L'ipotesi di de Broglie
 
-Lo stesso argomento in dettaglio: Ipotesi di de Broglie.
+
 I risultati ottenuti con l'ipotesi di de Broglie portarono allo sviluppo della meccanica quantistica intesa come meccanica ondulatoria. Con de Broglie, si associa a ogni particella un pacchetto d'onda del tipo:
 
 ψ
@@ -323,7 +323,7 @@ i
 {\displaystyle \mathbf {p} \rightarrow -i\hbar \nabla }
 Limite non relativistico
 
-Lo stesso argomento in dettaglio: Equazione di Klein-Gordon.
+
 L'equazione di Schrödinger nel limite non relativistico si può dedurre dall'equazione di Klein-Gordon. Considerando per l'energia la serie di Taylor al primo ordine:
 
 E
@@ -412,7 +412,7 @@ t
 {\displaystyle \left(i\hbar {\frac {\partial }{\partial t}}+{\frac {\hbar ^{2}}{2m}}\nabla ^{2}-U(\mathbf {r} )\right)\psi (\mathbf {r} ,t)=0}
 Equazione di bilancio e di continuità
 
-Lo stesso argomento in dettaglio: Equazione di bilancio ed Equazione di continuità.
+
 Dall'equazione di Schrödinger:
 
 i
@@ -1444,7 +1444,7 @@ C
 
 Valori medi nelle rappresentazioni dell'impulso e della posizione
 
-Lo stesso argomento in dettaglio: Operatore posizione e Operatore impulso.
+
 Poiché il significato della funzione d'onda è probabilistico si può parlare di valore medio di una grandezza fisica. Il valore medio della posizione (unidimensionale per semplicità) nella rappresentazione delle coordinate è dato:
 
 ⟨
@@ -2393,7 +2393,7 @@ E
 
 Autofunzioni dell'energia
 
-Lo stesso argomento in dettaglio: Autofunzione.
+
 Supponiamo inizialmente che la soluzione dell'equazione di Schrödinger indipendente dal tempo abbia uno spettro discreto di autovalori, allora la funzione d'onda 
 ψ
 (
@@ -2792,7 +2792,7 @@ N
 {\displaystyle N} funzioni d'onda associate al sistema siano approssimabili tramite un singolo determinante di Slater.
 Evoluzione relativistica
 
-Lo stesso argomento in dettaglio: Teoria quantistica dei campi.
+
 L'equazione di Schrödinger, essendo basata sull'Hamiltoniana classica, non può rappresentare il comportamento quantistico di particelle con massa nulla, come i fotoni. Un importante sviluppo risultò pertanto fondamentale per introdurre anche il formalismo della relatività speciale, e portò alle due equazioni, di Klein Gordon e di Dirac, che rappresentano, rispettivamente, particelle a spin 
 0
 {\displaystyle 0} (dette anche particelle scalari) e particelle a spin 

@@ -1,4 +1,4 @@
-import json
+"""import json
 import os
 import asyncio
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
@@ -234,10 +234,9 @@ urls_to_process = [
 output_folder = "gs_data"
 os.makedirs(output_folder, exist_ok=True) 
 
-"""file_path = "gs_data/dominio_it.wikipedia.org_gs.json"
-copied_html = """
+file_path = "gs_data/dominio_it.wikipedia.org_gs.json"
+copied_html = 
 
-"""
 
 # Step 1: Read the existing JSON file
 with open(file_path, 'r', encoding='utf-8') as file:
@@ -259,7 +258,7 @@ for obj in json_data:
 # Step 3: Write the updated data back to the same file
 with open(file_path, 'w', encoding='utf-8') as file:
     # indent=4 makes the JSON readable rather than a single compressed line
-    json.dump(json_data, file, indent=4)"""
+    json.dump(json_data, file, indent=4)
 
 obj = {"url" : "https://www.premierleague.com/en/news/4638156/the-briefing-welbecks-ronaldo-tribute-pogba-praises-mainoo-and-more", 
      "domain" : "premierleague.com", 
@@ -285,9 +284,44 @@ data.append(json_data)
 
         #write whole list to json file
 with open(file_path, "w", encoding="utf-8") as a_file:
-    json.dump(data, a_file, indent=2)
+    json.dump(data, a_file, indent=2)"""
 
+import json
 
+# Define the paths
+json_file_path = "gs_data/dominio_it.wikipedia.org_gs.json"
+
+# Map the target URLs to their respective updated text files
+updates_to_make = {
+    "https://it.wikipedia.org/wiki/Massa_(fisica)": "gs_data/wikipedia_gs_txt/Massa_(fisica)_gs.txt",
+    "https://it.wikipedia.org/wiki/Equazione_di_Schr%C3%B6dinger": "gs_data/wikipedia_gs_txt/Equazione_di_Schrodinger_gs.txt"
+}
+
+# Step 1: Read the existing JSON file
+with open(json_file_path, 'r', encoding='utf-8') as file:
+    json_data = json.load(file)
+
+# Step 2: Loop through the data and update matching entries
+for entry in json_data:
+    url = entry.get("url")
+    
+    # If the URL is one of the ones we want to update
+    if url in updates_to_make:
+        txt_file_path = updates_to_make[url]
+        
+        # Read the new text from the corresponding file
+        with open(txt_file_path, 'r', encoding='utf-8') as txt_file:
+            new_gold_text = txt_file.read()
+            
+        # Update the 'gold_text' key
+        entry["gold_text"] = new_gold_text
+        print(f"Successfully updated 'gold_text' for: {url}")
+
+# Step 3: Write the updated data back to the JSON file
+with open(json_file_path, 'w', encoding='utf-8') as file:
+    json.dump(json_data, file, indent=2)
+
+print("Process complete.")
 
 
 

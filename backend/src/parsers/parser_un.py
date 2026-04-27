@@ -23,7 +23,7 @@ _EXCLUDED_TAGS = ['title',
                   'button', 
                   'video']
 
-_EXCLUDED_SELECTOR = ".views-field-field-news-tags, .block-content-footer, .type-entermedia_image, #player-gui, #addtoany, #sharing_widget, #skip-link, .image-caption, #sharing-widget, #breadcrumbs, #more_button, .photo-credit, .page-header, .fusion-video, #player-controls, .wp-caption-text"
+_EXCLUDED_SELECTOR = ".breadcrumb, #sidebar, .skip-link screen-reader-text, .home-footer, .node-sidebar, .views-field-field-news-tags, .block-content-footer, .type-entermedia_image, #player-gui, #addtoany, #sharing_widget, #skip-link, .image-caption, #sharing-widget, #breadcrumbs, #more_button, .photo-credit, .page-header, .fusion-video, #player-controls, .wp-caption-text"
 
 def _clean_output(text: str) -> str:
         text = re.sub(r'\[\]\([^)]+\)', '', text) #pulizia dei link vuoti

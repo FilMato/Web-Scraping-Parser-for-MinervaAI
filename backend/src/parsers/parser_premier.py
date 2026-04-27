@@ -20,7 +20,7 @@ class PremierLeagueParser(Parser):
         super().__init__()
         self.use_magic: bool = False
         self.wait_until_type: str = "domcontentloaded" 
-        self.delay_time: float = 5.0
+        self.delay_time: float = 1.0
         self.remove_overlays: bool = False
 
     @property
