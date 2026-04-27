@@ -14,7 +14,6 @@ class Parser(ABC):
         It doesn't wait for other things like images, subframes, and async scripts to finish loading.""" # --> per ovviare a questo pericolo si utilizza un delay raginevolmente grande
         
         self.delay_time: float = 0.0
-        self.remove_overlays: bool = False
 
     @property
     @abstractmethod
@@ -27,7 +26,6 @@ class Parser(ABC):
                                 magic=self.use_magic,
                                 wait_until=self.wait_until_type,
                                 delay_before_return_html=self.delay_time,
-                                remove_overlay_elements=self.remove_overlays
                                )
         result = ""
         async with AsyncWebCrawler(config=browser_cfg) as crawler:

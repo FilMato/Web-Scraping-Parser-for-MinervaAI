@@ -19,7 +19,6 @@ class MyPersonalTrainerParser(Parser):
         self.use_magic: bool = True
         self.wait_until_type: str = "domcontentloaded" 
         self.delay_time: float = 1.0
-        self.remove_overlays: bool = False
 
     @property
     def domain(self):

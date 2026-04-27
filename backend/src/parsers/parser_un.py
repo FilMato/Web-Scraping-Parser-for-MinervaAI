@@ -37,7 +37,6 @@ class Parser_UN(Parser):
         self.use_magic: bool = False
         self.wait_until_type: str = "domcontentloaded" 
         self.delay_time: float = 0.0
-        self.remove_overlays: bool = False
 
     @property
     def domain(self):
