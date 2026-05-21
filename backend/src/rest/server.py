@@ -3,6 +3,7 @@ import json
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from urllib.parse import urlparse
+from typing import Optional
 
 #importo per evaluation
 from src.evaluator.evaluator import Evaluator
@@ -41,7 +42,9 @@ for dominio in SUPPORTED_DOMAINS:
 GS_INDEX = {} # dizionario indicizzato per URL: permette di trovare un articolo del gold standard in O(1) invece di scorrere tutta la lista
 for dominio, articoli in GS_DOMAINS.items():
     GS_INDEX[dominio] = {a["url"]: a for a in articoli}
+
 #definizione classi pydantic per i corpi delle richieste e definizione endpoints
+
 class ParseOutput(BaseModel):
     url: str
     domain: str
@@ -51,10 +54,14 @@ class ParseOutput(BaseModel):
 
 class PostParseRequest(BaseModel):  #input di post/parse
     url: str
-    html_text: str
+    local:Optional[bool]=False
 
 class DomainsOutput(BaseModel):
     domains: list[str]
+
+class GoldStandardUrlsOutput(BaseModel):
+    urls: list[str]
+
 
 class GSOutput(BaseModel):
     url: str
@@ -100,18 +107,6 @@ def Zero_Inizializer(model_class: type[BaseModel]) -> dict:   #Legge un modello 
 
 app = FastAPI()
 
-@app.get("/parse")
-async def get_parse(url: str) -> ParseOutput:
-    domain = urlparse(url).netloc
-    if domain not in SUPPORTED_DOMAINS:
-        raise HTTPException(status_code=400, detail="Dominio non supportato")
-    parser = ParserFactory.create(domain)   #seleziona il parser corretto in base al dominio, se il dominio non è supportato solleva un'eccezione
-    try:
-        risultato = await parser.parser_url(url)
-        return risultato
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
 
 @app.post("/parse")
 async def post_parse(request: PostParseRequest)-> ParseOutput:
@@ -119,11 +114,21 @@ async def post_parse(request: PostParseRequest)-> ParseOutput:
     if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
     parser = ParserFactory.create(domain)   #seleziona il parser corretto in base al dominio, se il dominio non è supportato solleva un'eccezione
-    try:
-        risultato = await parser.parser_url2(request.url, request.html_text)
-        return risultato
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    if request.local:
+        articolo=GS_INDEX.get(domain,{}).get(request.url) #Quando pippo mi da il DB va modificata con la chiamata alla repository
+        if not articolo:
+            raise HTTPException(status_code=404,detail="URL no trovato nelo DB")
+        try:
+            risultato = await parser.parser_url2(request.url, articolo["html_text"])
+            return risultato
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+    else:
+        try:
+            risultato=await parser.parser_url(request.url)
+            return risultato
+        except Exception as e:
+            raise HTTPException(status_code=502,detail=f"URL irragiungibile: {str(e)}")
 
 
 @app.get("/domains")
@@ -136,10 +141,17 @@ async def gold_standard(url: str) -> GSOutput:
     domain = urlparse(url).netloc
     if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
-    articolo = GS_INDEX.get(domain, {}).get(url)
+    articolo = GS_INDEX.get(domain, {}).get(url) #da modificare con la chiamata al databse quando ci sta
     if not articolo:
-        raise HTTPException(status_code=400, detail="URL non nel gold standard")
+        raise HTTPException(status_code=404, detail="URL non nel gold standard")
     return articolo
+
+@app.get("/gold_standard_urls")
+async def gold_standard_urls(domain:str) ->GoldStandardUrlsOutput:
+    if domain not in SUPPORTED_DOMAINS:
+        raise HTTPException(status_code=400,detail="Dominio non supportato")
+    urls=list(GS_INDEX.get(domain,{}).keys()) #da sostituire GS_INDEX con il database
+    return {"urls":urls}
 
 @app.get("/full_gold_standard")
 async def full_gold_standard(domain: str) -> FullGSOutput:
