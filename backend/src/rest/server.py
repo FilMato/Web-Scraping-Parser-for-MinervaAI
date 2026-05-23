@@ -1,9 +1,11 @@
 import os
 import json
+import re
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from urllib.parse import urlparse
 from typing import Optional
+from clients import ollama_client
 
 #importo per evaluation
 from src.evaluator.evaluator import Evaluator
@@ -92,6 +94,11 @@ class EvaluationOutput(BaseModel):
     rouge_2_eval: Metrics
     information_density_evaluation: DensityMetrics
     tf_idf_cosine_similarity: float = Field(alias="TF-IDF_cosine_similarity")
+
+class JudgeOutput(BaseModel):
+    model_name: str
+    judge_score: float #da vedere forse deve essere int
+    judge_feedback: str
 
 
 def Zero_Inizializer(model_class: type[BaseModel]) -> dict:   #Legge un modello Pydantic e crea un dizionario con la stessa struttura inizializzato a 0.0
@@ -200,13 +207,31 @@ async def full_gs_eval(domain: str) -> EvaluationOutput:
             medie[key] = value / count   # media per i valori singoli    
     return EvaluationOutput(**medie)
 
+#funzione per pulire il markdown
+def strip_txt(text: str) -> str: 
+            
+    text = text.lower()
+    text = re.sub(r'\*+([^*]+)\*+', r'\1', text) #grassetto
+    text = re.sub(r'\_+([^_]+)\_+', r'\1', text) #corsivo
+    text = re.sub(r'\#+\s?([^#]+)', r'\1', text) #titoli
+    text = re.sub(r'\[([^\]]+)\]\((?:[^)\\]|\\.)*\)', r'\1', text) #link
+            
+    return text
+
 
 @app.post("/evaluate")
 async def evaluate(request: EvaluationRequest) -> EvaluationOutput:
+    parsed_text = strip_txt(request.parsed_text)
     try:
-        return Evaluator().eval_server(request.parsed_text, request.gold_text)
+        return Evaluator().eval_server(parsed_text, request.gold_text)
     except Exception as e:
         print(f"Errore durante la valutazione: {e}") 
         return EvaluationOutput(**Zero_Inizializer(EvaluationOutput))
+
+@app.post("/evaluate_judge")
+async def evaluate_judge(request: EvaluationRequest) -> JudgeOutput: #perché questo funzioni judge deve ritornare un dizionario che abbia le stesse identiche chiavi di JudgeOutput
+    parsed_text = strip_txt(request.parsed_text)
+    return await ollama_client.judge(parsed_text=parsed_text, gold_text=request.gold_text)
+
 
 

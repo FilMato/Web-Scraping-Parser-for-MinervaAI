@@ -31,6 +31,8 @@ services:
     image: ollama/ollama
     ports:
       - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0
     volumes:
       - ./ollama_data:/root/.ollama #./ollama_data -> percorso su computer fisico, path relativo alla posizione in cui si trova il file .yaml,
       #/root/.ollama percorso all'interno del file system isolato del container di ollama (docker esige che la destinazione interna 
