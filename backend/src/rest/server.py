@@ -1,6 +1,9 @@
 import os
-import json
 import re
+import sys
+import time
+import mariadb # Ricordatevi di metterlo nel requirements.txt
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from urllib.parse import urlparse
@@ -11,11 +14,12 @@ from clients import ollama_client
 from src.evaluator.evaluator import Evaluator
 #importo factory per parser
 from src.factory.parserfactory import ParserFactory
+#importo seeder per popolamento iniziale del database
+from src.db.seeder import populate_database
 
-
+# --- BLOCCO DI CODICE DA CANCELLARE DOPO AVER MODIFICATO CORRETTAMENTE LE FUNZIONI DELL'API PER USARE IL DATABASE INVECE DEI FILE JSON ---
+import json
 base_dir = os.path.dirname(os.path.abspath(__file__))
-
-# lista dei domini supportati, caricata da un file json, in questo modo se vogliamo aggiungere un dominio basta aggiungerlo al file json senza dover modificare il codice
 percorso_domains = os.path.join(base_dir, "..", "..", "domains.json")
 try:
     with open(percorso_domains, "r", encoding="utf-8") as f:
@@ -28,25 +32,22 @@ except FileNotFoundError:   # Fallback in caso di problemi di percorso prendo i 
         "www.premierleague.com",
         "www.un.org"
     ]
-
-# dizionario che associa ad ogni dominio il suo gold standard, in questo modo non dobbiamo caricare il file ogni volta che viene fatta una richiesta, ma solo all'avvio del server
 GS_DOMAINS = {}
 cartella_gs = os.path.join(base_dir, "..", "..", "gs_data")
 for dominio in SUPPORTED_DOMAINS:
-    nome_file = f"dominio_{dominio}_gs.json"    #prendo il nome del file in base al dominio con una stringa formattata, in questo modo se vogliamo aggiungere un dominio basta aggiungere il file con il nome corretto senza dover modificare il codice
+    nome_file = f"dominio_{dominio}_gs.json"    
     percorso_file = os.path.join(cartella_gs, nome_file)
     try:
         with open(percorso_file, "r", encoding="utf-8") as f:
             GS_DOMAINS[dominio] = json.load(f)
     except FileNotFoundError:
         print(f"File Gold Standard non trovato per {dominio} ({nome_file})")
-
-GS_INDEX = {} # dizionario indicizzato per URL: permette di trovare un articolo del gold standard in O(1) invece di scorrere tutta la lista
+GS_INDEX = {} # dizionario indicizzato per URL...
 for dominio, articoli in GS_DOMAINS.items():
     GS_INDEX[dominio] = {a["url"]: a for a in articoli}
+# --- FINE BLOCCO DA CANCELLARE -----------------------------------------------------------------------------------------------------------------
 
 #definizione classi pydantic per i corpi delle richieste e definizione endpoints
-
 class ParseOutput(BaseModel):
     url: str
     domain: str
@@ -63,7 +64,6 @@ class DomainsOutput(BaseModel):
 
 class GoldStandardUrlsOutput(BaseModel):
     urls: list[str]
-
 
 class GSOutput(BaseModel):
     url: str
@@ -100,7 +100,6 @@ class JudgeOutput(BaseModel):
     judge_score: float #da vedere forse deve essere int
     judge_feedback: str
 
-
 def Zero_Inizializer(model_class: type[BaseModel]) -> dict:   #Legge un modello Pydantic e crea un dizionario con la stessa struttura inizializzato a 0.0
     zero_dict = {}
     for field_name, field_info in model_class.model_fields.items():
@@ -112,7 +111,50 @@ def Zero_Inizializer(model_class: type[BaseModel]) -> dict:   #Legge un modello 
             zero_dict[key] = 0.0 
     return zero_dict
 
-app = FastAPI()
+
+# Questa funzione serve come doppio controllo per assicurarsi che il backend non si avvii finché MariaDB non è pronto. Anche se abbiamo messo un healthcheck nel docker-compose.
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    max_retries = 5
+    delay_seconds = 5
+    conn = None
+    
+    print("Tentativo di connessione a MariaDB in corso...")
+    while max_retries > 0:
+        try:
+            conn = mariadb.connect(
+                host=os.getenv("DB_HOST", "mariadb"),
+                user=os.getenv("DB_USER", "minerva_user"),
+                password=os.getenv("DB_PASSWORD", "minerva_pass"),
+                database=os.getenv("DB_NAME", "minerva_db"),
+                port=3306
+            )
+            print("Connessione a MariaDB stabilita con successo!")
+            break
+        except mariadb.Error as e:
+            print(f"MariaDB non è ancora pronto. Errore: {e}")
+            max_retries -= 1
+            if max_retries == 0:
+                print("Impossibile connettersi al database. Spegnimento del backend.")
+                sys.exit(1)
+            time.sleep(delay_seconds)
+            
+    app.state.db = conn
+    
+    # Popolamento iniziale del database con i dati del Gold Standard
+    if conn:
+        populate_database(conn)
+
+    yield # Il server è ora attivo e pronto a ricevere richieste
+
+    # Fase di spegnimento
+    if app.state.db:
+        app.state.db.close()
+        print("Connessione a MariaDB chiusa correttamente.")
+#----------------------------------------------------------------
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 @app.post("/parse")
