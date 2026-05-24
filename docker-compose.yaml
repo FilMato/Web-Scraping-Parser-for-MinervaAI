@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
 
   # 1. Definiamo il servizio BACKEND
@@ -8,14 +9,7 @@ services:
     ports:
       - "8003:8003"
     depends_on:
-      - mariadb
       - ollama
-    environment:
-      - DB_HOST=mariadb
-      - DB_USER=root
-      - DB_PASSWORD=root_password
-      - DB_NAME=minerva_db
-      - OLLAMA_HOST=http://ollama:11434
     volumes:
       - ./gs_data:/app/gs_data
       - ./domains.json:/app/domains.json
@@ -32,29 +26,20 @@ services:
     environment:
       - BACKEND_URL=http://backend:8003
 
-  # 3. Definiamo il database MARIADB
-  mariadb:
-  image: mariadb:10.11
-  environment:
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_DATABASE: lab_db
-    MYSQL_USER: labuser
-    MYSQL_PASSWORD: labpass
-  ports:
-    - "3306:3306"
-  volumes:
-    - ./mariadb_data/init:/docker-entrypoint-initdb.d
-    - ./mariadb_data/data:/var/lib/mysql
-  healthcheck:
-    test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-proot"]
-    interval: 5s
-    retries: 10
-
-  # 4. Definiamo il server OLLAMA
+  # 3. Si definisce il servizio OLLAMA
   ollama:
-    image: ollama/ollama:latest
+    image: ollama/ollama
     ports:
       - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0
     volumes:
-      # Path relativo per salvare i modelli scaricati in locale
-      - ./ollama_data:/root/.ollama
+      - ./ollama_data:/root/.ollama #./ollama_data -> percorso su computer fisico, path relativo alla posizione in cui si trova il file .yaml,
+      #/root/.ollama percorso all'interno del file system isolato del container di ollama (docker esige che la destinazione interna 
+      #al container sia un path assoluto)
+      - ./entrypoint.sh:/entrypoint.sh
+    container_name: ollama
+    pull_policy: always
+    tty: true
+    restart: always
+    entrypoint: ["/usr/bin/bash", "/entrypoint.sh"]
