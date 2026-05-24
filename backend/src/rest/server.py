@@ -4,7 +4,7 @@ import sys
 import time
 import mariadb # Ricordatevi di metterlo nel requirements.txt
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel, Field
 from urllib.parse import urlparse
 from typing import Optional
@@ -32,19 +32,6 @@ except FileNotFoundError:   # Fallback in caso di problemi di percorso prendo i 
         "www.premierleague.com",
         "www.un.org"
     ]
-GS_DOMAINS = {}
-cartella_gs = os.path.join(base_dir, "..", "..", "gs_data")
-for dominio in SUPPORTED_DOMAINS:
-    nome_file = f"dominio_{dominio}_gs.json"    
-    percorso_file = os.path.join(cartella_gs, nome_file)
-    try:
-        with open(percorso_file, "r", encoding="utf-8") as f:
-            GS_DOMAINS[dominio] = json.load(f)
-    except FileNotFoundError:
-        print(f"File Gold Standard non trovato per {dominio} ({nome_file})")
-GS_INDEX = {} # dizionario indicizzato per URL...
-for dominio, articoli in GS_DOMAINS.items():
-    GS_INDEX[dominio] = {a["url"]: a for a in articoli}
 # --- FINE BLOCCO DA CANCELLARE -----------------------------------------------------------------------------------------------------------------
 
 #definizione classi pydantic per i corpi delle richieste e definizione endpoints
@@ -63,7 +50,7 @@ class DomainsOutput(BaseModel):
     domains: list[str]
 
 class GoldStandardUrlsOutput(BaseModel):
-    urls: list[str]
+    gold_standard_urls: list[str]
 
 class GSOutput(BaseModel):
     url: str
@@ -94,6 +81,9 @@ class EvaluationOutput(BaseModel):
     rouge_2_eval: Metrics
     information_density_evaluation: DensityMetrics
     tf_idf_cosine_similarity: float = Field(alias="TF-IDF_cosine_similarity")
+
+class FullGSEvalOutput(EvaluationOutput):
+    judge_score:float
 
 class JudgeOutput(BaseModel):
     model_name: str
@@ -158,23 +148,31 @@ app = FastAPI(lifespan=lifespan)
 
 
 @app.post("/parse")
-async def post_parse(request: PostParseRequest)-> ParseOutput:
-    domain = urlparse(request.url).netloc
+async def post_parse(body: PostParseRequest,http_request:Request)-> ParseOutput:
+    domain = urlparse(body.url).netloc
     if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
     parser = ParserFactory.create(domain)   #seleziona il parser corretto in base al dominio, se il dominio non è supportato solleva un'eccezione
-    if request.local:
-        articolo=GS_INDEX.get(domain,{}).get(request.url) #Quando pippo mi da il DB va modificata con la chiamata alla repository
-        if not articolo:
-            raise HTTPException(status_code=404,detail="URL no trovato nelo DB")
+    if body.local:
+        #articolo=GS_INDEX.get(domain,{}).get(body.url) #Quando pippo mi da il DB va modificata con la chiamata alla repository
+        conn=http_request.app.state.db
+        cursor=conn.cursor()
+        cursor.execute(
+            "SELECT html_text FROM web_resources WHERE url = ?",
+            (body.url,)
+        )
+        row=cursor.fetchone()
+        cursor.close()
+        if not row:
+            raise HTTPException(status_code=404,detail="URL non trovato nelo DB")
         try:
-            risultato = await parser.parser_url2(request.url, articolo["html_text"])
+            risultato = await parser.parser_url2(body.url, row[0])
             return risultato
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
     else:
         try:
-            risultato=await parser.parser_url(request.url)
+            risultato=await parser.parser_url(body.url)
             return risultato
         except Exception as e:
             raise HTTPException(status_code=502,detail=f"URL irragiungibile: {str(e)}")
@@ -186,44 +184,105 @@ async def domains() -> DomainsOutput:
 
 
 @app.get("/gold_standard")
-async def gold_standard(url: str) -> GSOutput:
+async def gold_standard(url: str,http_request:Request) -> GSOutput:
     domain = urlparse(url).netloc
     if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
-    articolo = GS_INDEX.get(domain, {}).get(url) #da modificare con la chiamata al databse quando ci sta
-    if not articolo:
-        raise HTTPException(status_code=404, detail="URL non nel gold standard")
-    return articolo
+    #articolo = GS_INDEX.get(domain, {}).get(url) #da modificare con la chiamata al databse quando ci sta
+    conn=http_request.app.state.db
+    cursor=conn.cursor()
+    cursor.execute(
+        """
+        SELECT wr.url, wr.domain, wr.title, wr.html_text, gs.gold_text
+        FROM web_resources wr
+        JOIN gold_standard gs ON wr.id = gs.web_resource_id
+        WHERE wr.url = ?
+        """,
+        (url,)
+    )
+    row=cursor.fetchone()#fetchone anzicche fetchall perche ci aspettiamo uan sola riga
+    cursor.close()
+    if not row:
+        raise HTTPException(status_code=404, detail="URL non nelò gold standard")
+    return GSOutput(
+        url=row[0],
+        domain=row[1],
+        title=row[2],
+        html_text=row[3],
+        gold_text=row[4]
+    )
 
 @app.get("/gold_standard_urls")
-async def gold_standard_urls(domain:str) ->GoldStandardUrlsOutput:
+async def gold_standard_urls(domain:str,http_request:Request) ->GoldStandardUrlsOutput:
     if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400,detail="Dominio non supportato")
-    urls=list(GS_INDEX.get(domain,{}).keys()) #da sostituire GS_INDEX con il database
-    return {"urls":urls}
+    #urls=list(GS_INDEX.get(domain,{}).keys()) #da sostituire GS_INDEX con il database
+    conn=http_request.app.state.db
+    cursor=conn.cursor()
+    cursor.execute(
+        """
+        SELECT wr.url
+        FROM web_resources wr
+        JOIN gold_standard gs ON wr.id = gs.web_resource_id
+        WHERE wr.domain = ?
+        """,
+        (domain,)
+    )
+    rows=cursor.fetchall()
+    cursor.close()
+    urls=[row[0] for row in rows]
+    return {"gold_standard_urls":urls}
 
 @app.get("/full_gold_standard")
-async def full_gold_standard(domain: str) -> FullGSOutput:
-    if domain not in GS_DOMAINS:
+async def full_gold_standard(domain: str,http_request:Request) -> FullGSOutput:
+    if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
-    gs=GS_DOMAINS[domain]   #prendo in base al dominio il corrispettivo file dominio_gs.json che contiene il gold standard per quel dominio
+    #gs=GS_DOMAINS[domain]   #prendo in base al dominio il corrispettivo file dominio_gs.json che contiene il gold standard per quel dominio
+    conn=http_request.app.state.db
+    cursor=conn.cursor()
+    cursor.execute(
+        """
+        SELECT wr.url, wr.domain, wr.title, wr.html_text, gs.gold_text
+        FROM web_resources wr
+        JOIN gold_standard gs ON wr.id = gs.web_resource_id
+        WHERE wr.domain = ?
+        """,
+        (domain,)
+    )
+    rows=cursor.fetchall()
+    cursor.close()
+    gs = [GSOutput(url=row[0], domain=row[1], title=row[2], html_text=row[3], gold_text=row[4]) for row in rows]
     return {"gold_standard": gs}
 
 
 @app.get("/full_gs_eval")
-async def full_gs_eval(domain: str) -> EvaluationOutput:
-    if domain not in GS_DOMAINS:
+async def full_gs_eval(domain: str,http_request:Request) -> FullGSEvalOutput:
+    if domain not in SUPPORTED_DOMAINS:
         raise HTTPException(status_code=400, detail="Dominio non supportato")
+    conn=http_request.app.state.db
+    cursor=conn.cursor()
+    cursor.execute(
+        """
+        SELECT wr.url, wr.html_text, gs.gold_text
+        FROM web_resources wr
+        JOIN gold_standard gs ON wr.id = gs.web_resource_id
+        WHERE wr.domain = ?
+        """,
+        (domain,)
+    )
+    rows=cursor.fetchall()
+    cursor.close()    
     count = 0
     valutatore = Evaluator()
-    articoli = GS_DOMAINS[domain]   #prendo in base al dominio il corrispettivo file dominio_gs.json che contiene il gold standard per quel dominio
+    #articoli = GS_DOMAINS[domain]   #prendo in base al dominio il corrispettivo file dominio_gs.json che contiene il gold standard per quel dominio
     parser = ParserFactory.create(domain)   #seleziona il parser corretto in base al dominio, se il dominio non è supportato solleva un'eccezione
     somme = Zero_Inizializer(EvaluationOutput)    #inizializzo a zero tutte le somme che mi serviranno per fare la media alla fine
-    for articolo in articoli:
-        gold_text = articolo["gold_text"]
+    somma_judge=0.0
+    for row in rows:
+        url,html_text,gold_text=row[0],row[1],row[2]
         parsed_text = ""    # inizializziamo parsed_text a una stringa vuota, e solo se parser_json è valido e contiene "parsed_text", lo aggiorniamo
         try:
-            parser_json = await parser.parser_url2(articolo["url"], articolo["html_text"])
+            parser_json = await parser.parser_url2(url,html_text)
             parsed_text = parser_json.parsed_text if parser_json else ""
         except Exception:
             parsed_text=""
@@ -231,6 +290,11 @@ async def full_gs_eval(domain: str) -> EvaluationOutput:
             result = valutatore.eval_server(parsed_text, gold_text)
         except Exception:
             result = Zero_Inizializer(EvaluationOutput)   # se la valutazione fallisce, mettiamo tutto a zero
+        try:
+            judge_result=await ollama_client.judge(parsed_text=strip_txt(parsed_text),gold_text=gold_text)
+            somma_judge+=judge_result["judge_score"]
+        except Exception:
+            pass
 
         for key, value in result.items():
             if isinstance(value, dict):
@@ -240,14 +304,14 @@ async def full_gs_eval(domain: str) -> EvaluationOutput:
                 somme[key] += value
         count += 1 
     if count == 0:  # se non ci sono articoli, restituisco gli zeri per evitare la divisione per zero
-        return EvaluationOutput(**somme)
+        return FullGSEvalOutput(**somme,judge_score=0.0)
     medie = {}
     for key, value in somme.items():
         if isinstance(value, dict):
             medie[key] = {sub_key: sub_val / count for sub_key, sub_val in value.items()}    # comprehension per calcolare la media di ogni sotto-elemento del dizionario
         else:
             medie[key] = value / count   # media per i valori singoli    
-    return EvaluationOutput(**medie)
+    return FullGSEvalOutput(**medie,judge_score=somma_judge/count)
 
 #funzione per pulire il markdown
 def strip_txt(text: str) -> str: 
