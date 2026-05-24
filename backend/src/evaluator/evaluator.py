@@ -19,17 +19,6 @@ class Evaluator:
     @staticmethod
     def _tokenization(text: str) -> list[str]:
         #funzione per rendere il testo pulito
-        def strip_txt(text: str) -> str: 
-            
-            text = text.lower()
-            text = re.sub(r'\*+([^*]+)\*+', r'\1', text) #grassetto
-            text = re.sub(r'\_+([^_]+)\_+', r'\1', text) #corsivo
-            text = re.sub(r'\#+\s?([^#]+)', r'\1', text) #titoli
-            text = re.sub(r'\[([^\]]+)\]\((?:[^)\\]|\\.)*\)', r'\1', text) #link
-            
-            return text
-
-        text = strip_txt(text)
         cleaning_rule = str.maketrans(string.punctuation, ' ' * len(string.punctuation)) #sostituisce la punteggiatura con spazi vuoti
         clean_txt = text.translate(cleaning_rule)
         clean_list = clean_txt.split() 
