@@ -175,7 +175,7 @@ async def full_gs_eval(domain: str) -> EvaluationOutput:
         parsed_text = ""    # inizializziamo parsed_text a una stringa vuota, e solo se parser_json è valido e contiene "parsed_text", lo aggiorniamo
         try:
             parser_json = await parser.parser_url2(articolo["url"], articolo["html_text"])
-            parsed_text = parser_json.get("parsed_text", "") if parser_json else ""
+            parsed_text = parser_json.parsed_text if parser_json else ""
         except Exception:
             parsed_text=""
         try:
