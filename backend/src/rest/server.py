@@ -66,6 +66,34 @@ class EvaluationRequest(BaseModel): #input di post/evaluate
     parsed_text: str
     gold_text: str
 
+class StatusOutput(BaseModel):
+    backend:str
+    database:str
+    ollama:str
+
+class DBSchemaOutput(BaseModel):
+    web_resources:dict[str,str]
+    gold_standard:dict[str,str]
+    parsed_results:dict[str,str]
+    evaluation_results:dict[str,str]
+    llm_judge_results:dict[str,str]
+
+class AddWebResourceRequest(BaseModel):
+    url:str
+    html_text:str
+
+class OperationOutput(BaseModel):
+    status:str
+
+class AddGoldStandardRequest(BaseModel):
+    url:str
+    gold_text:str
+
+class DeleteRequest(BaseModel):
+    url:str
+
+
+
 # definizione dei modelli per le metriche del'evaluation
 class Metrics(BaseModel):
     precision: float
@@ -195,7 +223,7 @@ async def gold_standard(url: str,http_request:Request) -> GSOutput:
         """
         SELECT wr.url, wr.domain, wr.title, wr.html_text, gs.gold_text
         FROM web_resources wr
-        JOIN gold_standard gs ON wr.id = gs.web_resource_id
+        JOIN gold_standard gs ON wr.url = gs.url
         WHERE wr.url = ?
         """,
         (url,)
@@ -223,7 +251,7 @@ async def gold_standard_urls(domain:str,http_request:Request) ->GoldStandardUrls
         """
         SELECT wr.url
         FROM web_resources wr
-        JOIN gold_standard gs ON wr.id = gs.web_resource_id
+        JOIN gold_standard gs ON wr.url = gs.url
         WHERE wr.domain = ?
         """,
         (domain,)
@@ -244,7 +272,7 @@ async def full_gold_standard(domain: str,http_request:Request) -> FullGSOutput:
         """
         SELECT wr.url, wr.domain, wr.title, wr.html_text, gs.gold_text
         FROM web_resources wr
-        JOIN gold_standard gs ON wr.id = gs.web_resource_id
+        JOIN gold_standard gs ON wr.url = gs.url
         WHERE wr.domain = ?
         """,
         (domain,)
@@ -265,7 +293,7 @@ async def full_gs_eval(domain: str,http_request:Request) -> FullGSEvalOutput:
         """
         SELECT wr.url, wr.html_text, gs.gold_text
         FROM web_resources wr
-        JOIN gold_standard gs ON wr.id = gs.web_resource_id
+        JOIN gold_standard gs ON wr.url = gs.url
         WHERE wr.domain = ?
         """,
         (domain,)
@@ -339,5 +367,143 @@ async def evaluate_judge(request: EvaluationRequest) -> JudgeOutput: #perché qu
     parsed_text = strip_txt(request.parsed_text)
     return await ollama_client.judge(parsed_text=parsed_text, gold_text=request.gold_text)
 
+@app.get("/status")
+async def status(http_request:Request)->StatusOutput:
+    try:
+        conn=http_request.app.state.db
+        cursor=conn.cursor()
+        cursor.execute("SELECT 1")
+        cursor.close()
+        db_status="ok"
+    except Exception:
+        db_status="error"
 
+    try:
+        await ollama_client.judge(parsed_text="test",gold_text="test")
+        ollama_status="ok"
+    except Exception:
+        ollama_status="error"
+    
+    return StatusOutput(backend="ok",database=db_status,ollama=ollama_status)
 
+@app.get("/db_schema")
+async def db_schema()->DBSchemaOutput:
+    return DBSchemaOutput(
+        web_resources={
+            "url": "varchar(768), PK",
+            "domain": "varchar(255)",
+            "title": "varchar(2048)",
+            "html_text": "longtext",
+            "created_at": "datetime"
+        },
+        gold_standard={
+            "url": "varchar(768), PK, FK(web_resources.url)",
+            "gold_text": "longtext",
+            "created_at": "datetime"
+        },
+        parsed_results={
+            "id": "int, PK",
+            "url": "varchar(768), FK(web_resources.url)",
+            "parsed_text": "longtext",
+            "parser_version": "varchar(50)",
+            "created_at": "datetime"
+        },
+        evaluation_results={
+            "id": "int, PK",
+            "url": "varchar(768), FK(web_resources.url)",
+            "precision_score": "float",
+            "recall_score": "float",
+            "f1_score": "float",
+            "extra_metrics": "json",
+            "created_at": "datetime"
+        },
+        llm_judge_results={
+            "id": "int, PK",
+            "url": "varchar(768), FK(web_resources.url)",
+            "model_name": "varchar(100)",
+            "judge_score": "int",
+            "judge_feedback": "text",
+            "created_at": "datetime"
+        }
+    )
+@app.post("/add_web_resource")
+async def add_web_resource(body:AddWebResourceRequest,http_request:Request)->OperationOutput:
+    domain=urlparse(body.url).netloc
+    conn=http_request.app.state.db
+    cursor=conn.cursor()
+    try:
+        cursor.execute(
+            """
+            INSERT INTO web_resources (url, domain, title, html_text)
+            VALUES (?, ?, ?, ?)
+            """,
+            (body.url, domain, "", body.html_text)
+        )
+        conn.commit() #selve per salvare l'insert nella tabella
+        return OperationOutput(status="ok")
+    except Exception:
+        return OperationOutput(status="error")
+    finally:
+        cursor.close() #chiusura sia in caso di errore che di successo, evitiamo memory leak
+
+@app.post("/add_gold_standard")
+async def add_gold_standard(body:AddGoldStandardRequest,http_request:Request)->OperationOutput:
+    conn=http_request.app.state.db
+    cursor=conn.cursor()
+    try:
+        cursor.execute(
+            "SELECT url FROM web_resources WHERE url=?",
+            (body.url,)
+        )
+        if not cursor.fetchone():
+            return OperationOutput(status="error")
+        
+        cursor.execute(
+            """
+            INSERT INTO gold_standard (url, gold_text)
+            VALUES (?, ?)
+            """,
+            (body.url, body.gold_text)
+        )
+        conn.commit()
+        return OperationOutput(status="ok")
+    except Exception:
+        return OperationOutput(status="error")
+    finally:
+        cursor.close()
+@app.delete("/web_resource")
+async def delete_web_resource(body:DeleteRequest,http_request:Request)->OperationOutput:
+    conn=http_request.app.state.db
+    cursor=conn.cursor()
+    try:
+        cursor.execute(
+            "DELETE FROM web_resource WHERE url=?",
+            (body.url,)
+        )
+        conn.commit()
+        return OperationOutput(status="ok")
+    except Exception:
+        return OperationOutput(status="error")
+    finally:
+        cursor.close()
+@app.delete("/gold_standard")
+async def delete_gold_standard(body:DeleteRequest,http_request:Request)->OperationOutput:
+    conn=http_request.app.state.db
+    cursor=conn.cursor()
+    try:
+        cursor.execute(
+            "SELECT url FROM gold_standard WHERE url=?",
+            (body.url,)
+        )
+        if not cursor.fetchone():
+            return OperationOutput(status="error")
+        cursor.execute(
+            "DELETE FROM gold_standard WHERE url=?",
+            (body.url)
+        )
+        conn.commit()
+        return OperationOutput(status="ok")
+    except Exception:
+        return OperationOutput(status="error")
+    finally:
+        cursor.close()
