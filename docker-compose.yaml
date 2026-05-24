@@ -7,6 +7,15 @@ services:
       context: ./backend
     ports:
       - "8003:8003"
+    depends_on:
+      - mariadb
+      - ollama
+    environment:
+      - DB_HOST=mariadb
+      - DB_USER=root
+      - DB_PASSWORD=root_password
+      - DB_NAME=minerva_db
+      - OLLAMA_HOST=http://ollama:11434
     volumes:
       - ./gs_data:/app/gs_data
       - ./domains.json:/app/domains.json
@@ -22,3 +31,30 @@ services:
       - backend
     environment:
       - BACKEND_URL=http://backend:8003
+
+  # 3. Definiamo il database MARIADB
+  mariadb:
+  image: mariadb:10.11
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: lab_db
+    MYSQL_USER: labuser
+    MYSQL_PASSWORD: labpass
+  ports:
+    - "3306:3306"
+  volumes:
+    - ./mariadb_data/init:/docker-entrypoint-initdb.d
+    - ./mariadb_data/data:/var/lib/mysql
+  healthcheck:
+    test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+    interval: 5s
+    retries: 10
+
+  # 4. Definiamo il server OLLAMA
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      # Path relativo per salvare i modelli scaricati in locale
+      - ./ollama_data:/root/.ollama
