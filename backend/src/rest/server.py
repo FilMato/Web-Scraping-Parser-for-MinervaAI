@@ -477,7 +477,7 @@ async def delete_web_resource(body:DeleteRequest,http_request:Request)->Operatio
     cursor=conn.cursor()
     try:
         cursor.execute(
-            "DELETE FROM web_resource WHERE url=?",
+            "DELETE FROM web_resources WHERE url=?",
             (body.url,)
         )
         conn.commit()
@@ -499,7 +499,7 @@ async def delete_gold_standard(body:DeleteRequest,http_request:Request)->Operati
             return OperationOutput(status="error")
         cursor.execute(
             "DELETE FROM gold_standard WHERE url=?",
-            (body.url)
+            (body.url,)
         )
         conn.commit()
         return OperationOutput(status="ok")
