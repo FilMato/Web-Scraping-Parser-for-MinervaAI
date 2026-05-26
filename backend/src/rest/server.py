@@ -7,7 +7,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel, Field
 from urllib.parse import urlparse
-from typing import Optional
+from typing import Optional,Any
 from clients import ollama_client
 
 #importo per evaluation
@@ -91,6 +91,12 @@ class AddGoldStandardRequest(BaseModel):
 
 class DeleteRequest(BaseModel):
     url:str
+
+class DBStatsOutput(BaseModel):
+    web_resources:dict[str,int]
+    gold_standard:dict[str,int]
+    avg_eval:dict[str,Any]
+    avg_eval_judge:dict[str,Any]
 
 
 
@@ -507,3 +513,63 @@ async def delete_gold_standard(body:DeleteRequest,http_request:Request)->Operati
         return OperationOutput(status="error")
     finally:
         cursor.close()
+
+@app.get("/db_stats")
+async def db_stats(http_request:Request)->DBStatsOutput:
+    conn=http_request.app.state.db
+    cursor=conn.cursor()
+    #contiamo le web_resources per ogni dominio
+    cursor.execute(
+        "SELECT domain, COUNT(*) FROM web_resources GROUP BY domain"
+    )
+    conteggio_web={row[0]:row[1] for row in cursor.fetchall()}
+    #contiamo i gold_standard per ogni dominio
+    cursor.execute(
+        """
+        SELECT wr.domain, COUNT(*)
+        FROM gold_standard gs
+        JOIN web_resources wr ON gs.url = wr.url
+        GROUP BY wr.domain
+        """
+    )
+    conteggio_gold={row[0]:row[1] for row in cursor.fetchall()}
+    #prendiamo le medie di valutazione per dominio
+    cursor.execute(
+        """
+        SELECT wr.domain, AVG(er.precision_score), AVG(er.recall_score), AVG(er.f1_score)
+        FROM evaluation_results er
+        JOIN web_resources wr ON er.url = wr.url
+        GROUP BY wr.domain
+        """
+    )
+    media_valutazione={}
+    for row in cursor.fetchall():
+        media_valutazione[row[0]]={
+            "token_level_eval":{
+                "precision":row[1] or 0.0,
+                "recall": row[2] or 0.0,
+                "f1":row[3] or 0.0
+            }
+        }
+    #prendiamo le medie dei judje per dominio
+    cursor.execute(
+        """
+        SELECT wr.domain, AVG(ljr.judge_score)
+        FROM llm_judge_results ljr
+        JOIN web_resources wr ON ljr.url = wr.url
+        GROUP BY wr.domain
+        """
+    )
+    avg_eval_judje={}
+    for row in cursor.fetchall():
+        avg_eval_judje[row[0]]={
+            "judje_score":row[1] or 0.0
+        }
+    cursor.close()
+    return DBStatsOutput(
+        web_resources=conteggio_web,
+        gold_standard=conteggio_gold,
+        avg_eval=media_valutazione,
+        avg_eval_judge=avg_eval_judje
+    )
+
