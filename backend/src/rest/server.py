@@ -2,6 +2,7 @@ import os
 import re
 import sys
 import time
+import asyncio
 import mariadb # Ricordatevi di metterlo nel requirements.txt
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request
@@ -135,6 +136,99 @@ def Zero_Inizializer(model_class: type[BaseModel]) -> dict:   #Legge un modello 
             zero_dict[key] = 0.0 
     return zero_dict
 
+async def populate_evaluations(conn):
+    print("Avvio popolamento evaluation_results e llm_judge_results...")
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        SELECT wr.url, wr.domain, wr.html_text, gs.gold_text
+        FROM web_resources wr
+        JOIN gold_standard gs ON wr.url = gs.url
+        """
+    )
+    rows = cursor.fetchall()
+    cursor.close()
+
+    valutatore = Evaluator()
+
+    for row in rows:
+        url, domain, html_text, gold_text = row[0], row[1], row[2], row[3]
+
+        # parsing
+        try:
+            parser = ParserFactory.create(domain)
+            parser_json = await parser.parser_url2(url, html_text)
+            parsed_text = parser_json.parsed_text if parser_json else ""
+        except Exception:
+            parsed_text = ""
+
+        # evaluation
+        try:
+            result = valutatore.eval_server(parsed_text, gold_text)
+            precision = result["token_level_eval"]["precision"]
+            recall = result["token_level_eval"]["recall"]
+            f1 = result["token_level_eval"]["f1"]
+            extra = {
+                "rouge_2_eval": result["rouge_2_eval"],
+                "information_density_evaluation": result["information_density_evaluation"],
+                "TF-IDF_cosine_similarity": result["TF-IDF_cosine_similarity"]
+            }
+        except Exception:
+            precision, recall, f1 = 0.0, 0.0, 0.0
+            extra = {}
+
+        try:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                INSERT INTO evaluation_results (url, precision_score, recall_score, f1_score, extra_metrics)
+                VALUES (?, ?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                    precision_score = VALUES(precision_score),
+                    recall_score = VALUES(recall_score),
+                    f1_score = VALUES(f1_score),
+                    extra_metrics = VALUES(extra_metrics)
+                """,
+                (url, precision, recall, f1, json.dumps(extra))
+            )
+            conn.commit()
+            cursor.close()
+        except Exception as e:
+            print(f"Errore salvataggio evaluation per {url}: {e}")
+
+        # judge
+        try:
+            judge_result = await ollama_client.judge(parsed_text=parsed_text, gold_text=gold_text)
+            judge_score = judge_result["judge_score"]
+            model_name = judge_result["model_name"]
+            judge_feedback = judge_result["judge_feedback"]
+        except Exception:
+            judge_score = 0
+            model_name = ""
+            judge_feedback = ""
+
+        try:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                INSERT INTO llm_judge_results (url, model_name, judge_score, judge_feedback)
+                VALUES (?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                    model_name = VALUES(model_name),
+                    judge_score = VALUES(judge_score),
+                    judge_feedback = VALUES(judge_feedback)
+                """,
+                (url, model_name, judge_score, judge_feedback)
+            )
+            conn.commit()
+            cursor.close()
+        except Exception as e:
+            print(f"Errore salvataggio judge per {url}: {e}")
+
+    print("Popolamento evaluation completato.")
+
+#FATTA FARE DA CLAUDE PER TESTARE
+
 
 # Questa funzione serve come doppio controllo per assicurarsi che il backend non si avvii finché MariaDB non è pronto. Anche se abbiamo messo un healthcheck nel docker-compose.
 @asynccontextmanager
@@ -168,8 +262,9 @@ async def lifespan(app: FastAPI):
     # Popolamento iniziale del database con i dati del Gold Standard
     if conn:
         populate_database(conn)
+        asyncio.create_task(populate_evaluations(conn))  # parte in background
 
-    yield # Il server è ora attivo e pronto a ricevere richieste
+    yield
 
     # Fase di spegnimento
     if app.state.db:
@@ -563,7 +658,7 @@ async def db_stats(http_request:Request)->DBStatsOutput:
     avg_eval_judje={}
     for row in cursor.fetchall():
         avg_eval_judje[row[0]]={
-            "judje_score":row[1] or 0.0
+            "judge_score":row[1] or 0.0
         }
     cursor.close()
     return DBStatsOutput(
