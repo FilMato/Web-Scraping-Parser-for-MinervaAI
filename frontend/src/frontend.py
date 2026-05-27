@@ -73,7 +73,7 @@ async def parse_url(request:Request,url:str=Form(...)): #prende in input form ci
     result=None #per contenere la risposta json
     try:
         async with httpx.AsyncClient(timeout=60) as client:
-            parse_response=await client.get(f"{BACKEND_URL}/parse",params={"url":url})
+            parse_response=await client.post(f"{BACKEND_URL}/parse",json={"url":url,"local":False})
             if parse_response.status_code !=200:
                 error=f"Errore dal backend ({parse_response.status_code}):{parse_response.text}"
             else:
@@ -110,6 +110,7 @@ async def parse_url(request:Request,url:str=Form(...)): #prende in input form ci
         request=request,
         name="index.html",
         context={
+            "requeste":request,
             "domains":       domains,
             "gs_urls":       gs_urls,
             "result":        result,
