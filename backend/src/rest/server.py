@@ -4,6 +4,7 @@ import sys
 import time
 import asyncio
 import mariadb # Ricordatevi di metterlo nel requirements.txt
+import httpx
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel, Field
@@ -122,7 +123,7 @@ class FullGSEvalOutput(EvaluationOutput):
 
 class JudgeOutput(BaseModel):
     model_name: str
-    judge_score: float #da vedere forse deve essere int
+    judge_score: int #da vedere forse deve essere int
     judge_feedback: str
 
 def Zero_Inizializer(model_class: type[BaseModel]) -> dict:   #Legge un modello Pydantic e crea un dizionario con la stessa struttura inizializzato a 0.0
@@ -158,7 +159,7 @@ async def populate_evaluations(conn):
         try:
             parser = ParserFactory.create(domain)
             parser_json = await parser.parser_url2(url, html_text)
-            parsed_text = parser_json.parsed_text if parser_json else ""
+            parsed_text = parser_json.get("parsed_text", "") if parser_json else ""
         except Exception:
             parsed_text = ""
 
@@ -262,8 +263,6 @@ async def lifespan(app: FastAPI):
     # Popolamento iniziale del database con i dati del Gold Standard
     if conn:
         populate_database(conn)
-        asyncio.create_task(populate_evaluations(conn))  # parte in background
-
     yield
 
     # Fase di spegnimento
@@ -314,9 +313,6 @@ async def domains() -> DomainsOutput:
 
 @app.get("/gold_standard")
 async def gold_standard(url: str,http_request:Request) -> GSOutput:
-    domain = urlparse(url).netloc
-    if domain not in SUPPORTED_DOMAINS:
-        raise HTTPException(status_code=400, detail="Dominio non supportato")
     #articolo = GS_INDEX.get(domain, {}).get(url) #da modificare con la chiamata al databse quando ci sta
     conn=http_request.app.state.db
     cursor=conn.cursor()
@@ -332,7 +328,10 @@ async def gold_standard(url: str,http_request:Request) -> GSOutput:
     row=cursor.fetchone()#fetchone anzicche fetchall perche ci aspettiamo uan sola riga
     cursor.close()
     if not row:
-        raise HTTPException(status_code=404, detail="URL non nelò gold standard")
+        domain = urlparse(url).netloc
+        if domain not in SUPPORTED_DOMAINS:
+            raise HTTPException(status_code=400,detail="Dominio non supportato")
+        raise HTTPException(status_code=404, detail="URL non nel gold standard")
     return GSOutput(
         url=row[0],
         domain=row[1],
@@ -412,18 +411,18 @@ async def full_gs_eval(domain: str,http_request:Request) -> FullGSEvalOutput:
         parsed_text = ""    # inizializziamo parsed_text a una stringa vuota, e solo se parser_json è valido e contiene "parsed_text", lo aggiorniamo
         try:
             parser_json = await parser.parser_url2(url,html_text)
-            parsed_text = parser_json.parsed_text if parser_json else ""
+            parsed_text = parser_json.get("parsed_text", "") if parser_json else ""
         except Exception:
             parsed_text=""
         try:
-            result = valutatore.eval_server(parsed_text, gold_text)
+            result = valutatore.eval_server(strip_txt(parsed_text), gold_text)
         except Exception:
             result = Zero_Inizializer(EvaluationOutput)   # se la valutazione fallisce, mettiamo tutto a zero
-        try:
-            judge_result=await ollama_client.judge(parsed_text=strip_txt(parsed_text),gold_text=gold_text)
-            somma_judge+=judge_result["judge_score"]
-        except Exception:
-            pass
+       # try:
+       #     judge_result=await ollama_client.judge(parsed_text=strip_txt(parsed_text),gold_text=gold_text)
+       #     somma_judge+=judge_result["judge_score"]
+       # except Exception:
+       #     pass
 
         for key, value in result.items():
             if isinstance(value, dict):
@@ -445,7 +444,7 @@ async def full_gs_eval(domain: str,http_request:Request) -> FullGSEvalOutput:
 #funzione per pulire il markdown
 def strip_txt(text: str) -> str: 
             
-    text = text.lower()
+    #text = text.lower()
     text = re.sub(r'\*+([^*]+)\*+', r'\1', text) #grassetto
     text = re.sub(r'\_+([^_]+)\_+', r'\1', text) #corsivo
     text = re.sub(r'\#+\s?([^#]+)', r'\1', text) #titoli
@@ -469,23 +468,24 @@ async def evaluate_judge(request: EvaluationRequest) -> JudgeOutput: #perché qu
     return await ollama_client.judge(parsed_text=parsed_text, gold_text=request.gold_text)
 
 @app.get("/status")
-async def status(http_request:Request)->StatusOutput:
+async def status(http_request: Request) -> StatusOutput:
     try:
-        conn=http_request.app.state.db
-        cursor=conn.cursor()
+        conn = http_request.app.state.db
+        cursor = conn.cursor()
         cursor.execute("SELECT 1")
         cursor.close()
-        db_status="ok"
+        db_status = "ok"
     except Exception:
-        db_status="error"
+        db_status = "error"
 
     try:
-        await ollama_client.judge(parsed_text="test",gold_text="test")
-        ollama_status="ok"
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            r = await client.get("http://ollama:11434/api/tags")
+            ollama_status = "ok" if r.status_code == 200 else "error"
     except Exception:
-        ollama_status="error"
-    
-    return StatusOutput(backend="ok",database=db_status,ollama=ollama_status)
+        ollama_status = "error"
+
+    return StatusOutput(backend="ok", database=db_status, ollama=ollama_status)
 
 @app.get("/db_schema")
 async def db_schema()->DBSchemaOutput:
@@ -613,12 +613,10 @@ async def delete_gold_standard(body:DeleteRequest,http_request:Request)->Operati
 async def db_stats(http_request:Request)->DBStatsOutput:
     conn=http_request.app.state.db
     cursor=conn.cursor()
-    #contiamo le web_resources per ogni dominio
-    cursor.execute(
-        "SELECT domain, COUNT(*) FROM web_resources GROUP BY domain"
-    )
+
+    cursor.execute("SELECT domain, COUNT(*) FROM web_resources GROUP BY domain")
     conteggio_web={row[0]:row[1] for row in cursor.fetchall()}
-    #contiamo i gold_standard per ogni dominio
+
     cursor.execute(
         """
         SELECT wr.domain, COUNT(*)
@@ -628,7 +626,17 @@ async def db_stats(http_request:Request)->DBStatsOutput:
         """
     )
     conteggio_gold={row[0]:row[1] for row in cursor.fetchall()}
-    #prendiamo le medie di valutazione per dominio
+
+    # Inizializza tutti i domini a 0.0 (fallback se populate_evaluations non ha ancora girato)
+    media_valutazione = {
+        domain: {"token_level_eval": {"precision": 0.0, "recall": 0.0, "f1": 0.0}}
+        for domain in conteggio_web
+    }
+    avg_eval_judje = {
+        domain: {"judge_score": 0.0}
+        for domain in conteggio_web
+    }
+
     cursor.execute(
         """
         SELECT wr.domain, AVG(er.precision_score), AVG(er.recall_score), AVG(er.f1_score)
@@ -637,16 +645,15 @@ async def db_stats(http_request:Request)->DBStatsOutput:
         GROUP BY wr.domain
         """
     )
-    media_valutazione={}
     for row in cursor.fetchall():
-        media_valutazione[row[0]]={
-            "token_level_eval":{
-                "precision":row[1] or 0.0,
+        media_valutazione[row[0]] = {
+            "token_level_eval": {
+                "precision": row[1] or 0.0,
                 "recall": row[2] or 0.0,
-                "f1":row[3] or 0.0
+                "f1": row[3] or 0.0
             }
         }
-    #prendiamo le medie dei judje per dominio
+
     cursor.execute(
         """
         SELECT wr.domain, AVG(ljr.judge_score)
@@ -655,11 +662,9 @@ async def db_stats(http_request:Request)->DBStatsOutput:
         GROUP BY wr.domain
         """
     )
-    avg_eval_judje={}
     for row in cursor.fetchall():
-        avg_eval_judje[row[0]]={
-            "judge_score":row[1] or 0.0
-        }
+        avg_eval_judje[row[0]] = {"judge_score": row[1] or 0.0}
+
     cursor.close()
     return DBStatsOutput(
         web_resources=conteggio_web,
