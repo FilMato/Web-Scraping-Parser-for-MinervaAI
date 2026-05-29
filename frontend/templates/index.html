@@ -2,93 +2,537 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Parser UI</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .panel { border: 1px solid #ccc; padding: 15px; margin: 15px 0; border-radius: 5px; }
-        textarea { width: 100%; height: 200px; font-size: 13px; }
-        .metrics { background: #f0f8ff; padding: 10px; border-radius: 4px; }
-        .good { color: green; } .medium { color: orange; } .bad { color: red; }
+        /* ── BASE ─────────────────────────────────────────────── */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; color: #222; }
+
+        /* ── NAV ──────────────────────────────────────────────── */
+        nav {
+            background: #1a237e; padding: 0 30px;
+            display: flex; align-items: center; gap: 5px; height: 48px;
+        }
+        nav .brand { color: #fff; font-weight: bold; font-size: 1rem; margin-right: 20px; }
+        nav a {
+            color: #c5cae9; text-decoration: none; padding: 0 14px;
+            height: 48px; display: flex; align-items: center;
+            border-bottom: 3px solid transparent; font-size: 0.93rem;
+        }
+        nav a:hover { color: #fff; }
+        nav a.active { color: #fff; border-bottom-color: #7986cb; font-weight: bold; }
+
+        /* ── LAYOUT ───────────────────────────────────────────── */
+        main { max-width: 1200px; margin: 30px auto; padding: 0 20px 60px; }
+        h1 { font-size: 1.4rem; margin-bottom: 20px; color: #1a237e; }
+        h2 { font-size: 1.1rem; margin-bottom: 12px; color: #333; }
+        h3 { font-size: 0.95rem; margin-bottom: 8px; }
+
+        /* ── PANELS ───────────────────────────────────────────── */
+        .panel {
+            background: #fff; border: 1px solid #ddd;
+            border-radius: 6px; padding: 18px; margin-bottom: 18px;
+        }
+
+        /* ── FORM ELEMENTS ────────────────────────────────────── */
+        label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px; color: #444; }
+        input[type=text], select, textarea {
+            width: 100%; padding: 8px 10px;
+            border: 1px solid #ccc; border-radius: 4px;
+            font-size: 0.92rem; font-family: inherit; background: #fafafa;
+        }
+        input[type=text]:focus, select:focus, textarea:focus {
+            border-color: #3949ab; outline: none; background: #fff;
+        }
+        textarea { height: 220px; resize: vertical; font-family: monospace; font-size: 0.82rem; }
+        .field { margin-bottom: 12px; }
+        .row { display: flex; gap: 10px; align-items: flex-end; }
+        .row input, .row select { flex: 1; }
+
+        /* ── BUTTONS ──────────────────────────────────────────── */
+        button, .btn {
+            padding: 8px 18px; border: none; border-radius: 4px;
+            font-size: 0.9rem; font-weight: bold; cursor: pointer;
+            font-family: inherit; text-decoration: none; display: inline-block;
+        }
+        .btn-blue  { background: #1e88e5; color: #fff; }
+        .btn-blue:hover  { background: #1565c0; }
+        .btn-green { background: #43a047; color: #fff; }
+        .btn-green:hover { background: #2e7d32; }
+        .btn-red   { background: #e53935; color: #fff; font-size: 0.8rem; padding: 5px 12px; }
+        .btn-red:hover   { background: #b71c1c; }
+
+        /* ── ALERTS ───────────────────────────────────────────── */
+        .alert {
+            padding: 10px 14px; border-radius: 4px;
+            margin-bottom: 16px; font-size: 0.9rem;
+        }
+        .alert-error   { background: #ffebee; border-left: 4px solid #e53935; color: #b71c1c; }
+        .alert-success { background: #e8f5e9; border-left: 4px solid #43a047; color: #1b5e20; }
+        .alert-info    { background: #e3f2fd; border-left: 4px solid #1e88e5; color: #0d47a1; }
+
+        /* ── METRICS ──────────────────────────────────────────── */
+        .metrics { background: #f0f8ff; border: 1px solid #bee3f8; border-radius: 5px; padding: 14px; }
+        .metrics h3 { margin-bottom: 6px; color: #1a237e; }
+        .metrics h4 { margin: 10px 0 4px; font-size: 0.88rem; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
+        .metrics p  { margin: 2px 0; font-size: 0.9rem; }
+        .good   { color: #2e7d32; font-weight: bold; }
+        .medium { color: #e65100; font-weight: bold; }
+        .bad    { color: #b71c1c; font-weight: bold; }
+
+        /* ── TEXT COMPARISON ──────────────────────────────────── */
+        .compare { display: flex; gap: 15px; }
+        .compare > div { flex: 1; }
+
+        /* ── STATUS BADGES ────────────────────────────────────── */
+        .status-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+        .badge {
+            display: flex; align-items: center; gap: 6px;
+            background: #fff; border: 1px solid #ddd; border-radius: 5px;
+            padding: 7px 14px; font-size: 0.88rem; font-weight: bold;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-ok    { background: #43a047; }
+        .dot-error { background: #e53935; }
+        .dot-warn  { background: #fb8c00; }
+
+        /* ── HOME CARDS ───────────────────────────────────────── */
+        .home-cards { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 24px; }
+        .home-card {
+            flex: 1; min-width: 200px; background: #fff;
+            border: 1px solid #ddd; border-top: 4px solid #1e88e5;
+            border-radius: 6px; padding: 16px; text-decoration: none; color: inherit;
+        }
+        .home-card:nth-child(2) { border-top-color: #43a047; }
+        .home-card:nth-child(3) { border-top-color: #fb8c00; }
+        .home-card h2 { font-size: 1rem; margin-bottom: 6px; color: #1a237e; }
+        .home-card p  { font-size: 0.83rem; color: #666; line-height: 1.5; }
+
+        /* ── TOGGLE ───────────────────────────────────────────── */
+        .toggle-group { display: flex; border: 1px solid #ccc; border-radius: 4px; overflow: hidden; width: fit-content; }
+        .toggle-group input[type=radio] { display: none; }
+        .toggle-group label {
+            padding: 7px 16px; font-size: 0.88rem; cursor: pointer;
+            background: #f5f5f5; border: none; font-weight: normal; margin: 0;
+        }
+        .toggle-group input[type=radio]:checked + label { background: #1a237e; color: #fff; font-weight: bold; }
+
+        /* ── GS TABLE ─────────────────────────────────────────── */
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        th { background: #1a237e; color: #fff; text-align: left; padding: 8px 10px; }
+        td { padding: 7px 10px; border-bottom: 1px solid #eee; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: #f9f9ff; }
+
+        /* ── STATS BARS ───────────────────────────────────────── */
+        .bar-wrap { background: #eee; border-radius: 3px; height: 7px; margin-bottom: 2px; }
+        .bar      { height: 7px; border-radius: 3px; }
+
+        /* ── CHIPS ────────────────────────────────────────────── */
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chip  { background: #e8eaf6; color: #1a237e; border-radius: 12px; padding: 3px 12px; font-size: 0.82rem; font-weight: bold; }
     </style>
 </head>
 <body>
-    <h1>Web Parser - Laboratorio Ingegneria Informatica</h1>
 
-    <!-- FORM: inserimento URL libero -->
-    <form method="post" action="/parse_url">
-        <label><strong>Inserisci un URL:</strong></label><br>
-        <input type="text" name="url" style="width:70%" placeholder="https://...">
-        <button type="submit">Parsa</button>
-    </form>
+{# ──────────────── NAVIGAZIONE ──────────────────────────────────── #}
+<nav>
+    <span class="brand">🌐 Web Parser</span>
+    <a href="/"               class="{{ 'active' if page == 'home' else '' }}">Home</a>
+    <a href="/parser"         class="{{ 'active' if page == 'parser' else '' }}">Parser &amp; Evaluation</a>
+    <a href="/gold-standard"  class="{{ 'active' if page == 'gold_standard' else '' }}">Gold Standard</a>
+    <a href="/stats"          class="{{ 'active' if page == 'stats' else '' }}">Statistiche</a>
+</nav>
 
-    <!-- MENU A TENDINA con gli URL del Gold Standard -->
-    <form method="post" action="/parse_url">  <!-- ← corretto -->
-        <label><strong>Oppure seleziona dal Gold Standard:</strong></label><br>
-        <select name="url" style="width:70%">
-            {% for domain, urls in gs_urls.items() %}  <!-- ← corretto -->
-                <optgroup label="{{ domain }}">
-                    {% for url in urls %}
-                        <option value="{{ url }}">{{ url }}</option>
-                    {% endfor %}
-                </optgroup>
+<main>
+
+{# ══════════════════ HOME ════════════════════════════════════════ #}
+{% if page == 'home' %}
+
+    <h1>Web Parser – Laboratorio Ingegneria Informatica</h1>
+
+    <div class="home-cards">
+        <a class="home-card" href="/parser">
+            <h2>🔍 Parser &amp; Evaluation</h2>
+            <p>Parsa un URL e confronta il testo estratto con il gold standard.</p>
+        </a>
+        <a class="home-card" href="/gold-standard">
+            <h2>📝 Gold Standard Builder</h2>
+            <p>Carica l'HTML di un URL, scrivi il testo gold e salvalo nel DB.</p>
+        </a>
+        <a class="home-card" href="/stats">
+            <h2>📊 Statistiche</h2>
+            <p>Metriche aggregate per dominio: precision, recall, F1, judge score.</p>
+        </a>
+    </div>
+
+    <div class="panel">
+        <h2>Stato del sistema</h2>
+        <div class="status-row">
+            {% set backend_ok  = status.get('backend')  == 'ok' %}
+            {% set database_ok = status.get('database') == 'ok' %}
+            {% set ollama_ok   = status.get('ollama')   == 'ok' %}
+            <div class="badge">
+                <span class="dot {{ 'dot-ok' if backend_ok else 'dot-error' }}"></span>
+                Backend – {{ status.get('backend', '?') }}
+            </div>
+            <div class="badge">
+                <span class="dot {{ 'dot-ok' if database_ok else 'dot-error' }}"></span>
+                Database – {{ status.get('database', '?') }}
+            </div>
+            <div class="badge">
+                <span class="dot {{ 'dot-ok' if ollama_ok else 'dot-warn' }}"></span>
+                Ollama – {{ status.get('ollama', '?') }}
+            </div>
+        </div>
+
+        <h2 style="margin-top:14px">Domini supportati</h2>
+        <div class="chips" style="margin-top:8px">
+            {% for d in domains %}
+                <span class="chip">{{ d }}</span>
+            {% else %}
+                <span style="color:#888;font-size:.88rem">Nessun dominio disponibile</span>
             {% endfor %}
-        </select>
-        <button type="submit">Parsa dal GS</button>
-    </form>
+        </div>
+    </div>
 
+    <div class="panel" style="max-width:400px">
+        <h2>👥 Gruppo</h2>
+        <table style="margin-top:8px">
+            <tr><td><strong>Alfredo De Meo</strong></td><td style="font-family:monospace;color:#555">2107223</td></tr>
+            <tr><td><strong>Chiara De Benedictis</strong></td><td style="font-family:monospace;color:#555">2107835</td></tr>
+            <tr><td><strong>Filippo Bassi</strong></td><td style="font-family:monospace;color:#555">2101800</td></tr>
+        </table>
+    </div>
+
+
+{# ══════════════════ PARSER & EVALUATION ════════════════════════ #}
+{% elif page == 'parser' %}
+
+    <h1>🔍 Parser &amp; Evaluation</h1>
+
+    {% if error %}
+        <div class="alert alert-error">⚠️ {{ error }}</div>
+    {% endif %}
+
+    <div class="panel">
+        {# Inserimento URL libero #}
+        <form method="post" action="/parse_url">
+            <div class="field">
+                <label>Inserisci un URL:</label>
+                <div class="row">
+                    <input type="text" name="url"
+                           value="{{ submitted_url or '' }}"
+                           placeholder="https://...">
+                    <button class="btn-blue" type="submit">▶ Parsa</button>
+                </div>
+            </div>
+        </form>
+
+        {# Selezione dal Gold Standard #}
+        <form method="post" action="/parse_url" style="margin-top:12px">
+            <div class="field">
+                <label>Oppure seleziona dal Gold Standard:</label>
+                <div class="row">
+                    <select name="url">
+                        {% for domain, urls in gs_urls.items() %}
+                            <optgroup label="{{ domain }}">
+                                {% for u in urls %}
+                                    <option value="{{ u }}" {{ 'selected' if u == submitted_url else '' }}>{{ u }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% endfor %}
+                    </select>
+                    <button class="btn-blue" type="submit">Parsa dal GS</button>
+                </div>
+            </div>
+        </form>
+
+        {# Modalità live / locale #}
+        <div class="field" style="margin-top:12px;display:flex;align-items:center;gap:12px">
+            <label style="margin:0">Modalità:</label>
+            <div class="toggle-group">
+                <input type="radio" name="mode_display" id="m-live" checked>
+                <label for="m-live">🌐 Live</label>
+                <input type="radio" name="mode_display" id="m-local">
+                <label for="m-local">💾 Locale (DB)</label>
+            </div>
+            <span style="font-size:.8rem;color:#888">(usa il secondo form per locale)</span>
+        </div>
+    </div>
+
+    {# ── RISULTATI ──────────────────────────────────────────────── #}
     {% if result %}
     <div class="panel">
-        <h2>Risultati per: {{ result.url }}</h2>  <!-- ← corretto -->
+        <h2>Risultati per: {{ result.url }}</h2>
+        {% if result.title %}
+            <p style="color:#555;font-size:.88rem;margin-bottom:12px">{{ result.title }}</p>
+        {% endif %}
 
-        <div style="display: flex; gap: 20px;">
-            <div style="flex:1">
+        {# Se non c'è gold standard #}
+        {% if not result.gold_text %}
+            <div class="alert alert-info">ℹ️ Nessun gold standard disponibile per questo URL. Le metriche non sono calcolabili.</div>
+        {% endif %}
+
+        {# Confronto testi #}
+        <div class="compare">
+            <div>
                 <h3>HTML grezzo</h3>
-                <textarea readonly>{{ result.html_text }}</textarea>  <!-- ← corretto -->
+                <textarea readonly>{{ result.html_text }}</textarea>
             </div>
-            <div style="flex:1">
-                <h3>Testo pulito (parsed)</h3>
-                <textarea readonly>{{ result.parsed_text }}</textarea>  <!-- ← corretto -->
+            <div>
+                <h3>Testo estratto (parsed)</h3>
+                <textarea readonly>{{ result.parsed_text }}</textarea>
             </div>
             {% if result.gold_text %}
-            <div style="flex:1">
+            <div>
                 <h3>Gold Standard</h3>
                 <textarea readonly>{{ result.gold_text }}</textarea>
             </div>
             {% endif %}
         </div>
 
+        {# Metriche di valutazione #}
         {% if result.evaluation %}
-        <div class="metrics">
+        <div class="metrics" style="margin-top:16px">
             <h3>Valutazione automatica</h3>
 
             <h4>Token Level</h4>
             <p>Precision: {{ "%.3f"|format(result.evaluation.token_level_eval.precision) }}</p>
-            <p>Recall: {{ "%.3f"|format(result.evaluation.token_level_eval.recall) }}</p>
+            <p>Recall:    {{ "%.3f"|format(result.evaluation.token_level_eval.recall) }}</p>
             {% set f1 = result.evaluation.token_level_eval.f1 %}
             <p>F1:
-                {% if f1 > 0.80 %}<span class="good">{{ "%.3f"|format(f1) }} ✓ Buono</span>
-                {% elif f1 >= 0.60 %}<span class="medium">{{ "%.3f"|format(f1) }} ~ Medio</span>
-                {% else %}<span class="bad">{{ "%.3f"|format(f1) }} ✗ Scarso</span>
+                {% if f1 > 0.80 %}
+                    <span class="good">{{ "%.3f"|format(f1) }} ✓ Buono</span>
+                {% elif f1 >= 0.60 %}
+                    <span class="medium">{{ "%.3f"|format(f1) }} ~ Medio</span>
+                {% else %}
+                    <span class="bad">{{ "%.3f"|format(f1) }} ✗ Scarso</span>
                 {% endif %}
             </p>
 
+            {% if result.evaluation.rouge_2_eval is defined %}
             <h4>Rouge-2</h4>
             <p>Precision: {{ "%.3f"|format(result.evaluation.rouge_2_eval.precision) }}</p>
-            <p>Recall: {{ "%.3f"|format(result.evaluation.rouge_2_eval.recall) }}</p>
-            <p>F1: {{ "%.3f"|format(result.evaluation.rouge_2_eval.f1) }}</p>
+            <p>Recall:    {{ "%.3f"|format(result.evaluation.rouge_2_eval.recall) }}</p>
+            <p>F1:        {{ "%.3f"|format(result.evaluation.rouge_2_eval.f1) }}</p>
+            {% endif %}
 
+            {% if result.evaluation.information_density_evaluation is defined %}
             <h4>Information Density</h4>
-            <p>Score GS: {{ "%.3f"|format(result.evaluation.information_density_evaluation['Score gold standard']) }}</p>
+            <p>Score GS:     {{ "%.3f"|format(result.evaluation.information_density_evaluation['Score gold standard']) }}</p>
             <p>Score Parsed: {{ "%.3f"|format(result.evaluation.information_density_evaluation['Score parsed text']) }}</p>
-            <p>Differenza: {{ "%.3f"|format(result.evaluation.information_density_evaluation['Difference']) }}</p>
+            <p>Differenza:   {{ "%.3f"|format(result.evaluation.information_density_evaluation['Difference']) }}</p>
+            {% endif %}
 
+            {% if result.evaluation['TF-IDF_cosine_similarity'] is defined %}
             <h4>TF-IDF Cosine Similarity</h4>
             <p>Score: {{ "%.3f"|format(result.evaluation['TF-IDF_cosine_similarity']) }}</p>
+            {% endif %}
 
+            {% if result.judge %}
+            <h4>LLM Judge</h4>
+            <p>Score: <strong style="font-size:1.1rem;color:#8e24aa">{{ result.judge.judge_score }} / 5</strong></p>
+            {% if result.judge.judge_feedback %}
+            <p style="margin-top:6px;font-size:.85rem;color:#444;white-space:pre-wrap">{{ result.judge.judge_feedback }}</p>
+            {% endif %}
+            {% endif %}
         </div>
         {% endif %}
     </div>
     {% endif %}
 
+
+{# ══════════════════ GOLD STANDARD BUILDER ══════════════════════ #}
+{% elif page == 'gold_standard' %}
+
+    <h1>📝 Gold Standard Builder</h1>
+
+    {% if error %}
+        <div class="alert alert-error">⚠️ {{ error }}</div>
+    {% endif %}
+    {% if success %}
+        <div class="alert alert-success">✅ {{ success }}</div>
+    {% endif %}
+
+    {# Selezione dominio + fetch URL #}
+    <div class="panel">
+        <form method="post" action="/gold-standard/fetch">
+            <div class="field">
+                <label>Dominio:</label>
+                <select name="domain" id="domain-sel" style="max-width:300px">
+                    {% for d in domains %}
+                        <option value="{{ d }}" {{ 'selected' if d == selected_domain else '' }}>{{ d }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <label>URL da caricare:</label>
+                <div class="row">
+                    <input type="text" name="url"
+                           value="{{ fetched_url or '' }}"
+                           placeholder="https://...">
+                    <button class="btn-blue" type="submit">🌐 Fetch HTML</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {# Editor gold standard (visibile solo dopo il fetch) #}
+    {% if fetched_html is not none %}
+    <div class="panel">
+        <h2>✏️ Compila il Gold Standard</h2>
+        <div class="compare">
+            <div>
+                <h3>HTML grezzo</h3>
+                <textarea readonly>{{ fetched_html }}</textarea>
+            </div>
+            <div>
+                <h3>Testo Gold <span style="font-weight:normal;color:#888">(scrivi il testo corretto)</span></h3>
+                <form method="post" action="/gold-standard/save">
+                    <input type="hidden" name="domain"    value="{{ selected_domain }}">
+                    <input type="hidden" name="url"       value="{{ fetched_url }}">
+                    <input type="hidden" name="html_text" value="{{ fetched_html }}">
+                    <textarea name="gold_text" placeholder="Scrivi qui il testo gold standard…">{{ gold_text_draft or '' }}</textarea>
+                    <button class="btn-green" type="submit" style="margin-top:8px">💾 Salva Gold Standard</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {# Lista gold standard salvati #}
+    <div class="panel">
+        <h2>📚 Gold Standard salvati – {{ selected_domain or 'tutti i domini' }}</h2>
+        {% if gs_entries %}
+        <table>
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Anteprima Gold</th>
+                    <th>Azione</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in gs_entries %}
+                <tr>
+                    <td style="word-break:break-all;max-width:350px;color:#1e88e5">{{ entry.url }}</td>
+                    <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"
+                        title="{{ entry.gold_text or '' }}">
+                        {{ (entry.gold_text or '')[:80] }}
+                    </td>
+                    <td>
+                        <form method="post" action="/gold-standard/delete"
+                              onsubmit="return confirm('Eliminare questo gold standard?')">
+                            <input type="hidden" name="domain" value="{{ selected_domain }}">
+                            <input type="hidden" name="url"    value="{{ entry.url }}">
+                            <button class="btn-red" type="submit">🗑 Elimina</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p style="color:#888;font-size:.9rem">Nessun gold standard salvato per questo dominio.</p>
+        {% endif %}
+    </div>
+
+
+{# ══════════════════ STATISTICHE ════════════════════════════════ #}
+{% elif page == 'stats' %}
+
+    <h1>📊 Statistiche per Dominio</h1>
+
+    {# Card di riepilogo #}
+    {% if stats %}
+    {% set wr_total = stats.get('web_resources', {}).values() | list | sum %}
+    {% set gs_total = stats.get('gold_standard', {}).values() | list | sum %}
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">
+        <div class="panel" style="flex:1;min-width:140px;text-align:center;padding:14px">
+            <div style="font-size:.75rem;color:#888;font-weight:bold;text-transform:uppercase">Web Resources</div>
+            <div style="font-size:1.8rem;font-weight:900;color:#1e88e5">{{ wr_total }}</div>
+        </div>
+        <div class="panel" style="flex:1;min-width:140px;text-align:center;padding:14px">
+            <div style="font-size:.75rem;color:#888;font-weight:bold;text-transform:uppercase">Gold Standards</div>
+            <div style="font-size:1.8rem;font-weight:900;color:#43a047">{{ gs_total }}</div>
+        </div>
+        <div class="panel" style="flex:1;min-width:140px;text-align:center;padding:14px">
+            <div style="font-size:.75rem;color:#888;font-weight:bold;text-transform:uppercase">Domini</div>
+            <div style="font-size:1.8rem;font-weight:900;color:#fb8c00">{{ domains | length }}</div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <table>
+            <thead>
+                <tr>
+                    <th>Dominio</th>
+                    <th>Web Resources</th>
+                    <th>Gold Standards</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1</th>
+                    <th>Judge Score</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for domain in domains %}
+                {% set wr_count  = stats.get('web_resources', {}).get(domain, 0) %}
+                {% set gs_count  = stats.get('gold_standard', {}).get(domain, 0) %}
+                {% set ev        = stats.get('avg_eval', {}).get(domain, {}) %}
+                {% set tok       = ev.get('token_level_eval', ev) %}
+                {% set prec      = tok.get('precision', none) %}
+                {% set rec       = tok.get('recall',    none) %}
+                {% set f1        = tok.get('f1',        none) %}
+                {% set judge_sc  = stats.get('avg_eval_judge', {}).get(domain, {}).get('judge_score', none) %}
+                <tr>
+                    <td><strong>{{ domain }}</strong></td>
+                    <td style="text-align:center">{{ wr_count }}</td>
+                    <td style="text-align:center">{{ gs_count }}</td>
+
+                    <td style="text-align:center">
+                        {% if prec is not none %}
+                            <div class="bar-wrap"><div class="bar" style="width:{{ (prec*100)|int }}%;background:#43a047"></div></div>
+                            <span style="font-size:.82rem;color:#2e7d32;font-weight:bold">{{ "%.3f"|format(prec) }}</span>
+                        {% else %}–{% endif %}
+                    </td>
+                    <td style="text-align:center">
+                        {% if rec is not none %}
+                            <div class="bar-wrap"><div class="bar" style="width:{{ (rec*100)|int }}%;background:#fb8c00"></div></div>
+                            <span style="font-size:.82rem;color:#e65100;font-weight:bold">{{ "%.3f"|format(rec) }}</span>
+                        {% else %}–{% endif %}
+                    </td>
+                    <td style="text-align:center">
+                        {% if f1 is not none %}
+                            <div class="bar-wrap"><div class="bar" style="width:{{ (f1*100)|int }}%;background:#1e88e5"></div></div>
+                            {% if f1 > 0.80 %}
+                                <span class="good">{{ "%.3f"|format(f1) }}</span>
+                            {% elif f1 >= 0.60 %}
+                                <span class="medium">{{ "%.3f"|format(f1) }}</span>
+                            {% else %}
+                                <span class="bad">{{ "%.3f"|format(f1) }}</span>
+                            {% endif %}
+                        {% else %}–{% endif %}
+                    </td>
+                    <td style="text-align:center">
+                        {% if judge_sc is not none %}
+                            <strong style="color:#8e24aa">{{ "%.1f"|format(judge_sc) }}</strong>
+                            <span style="color:#999;font-size:.75rem">/10</span>
+                        {% else %}–{% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <div class="alert alert-error">Impossibile caricare le statistiche dal backend.</div>
+    {% endif %}
+
+{% endif %}{# fine selezione pagina #}
+
+</main>
 </body>
 </html>

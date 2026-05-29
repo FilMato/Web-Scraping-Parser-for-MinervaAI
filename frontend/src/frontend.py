@@ -13,6 +13,16 @@ BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8003")
 templates = Jinja2Templates(directory=os.path.join(os.path.dirname(__file__), "templates"))
 
 
+async def get_status() -> dict:
+    """Recupera lo stato del sistema dal backend."""
+    try:
+        async with httpx.AsyncClient(timeout=5) as client:
+            resp = await client.get(f"{BACKEND_URL}/status")
+            if resp.status_code == 200:
+                return resp.json()
+    except Exception:
+        pass
+    return {"backend": "error", "database": "error", "ollama": "error"}
 
 async def get_domains() -> list[str]: #Recupera la lista dei domini supportati dal backend
     try:
@@ -40,7 +50,6 @@ async def get_full_gold_standard(domain: str) -> list[dict]: #Recupera tutto il 
 
 async def build_gs_urls(domains: list[str]) -> dict[str, list[str]]: #funzione per mappare ogni dominio alla lista di URL presenti nel GS
     results = await asyncio.gather(*[get_full_gold_standard(d) for d in domains]) #usiamo asyncio.gather per effettuare tutte le chiamate al backend in contemporanea anzicchè una alla volta
-
     gs_urls = {}
     for domain, entries in zip(domains, results):
         urls = []
@@ -53,16 +62,15 @@ async def build_gs_urls(domains: list[str]) -> dict[str, list[str]]: #funzione p
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):#Pagina principale: carica domini e URL del GS per il menu a tendina
     domains = await get_domains()
-    gs_urls= await build_gs_urls(domains)
+    status=await get_status()
     return templates.TemplateResponse(
         request=request,
         name="index.html",
         context={
             "request": request,
+            "page":"home",
             "domains": domains,
-            "gs_urls": gs_urls,
-            "result": None,
-            "error": None,
+            "status":status
         },
     )
 @app.post("/parse_url",response_class=HTMLResponse)
@@ -86,12 +94,11 @@ async def parse_url(request:Request,url:str=Form(...)): #prende in input form ci
                     "html_text":parsed.get("html_text",""),
                     "gold_text":None, #non lo popoliamo, va messo solo se l'url è nel gs
                     "evaluation":None, #stessa cosa di gold_text
+                    "judge":None
                 }
 
                 gs_response=await client.get(f"{BACKEND_URL}/gold_standard",params={"url":url}) #andiamo ora a cercare il gs del nostro url per il confronto
-                if gs_response.status_code !=200:
-                     error=f"Errore dal backend ({gs_response.status_code}):{gs_response.text}"
-                else:
+                if gs_response.status_code ==200:
                     gs_data=gs_response.json()
                     if gs_data: #se l'url non è nei gs gs_data sarà null
                         result["gold_text"]=gs_data.get("gold_text")
@@ -101,6 +108,12 @@ async def parse_url(request:Request,url:str=Form(...)): #prende in input form ci
                                  error=f"Errore dal backend ({evaluation_response.status_code}):{evaluation_response.text}"
                             else:
                                 result["evaluation"]=evaluation_response.json()
+                            try:
+                                judge_response=await client.post(f"{BACKEND_URL}/evaluate_judge",json={"parsed_text":result["parsed_text"],"gold_text":result["gold_text"]})
+                                if judge_response.status_code==200:
+                                    result["judge"]=judge_response.json()
+                            except Exception:
+                                pass
     except httpx.ConnectError:
         error = f"Impossibile connettersi al backend ({BACKEND_URL}). Assicurati che sia in esecuzione."
     except Exception as e:
@@ -110,7 +123,8 @@ async def parse_url(request:Request,url:str=Form(...)): #prende in input form ci
         request=request,
         name="index.html",
         context={
-            "requeste":request,
+            "request":request,
+            "page":"parser",
             "domains":       domains,
             "gs_urls":       gs_urls,
             "result":        result,
@@ -119,9 +133,22 @@ async def parse_url(request:Request,url:str=Form(...)): #prende in input form ci
             "backend_url":   BACKEND_URL,
         }
     )
-                                
+@app.get("/parser",response_class=HTMLResponse)
+async def parser_get(request:Request):
+    domains=await get_domains()
+    gs_urls=await build_gs_urls(domains)
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={
+            "request":request,
+            "page":"parser",
+            "domains":domains,
+            "gs_urls":gs_urls,
+            "result":None,
+            "error":None,
+            "submitted_url":None
+        }
+    )    
 
-
-
-                
 
